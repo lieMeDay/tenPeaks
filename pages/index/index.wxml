@@ -1,0 +1,21 @@
+<view class="page">
+	<view class="titWrap">
+		<view class="titBox">
+			<view>贵州十峰全民健身登山活动</view>
+		</view>
+	</view>
+	<view class="listWrap">
+		<navigator wx:for="{{allMatch}}" wx:key="index" url="/pages/match/match?matchId={{item.id}}" class="listBox">
+			<image src="{{item.logo}}"></image>
+      <view class="listShadow">
+			<view class="listCon">
+				<view>{{item.name}}</view>
+				<view class="keyLock">
+					<image wx:if="{{0==0}}" src="/image/sy.png"></image>
+          <image wx:else src="/image/sn.png"></image>
+				</view>
+			</view>
+      </view>
+		</navigator>
+	</view>
+</view>

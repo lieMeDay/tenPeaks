@@ -1,0 +1,49 @@
+/* pages/signIn/signIn.wxss */
+.headView {
+  width: calc(100% - 100rpx);
+  margin: 90rpx 50rpx;
+}
+
+.headImageView {
+  display: block;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 25px;
+  margin-bottom: 0;
+  height: 50px;
+  text-align: center;
+}
+
+.headImage {
+  /* display: flex; */
+  width: 50px;
+  height: 50px;
+}
+
+.titleText {
+  margin: 25px 0;
+  font-size: 14px;
+  text-align: center;
+  color: #020E0F;
+}
+
+.contentText {
+  margin-left: 25px;
+  margin-top: 0px;
+  margin-bottom: 0;
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+}
+
+
+.authBtn {
+  width: 100%;
+  line-height: 80rpx;
+}
+
+.cancleBtn {
+  width: 100%;
+  border: 2rpx solid #ccc;
+  margin-top: 30rpx;
+}

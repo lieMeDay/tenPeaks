@@ -1,0 +1,3 @@
+<view class="page">
+		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" enable-rotate show-location></map>
+</view>

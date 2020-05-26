@@ -1,0 +1,201 @@
+/* pages/subUser/subUser.wxss */
+.formBox {
+  width: 95%;
+  margin: 0 auto;
+}
+.fcon{
+  padding-bottom: 120rpx;
+}
+
+.ftit {
+  margin: 20rpx auto;
+  font-weight: 500;
+  color: #333;
+  font-size: 38rpx;
+}
+
+.subCon {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.scL {
+  width: 170rpx;
+  margin-right: 20rpx;
+}
+
+.redStart {
+  color: #EE5137;
+}
+
+.scR {
+  width: calc(100% - 230rpx);
+  padding: 0 20rpx;
+  background-color: #F2F2F2;
+  height: 100rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.scR.bai {
+  background-color: #fff;
+}
+
+.ipt {
+  height: 100rpx;
+}
+
+.sexchioce {
+  display: flex;
+}
+
+.fl:first-child {
+  margin-right: 30rpx;
+}
+
+.fl {
+  display: flex;
+}
+
+.pickerBox {
+  width: 100%;
+}
+
+/* 图片 */
+.ipic {
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+.ipic .scL {
+  align-self: flex-start;
+}
+
+.picBox {
+  width: 100%;
+  align-self: flex-start;
+}
+
+.imgBox {
+  margin-top: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+}
+
+.imgBox>view {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subImg {
+  margin-bottom: 20rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 10rpx;
+  background-color: #DFF7E8;
+  text-align: center;
+  /* line-height: 160rpx; */
+  font-size: 34rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.subImg image.addP {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.subImg image.delP {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: -15rpx;
+  right: 0;
+}
+
+.subImg image {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.tx {
+  color: #333333;
+  font-size: 28rpx;
+  font-weight: lighter;
+}
+/* 推荐购买 */
+
+.checkBox{
+  display: flex;
+  margin-bottom: 15rpx;
+}
+.checkBtn{
+  margin-right: 8rpx;
+}
+.sTit{
+  color: #333;
+  font-size: 36rpx;
+}
+.sCon{
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 底部按钮 */
+.subBtnWrap {
+  width: 100%;
+  height: 100rpx;
+  padding: 10rpx 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  background-color: #fff;
+}
+
+.subBtnBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.sbL {
+  display: flex;
+  flex-direction: column;
+  width: 280rpx;
+}
+
+.sblT {
+  color: #999999;
+  font-size: 24rpx;
+}
+
+.sblB {
+  color: #EE5137;
+  font-size: 40rpx;
+}
+
+.sbR {
+  width: calc(100% - 280rpx);
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #16C95D;
+  color: #fff;
+  border-radius: 60rpx;
+}

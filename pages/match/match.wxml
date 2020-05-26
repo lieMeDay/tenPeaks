@@ -1,0 +1,22 @@
+<!-- 赛事信息 -->
+<view class="page">
+	<view class="matchLogo">
+		<image src="{{matchMsg.logo}}"></image>
+	</view>
+	<view class="matchWrap">
+		<view class="mt">赛事信息</view>
+		<view class="mc">
+			<view>活动名称：{{matchMsg.name}}</view>
+			<view>活动时间：{{matchMsg.showData}}</view>
+			<view>活动地点：{{matchMsg.place}}</view>
+		</view>
+    <view class="mt">赛事简介</view>
+    <view>
+				<rich-text class="ric" nodes="{{matchMsg.introduce}}"></rich-text>
+    </view>
+	</view>
+  <view class="btnBox">
+	<button wx:if="{{!hasInfo}}" class="goBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">参赛</button>
+	<view wx:else class="goBtn" bindtap="goMap">参赛</view>
+	</view>
+</view>

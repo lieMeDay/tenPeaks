@@ -1,0 +1,22 @@
+.page{
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+button::after {
+  border: none;
+}
+
+button {
+  background-color: transparent;
+  padding: 0 0 !important;
+  line-height: inherit;
+  font-weight: normal;
+}
+
+button {
+  border-radius: 0;
+}
