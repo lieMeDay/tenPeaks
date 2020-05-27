@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/subUser/subUser",
     "pages/map/map",
+    "pages/subUser/subUser",
     "pages/match/match",
     "pages/signIn/signIn",
     "pages/mine/mine",

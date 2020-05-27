@@ -118,7 +118,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options={matchId:113}
+    options={matchId:100}
     this.getopenId()
     this.setData({
       matchId:options.matchId

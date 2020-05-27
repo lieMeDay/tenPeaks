@@ -1,3 +1,6 @@
 <view class="page">
-		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" enable-rotate show-location></map>
+		<view class="mapBox">
+		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" enable-rotate show-location></map>
+		<view></view>
+		</view>
 </view>

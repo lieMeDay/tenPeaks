@@ -9,8 +9,20 @@ Page({
    */
   data: {
     openId: "",
+    matchId: '',
+    matchMsg: '',
     longitude: '',
-    latitude: ''
+    latitude: '',
+    markers: [],
+    polyline: [{
+      points: [],
+      color: "#FF0000DD",
+      width: 6,
+    }, {
+      points: [],
+      color: "#07c160",
+      width: 3,
+    }], //线 第一项为官方路径线 第二项为自己跑的
   },
   // 获取openId
   getOpenId() {
@@ -31,7 +43,7 @@ Page({
   },
   // 用户基本信息
   getUser() {
-    let that=this
+    let that = this
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -60,15 +72,15 @@ Page({
   },
   // 获取定位
   getloacltion() {
-    let that=this
+    let that = this
     wx.getLocation({
       type: 'wgs84',
       success(res) {
         const latitude = res.latitude
         const longitude = res.longitude
         that.setData({
-          longitude:longitude,
-          latitude:latitude
+          longitude: longitude,
+          latitude: latitude
         })
       },
       fail(err) {
@@ -93,56 +105,100 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {},
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  // 获取赛事信息
+  getMatch() {
+    let that = this
+    let opt = {
+      matchId: that.data.matchId
+    }
+    tool({
+      url: "/match/getMatchById",
+      data: opt,
+      load: true
+    }).then(res => {
+      let rr = res.data.data
+      console.log(rr)
+      let group = rr.matchInfo[0]
+      if (group.route == 0) {
+        if (group.kmlFile) {
+          let file = {
+            fileName: group.kmlFile
+          }
+          tool({
+            url: '/match/run/getKml',
+            data: file,
+            load: true
+          }).then(suc => {
+            let ss = suc.data.data
+            let kmlLine = []
+            ss.kmlProperty.kmlLines[0].points.forEach(vv => {
+              kmlLine.push(vv)
+            })
+            let empmk = [{
+              iconPath: '/image/first.png',
+              id: 1,
+              latitude: kmlLine[0].latitude,
+              longitude: kmlLine[0].longitude,
+              width: 25,
+              height: 25
+            }, {
+              iconPath: '/image/last.png',
+              id: 2,
+              latitude: kmlLine[kmlLine.length - 1].latitude,
+              longitude: kmlLine[kmlLine.length - 1].longitude,
+              width: 25,
+              height: 25
+            }]
+            that.setData({
+              'polyline[0].points': kmlLine,
+              markers: empmk
+            })
+          })
+        }
+      }
+      that.setData({
+        matchMsg: rr,
+        groupMsg: group
+      })
+    })
+  },
+  /*生命周期函数--监听页面加载*/
+  onLoad: function (options) {
+    options = {
+      matchId: 100
+    }
+    this.setData({
+      matchId: options.matchId
+    })
+    this.getMatch()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  /* 生命周期函数--监听页面显示*/
   onShow: function () {
     this.getOpenId()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
+  /* 生命周期函数--监听页面隐藏*/
   onHide: function () {
 
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
+  /* 生命周期函数--监听页面卸载*/
   onUnload: function () {
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  /*页面相关事件处理函数--监听用户下拉动作*/
   onPullDownRefresh: function () {
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+  /* 页面上拉触底事件的处理函数*/
   onReachBottom: function () {
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
+  /*用户点击右上角分享*/
   onShareAppMessage: function () {
 
   }
