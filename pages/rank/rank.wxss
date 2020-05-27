@@ -1,1 +1,89 @@
-/* pages/rank/rank.wxss */
+.page{
+  background-color: #f2f2f2;
+}
+.rankBox{
+  width: 100%;
+  overflow: hidden;
+}
+.rankName{
+  width: 94%;
+  margin: 20rpx auto;
+  display: flex;
+  justify-content: space-between;
+}
+.rnz{
+  font-size: 32rpx;
+  line-height: 80rpx;
+}
+.shu{
+  color: #16C95D;
+  float: left;
+  margin-right: 10rpx;
+  font-size: 40rpx;
+}
+.rny{
+  line-height: 80rpx;
+  font-size: 34rpx;
+  background-color: #16C95D;
+  border-radius: 10rpx;
+}
+.listCon{
+  padding: 0 10rpx;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.arrmore{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrmore>image{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+.rankCon{
+  width: calc(100% - 30rpx);
+  padding: 15rpx;
+  background-color: #fff;
+  display: flex;
+  border-bottom: 2rpx solid #ccc;
+}
+.rankCon>view{
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.rankCon>view.flexB{
+  flex: 1.5;
+}
+.headImg{
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10rpx;
+}
+.headImg image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.rt{
+  font-size: 30rpx;
+  line-height: 60rpx;
+}
+.rmy,.rankCon:last-child{
+  border-bottom: none;
+}
+.rImg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rImg image{
+  width: 80rpx;
+  height: 80rpx;
+}

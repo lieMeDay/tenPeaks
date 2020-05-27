@@ -23,6 +23,7 @@ Page({
       color: "#07c160",
       width: 3,
     }], //线 第一项为官方路径线 第二项为自己跑的
+    circles:[]
   },
   // 获取openId
   getOpenId() {
@@ -149,9 +150,21 @@ Page({
               width: 25,
               height: 25
             }]
+            let circle=[{
+              latitude: kmlLine[0].latitude,
+              longitude: kmlLine[0].longitude,
+              fillColor: '#7cb5ec88',
+              radius: 50
+            },{
+              latitude: kmlLine[kmlLine.length - 1].latitude,
+              longitude: kmlLine[kmlLine.length - 1].longitude,
+              fillColor: '#7cb5ec88',
+              radius: 50
+            }]
             that.setData({
               'polyline[0].points': kmlLine,
-              markers: empmk
+              markers: empmk,
+              circles:circle
             })
           })
         }

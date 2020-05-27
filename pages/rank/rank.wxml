@@ -1,2 +1,59 @@
-<!--pages/rank/rank.wxml-->
-<text>pages/rank/rank.wxml</text>
+<view class="page">
+	<view class="rankBox">
+		<view class="rankName">
+			<view class="rnz"><text class="shu">|</text><text>我的排名</text></view>
+			<view class="rny">
+				<picker class="pickerBox" value="{{hillI}}" range="{{hillList}}">
+					<view class="listCon">
+						<view class="picker">
+							{{hillList[hillI]}}
+						</view>
+						<view class="arrmore">
+							<image src="/image/arrb.png"></image>
+						</view>
+					</view>
+				</picker>
+			</view>
+		</view>
+		<view class="rankCon rmy">
+			<view class="flexB">
+				<view class="headImg">
+					<image></image>
+				</view>
+				<text>吹呀吹</text>
+			</view>
+			<view>0次</view>
+			<view>0座</view>
+			<view>1</view>
+		</view>
+		<view class="rankName">
+			<view class="rnz"><text class="shu">|</text><text>当前排名</text></view>
+		</view>
+		<view class="rankCon rt">
+			<view class="flexB">用户</view>
+			<view>登顶次数</view>
+			<view>挑战山峰</view>
+			<view>排名</view>
+		</view>
+		<view class="rankCon" wx:for="{{rankList}}" wx:key="index">
+			<view class="flexB">
+				<view class="headImg">
+					<image></image>
+				</view>
+				<text>吹呀吹</text>
+			</view>
+			<view>0次</view>
+			<view>0座</view>
+			<view wx:if="{{index==0}}" class="rImg">
+				<image src="/image/ra.png"></image>
+			</view>
+			<view wx:elif="{{index==1}}" class="rImg">
+				<image src="/image/rb.png"></image>
+			</view>
+			<view wx:elif="{{index==2}}" class="rImg">
+				<image src="/image/rc.png"></image>
+			</view>
+			<view wx:else>1</view>
+		</view>
+	</view>
+</view>

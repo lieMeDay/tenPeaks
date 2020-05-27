@@ -10,3 +10,38 @@
   height: 100%;
   position: absolute;
 }
+.mb{
+  width: 90rpx;
+  height: 90rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mb1>image{
+  width: 70rpx;
+  height: 70rpx;
+}
+.mby{
+  flex-direction: column;
+  right: 20rpx;
+}
+.mby >image{
+  width: 50rpx;
+  height: 50rpx;
+}
+.mby>text{
+  font-size: 24rpx;
+}
+.mb1{
+  left: 20rpx;
+  bottom: 20rpx;
+}
+.mb2{
+  bottom: 130rpx;
+}
+.mb3{
+  bottom: 20rpx;
+}

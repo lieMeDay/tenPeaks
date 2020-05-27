@@ -1,6 +1,17 @@
 <view class="page">
-		<view class="mapBox">
-		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" enable-rotate show-location></map>
-		<view></view>
+	<view class="mapBox">
+		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" circles="{{circles}}" enable-rotate show-location></map>
+		<!-- 定位 -->
+		<view class="mb mb1" bindtap="getloacltion">
+			<image src="/image/map1.png"></image>
 		</view>
+		<view class="mb mby mb2">
+			<image src="/image/map2.png"></image>
+			<text>分享</text>
+		</view>
+		<view class="mb mby mb3">
+			<image src="/image/map3.png"></image>
+			<text>排行</text>
+		</view>
+	</view>
 </view>

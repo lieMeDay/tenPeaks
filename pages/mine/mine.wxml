@@ -1,2 +1,38 @@
-<!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="page">
+	<view class="head">
+		<image src="/image/myH.png" class="hp"></image>
+		<view class="userCon">
+			<view class="headImg">
+				<image src="{{userInfo.avatarUrl}}"></image>
+			</view>
+			<view wx:if="{{hasInfo}}" class="tn">{{userInfo.nickName}}</view>
+			<view wx:else class="tn"><button class="gubtn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+					授权登录
+				</button></view>
+		</view>
+	</view>
+	<view class="listWrap">
+		<navigator class="listBox" url="/pagesC/feedback/feedback?openId={{openId}}">
+			<view class="l">
+				<view>
+					<image></image>
+				</view>
+				<view>用户反馈</view>
+			</view>
+			<view class="r">
+				<image src="/image/more.png"></image>
+			</view>
+		</navigator>
+		<view class="listBox">
+			<view class="l">
+				<view>
+					<image></image>
+				</view>
+				<view>帮助</view>
+			</view>
+			<view class="r">
+				<image src="/image/more.png"></image>
+			</view>
+		</view>
+	</view>
+</view>
