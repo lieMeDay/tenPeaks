@@ -1,0 +1,139 @@
+
+/* pages/subErr/subErr.wxss */
+.errorWrap{
+  width: 100%;
+  min-height: 1100rpx;
+  position: relative;
+}
+.errorBox{
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.errorTit{
+  color: #333;
+  font-weight: 500;
+  line-height: 60rpx;
+}
+.errTips{
+  color: #666;
+  font-size: 32rpx;
+  margin-top: 30rpx;
+}
+.imgBox{
+  margin-top: 30rpx;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+}
+.imgBox >view{
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subImg{
+  margin-bottom: 30rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 10rpx;
+  background-color: #DFF7E8;
+  text-align: center;
+  /* line-height: 160rpx; */
+  font-size: 34rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ad{
+  width: 60rpx;
+  height: 60rpx;
+}
+.subImg image.addP{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.subImg image.delP{
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: -15rpx;
+  right: 0;
+}
+
+.subImg image{
+  width: 160rpx;
+  height: 160rpx;
+}
+.txtBox{
+  width: 100%;
+  height: 200rpx;
+  background-color: #f2f2f2;
+  border-radius: 15rpx;
+  margin: 15rpx 0;
+}
+.txt{
+  width: calc(100% - 15rpx);
+  height: 230rpx;
+  padding: 15rpx;
+}
+
+.subBtn{
+  width: 100%;
+  height: 100rpx;
+  background-color: #16C95D;
+  color: #fff;
+  text-align: center;
+  line-height: 100rpx;
+  /* position: absolute; */
+  /* bottom: 70rpx; */
+  border-radius: 50rpx;
+  margin-bottom: 40rpx;
+  margin-top: 20rpx;
+}
+.hh{
+  display: flex;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-bottom: 30rpx;
+}
+.tt{
+  margin-right: 20rpx;
+  width: 140rpx;
+}
+.Ibox{
+  width: calc(100% - 180rpx);
+  padding: 0 20rpx;
+  background-color: #F2F2F2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10rpx;
+}
+.ipt{
+  height: 100rpx;
+  /* background-color: #D7D7D7; */
+  border-radius: 16rpx;
+  padding: 0 10rpx;
+
+}
+.r{
+  color: #DC442B;
+}
+.sbTit{
+  margin-bottom: 30rpx;
+  font-weight: 500;
+}
+.sbTit text{
+  color: #999;
+  font-size: 30rpx;
+}
+.gt{
+  color: #16C95D;
+}
+.tx{
+  font-size: 30rpx;
+}

@@ -5,18 +5,10 @@
 				<view class="ftit">打卡图片</view>
 				<view class="picBox">
 					<view class="imgBox">
-						<view wx:for="{{healthImg}}" wx:key="index">
+						<view wx:for="{{cardImg}}" wx:key="index">
 							<view class="subImg">
-								<image class="delP" src="/image/delP.png" data-ps="3" data-i="{{index}}" bindtap="delp"></image>
+								<!-- <image class="delP" src="/image/delP.png" data-ps="3" data-i="{{index}}" bindtap="delp"></image> -->
 								<image src="{{item}}"></image>
-							</view>
-						</view>
-						<view>
-							<view class="subImg" data-ps="3" bindtap="chooseImg">
-								<view class="ad">
-									<image class="addP" src="/image/add.png"></image>
-								</view>
-								<view class="tx">上传图片</view>
 							</view>
 						</view>
 					</view>
@@ -213,17 +205,17 @@
 				</view>
 				<view class="ftit">推荐购买</view>
 				<view class="checkWrap">
-					<checkbox-group bindchange="checkboxChange">
-						<label class="checkBox" wx:for="{{priceList}}" wx:key="index">
-							<view class="checkBtn">
-								<checkbox value="{{item.id+'a'+item.price}}" checked="{{item.checked}}" />
-							</view>
-							<view class="checkDescribe">
+				<radio-group bindchange="radioChange">
+					<label class="radioBox" wx:for="{{priceList}}" wx:key="index">
+						<view class="radioBtn">
+							<radio value="{{item.id+'a'+item.price}}" checked="{{item.checked}}" />
+						</view>
+						<view class="radioDescribe">
 								<view class="sTit">{{item.name}}</view>
 								<view class="sCon">{{item.price}}元/人</view>
-							</view>
-						</label>
-					</checkbox-group>
+						</view>
+					</label>
+				</radio-group>
 				</view>
 			</view>
 			<view class="subBtnWrap">

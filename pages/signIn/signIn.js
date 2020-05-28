@@ -25,18 +25,20 @@ Page({
         success: res => {
           let JSCODE = res.code
           tool({
-            url: "/run/getOpenId",
+            url: "/run/shifeng/getOpenId",
             data: {
               code: JSCODE
             },
           }).then(res => {
+            let rv = res.data.data
+            console.log(rv)
             that.setData({
-              openId: res.data.data.openid
+              openId: rv.openid
             })
             let obj = {
               iv: e.detail.iv,
               encryptedData: e.detail.encryptedData,
-              sessionKey: res.data.data.session_key
+              sessionKey: rv.session_key
             }
             tool({
               url: "/run/getPhone",

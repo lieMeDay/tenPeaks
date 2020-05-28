@@ -1,0 +1,29 @@
+
+<view class="errorWrap">
+	<view class="errorBox">
+		<view class="errorTit gt">感谢您使用爱云跑小程序</view>
+		<view class="errTips">在使用过程中，您碰到任何问题，或者有宝贵的建议，都可以反馈给我们，爱云跑会更好的提升您的使用体验。</view>
+		<!-- 图片 -->
+		<view class="imgBox">
+			<view wx:for="{{imgList}}" wx:key="index">
+				<view class="subImg">
+					<image class="delP" src="/image/delP.png" data-i="{{index}}" bindtap="delp"></image>
+					<image src="{{item}}"></image>
+				</view>
+			</view>
+			<view>
+				<view class="subImg" bindtap="chooseImg">
+					<view class="ad">
+						<image class="addP" src="/image/add.png"></image>
+					</view>
+					<view class="tx">上传图片</view>
+				</view>
+			</view>
+		</view>
+		<!-- 备注 -->
+		<view class="txtBox">
+			<textarea placeholder="请输入您的意见和建议" maxlength="-1" value="{{textV}}" class="txt" bindinput="bindtextV"></textarea>
+		</view>
+		<view class="subBtn" bindtap="subBind">确认提交</view>
+	</view>
+</view>

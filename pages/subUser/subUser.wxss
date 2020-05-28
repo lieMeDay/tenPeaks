@@ -138,12 +138,35 @@
 }
 /* 推荐购买 */
 
-.checkBox{
+
+.radioBox{
   display: flex;
   margin-bottom: 15rpx;
 }
-.checkBtn{
+.radioBtn{
   margin-right: 8rpx;
+}
+radio .wx-radio-input {
+  /* 自定义样式.... */
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: -8rpx;
+  border-radius: 50%;
+  border: 2rpx solid #09bb07;
+  background: transparent;
+}
+
+radio .wx-radio-input.wx-radio-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 30rpx; /* 对勾大小 30rpx */
+  color: #fff; /* 对勾颜色 白色 */
+  background: #09bb07;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
 }
 .sTit{
   color: #333;

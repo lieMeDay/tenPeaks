@@ -111,14 +111,13 @@ Page({
   },
   goMap(){
     wx.navigateTo({
-      url: '/pages/map/map',
+      url: `/pages/map/map?matchId=${this.data.matchId}`,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options={matchId:100}
     this.getopenId()
     this.setData({
       matchId:options.matchId

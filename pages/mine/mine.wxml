@@ -12,7 +12,7 @@
 		</view>
 	</view>
 	<view class="listWrap">
-		<navigator class="listBox" url="/pagesC/feedback/feedback?openId={{openId}}">
+		<navigator class="listBox" url="/pages/feedback/feedback">
 			<view class="l">
 				<view>
 					<image></image>

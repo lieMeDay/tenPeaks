@@ -11,7 +11,7 @@
 			<view class="listCon">
 				<view>{{item.name}}</view>
 				<view class="keyLock">
-					<image wx:if="{{0==0}}" src="/image/sy.png"></image>
+					<image wx:if="{{0==1}}" src="/image/sy.png"></image>
           <image wx:else src="/image/sn.png"></image>
 				</view>
 			</view>

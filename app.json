@@ -1,12 +1,13 @@
 {
   "pages": [
-    "pages/mine/mine",
-    "pages/rank/rank",
-    "pages/map/map",
     "pages/subUser/subUser",
-    "pages/match/match",
+    "pages/index/index",
+    "pages/map/map",
+    "pages/rank/rank",
+    "pages/mine/mine",
     "pages/signIn/signIn",
-    "pages/index/index"
+    "pages/match/match",
+    "pages/feedback/feedback"
   ],
   "tabBar": {
     "color": "#a9b7b7",

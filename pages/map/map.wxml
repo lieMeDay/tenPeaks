@@ -5,13 +5,37 @@
 		<view class="mb mb1" bindtap="getloacltion">
 			<image src="/image/map1.png"></image>
 		</view>
-		<view class="mb mby mb2">
+		<!-- 分享 -->
+		<button class="mb mby mb2 shareBtn" open-type="share">
 			<image src="/image/map2.png"></image>
 			<text>分享</text>
-		</view>
-		<view class="mb mby mb3">
+		</button>
+		<!-- 排行 -->
+		<navigator open-type="switchTab" url="/pages/rank/rank" class="mb mby mb3">
 			<image src="/image/map3.png"></image>
 			<text>排行</text>
+		</navigator>
+		<!-- 打卡 -->
+		<view class="mb mby mb4" bindtap="showCard">
+			<image src="/image/map4.png"></image>
+			<text>打卡</text>
+		</view>
+		<!-- 开始 -->
+		<view class="startBtn" bindtap="start" wx:if="{{!hasBegin}}">
+			<image src="/image/start.png"></image>
+		</view>
+	</view>
+</view>
+<!-- 打卡弹框 -->
+<view class="alertWrap" wx:if="{{showAlert}}">
+	<view class="alertBox">
+		<view class="closeBtn" wx:if="{{posEnd}}">
+			<image src="/image/close.png" bindtap="closeBind"></image>
+		</view>
+		<view class="alertCon">
+			<view class="alertTit" wx:if="{{posStart}}">请在开始位置拍照打卡</view>
+			<view class="alertTit" wx:if="{{posEnd}}">请在终点拍照打卡</view>
+			<view class="alertBtn" bindtap="putPicBtn">拍照打卡</view>
 		</view>
 	</view>
 </view>
