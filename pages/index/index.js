@@ -4,25 +4,71 @@ const app = getApp()
 const util = require('../../utils/util')
 const tool = util.tool
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    openId: '',
     allMatch: []
   },
+  // 获取openId
+  getOpenId() {
+    if (app.globalData.openId) {
+      this.setData({
+        openId: app.globalData.openId,
+      })
+      this.getMatch()
+    } else {
+      app.CallbackOpenid = res => {
+        this.setData({
+          openId: res.data.data.openid
+        })
+        this.getMatch()
+      }
+    }
+  },
+  // 获取赛事
   getMatch() {
     let that = this
     tool({
       url: "/match/getMatchByOrg",
       data: {
-        "orgId": 1
+        "orgId": 7
       },
       load: true
     }).then(res => {
       let rr = res.data.data
       that.setData({
         allMatch: rr
+      })
+      that.getUserMatch()
+    })
+  },
+  // 获取用户参加的赛事
+  getUserMatch(){
+    let that=this
+    tool({
+      url:'/match/signUp/member/getByOpenId',
+      data:{openId:that.data.openId}
+    }).then(res=>{
+      let rr=res.data.data
+      let did={}
+      rr = rr.reduce(function(item, next) {
+        did[next.matchId] ? "" : (did[next.matchId] = true && item.push(next));
+        return item;
+      }, []);
+      let ml=that.data.allMatch
+      for(var a=0;a<ml.length;a++){
+        for(var b=0;b<rr.length;b++){
+          if(ml[a].id==rr[b].matchId){
+            ml[a].hasRun=true
+          }else{
+            ml[a].hasRun=false
+          }
+        }
+      }
+      that.setData({
+        allMatch:ml
       })
     })
   },
@@ -58,7 +104,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMatch()
+    this.getOpenId()
     this.getLocation()
   },
 

@@ -30,7 +30,7 @@ Page({
     showAlert: false,
     posStart: false, //在起点
     posEnd: false, //在终点
-    imgList:[]
+    imgList: []
   },
   // 获取openId
   getOpenId() {
@@ -66,8 +66,14 @@ Page({
             load: true
           }).then(res => {
             let rr = res.data.data
-            if (rr.phone) {
-              that.getloacltion()
+            if (rr) {
+              if (rr.phone) {
+                that.getloacltion()
+              } else {
+                wx.navigateTo({
+                  url: '/pages/signIn/signIn',
+                })
+              }
             } else {
               wx.navigateTo({
                 url: '/pages/signIn/signIn',
@@ -211,10 +217,13 @@ Page({
           showAlert: true
         })
         return 'atEnd'
-      } else {
+      }else {
         return 'notEnd'
       }
     }
+    // else {
+    //   return 'notEnd'
+    // }
   },
   // 手动点击打卡
   showCard() {
@@ -238,6 +247,12 @@ Page({
             } else if (res.cancel) {}
           }
         })
+      } else {
+        that.setData({
+          posStart: false,
+          posEnd: true,
+          showAlert: true
+        })
       }
     } else {
       wx.showToast({
@@ -258,9 +273,6 @@ Page({
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
-        wx.showLoading({
-          title: '加载中',
-        })
         // // 上传图片
         wx.uploadFile({
           url: util.imgUrl + "/run/uploadImg",
@@ -269,12 +281,11 @@ Page({
           success(res) {
             const imgName = JSON.parse(res.data).data.img
             let imgUrl = util.imgUrl + '/run/query_pic?name=' + imgName
-            let il=that.data.imgList
+            let il = that.data.imgList
             il.push(imgName)
             that.setData({
-              imgList:il
+              imgList: il
             })
-            wx.hideLoading()
             let target = {
               // matchId   groupId  openId  cpTime  cpName   cpImg   longitude   latitude   altitude
               matchId: that.data.matchId,
@@ -291,32 +302,35 @@ Page({
             } else {
               target.cpName = '终点'
             }
-            tool({
-              url: '/run/person/shifeng/addToActivity',
-              data: target,
-              method: "POST",
-              load: true
-            }).then(resolve => {
-              if (that.data.posEnd) {
-                let str=JSON.stringify(that.data.imgList)
-                let url = `/pages/subUser/subUser?matchId=${that.data.matchId}&il=`+str
-                wx.redirectTo({
-                  url: url,
-                })
+            if (that.data.posEnd) {
+              wx.setStorage({
+                data: target,
+                key: 'mountaintop',
+              })
+              let url = `/pages/subUser/subUser?matchId=${that.data.matchId}`
+              wx.redirectTo({
+                url: url,
+              })
+              that.setData({
+                hasBegin: false,
+                posStart: false,
+                posEnd: false,
+                showAlert: false,
+              })
+            } else {
+              tool({
+                url: '/run/person/shifeng/addToActivity',
+                data: target,
+                method: "POST",
+                load: true
+              }).then(resolve => {
                 that.setData({
-                  hasBegin: false,
                   posStart: false,
                   posEnd: false,
                   showAlert: false,
                 })
-              } else {
-                that.setData({
-                  posStart: false,
-                  posEnd: false,
-                  showAlert: false,
-                })
-              }
-            })
+              })
+            }
           }
         })
       },

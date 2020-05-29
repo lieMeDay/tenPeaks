@@ -8,9 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    finishCard: {},
+    hasPost: false,
     matchPRule: {},
     priceList: [],
     powerList: [], //报名项目显示设置
+    mAw: true, //男女 默认男
     idTypeList: ["居民身份证", "港澳通行证", "护照"],
     idTypeI: 0,
     birthday: '',
@@ -96,6 +99,7 @@ Page({
         value: "healthReport",
       }
     ],
+    putMsg: {}
   },
   // 获取openId
   getOpenId() {
@@ -103,13 +107,75 @@ Page({
       this.setData({
         openId: app.globalData.openId,
       })
+      this.getUser()
     } else {
       app.CallbackOpenid = res => {
         this.setData({
           openId: res.data.data.openid
         })
+        this.getUser()
       }
     }
+  },
+  // 用户信息
+  getUser() {
+    let that = this
+    tool({
+      url: '/match/signUp/member/getByOpenId',
+      data: {
+        openId: that.data.openId
+      }
+    }).then(res => {
+      let rr = res.data.data
+      if (rr.length>0) {
+        rr = rr[0]
+        let i = 0
+        for (var a = 0; a < that.data.contryList.length; a++) {
+          let v = that.data.contryList[a].name
+          if (v == rr.nationality) {
+            i = a
+            break
+          }
+        }
+        let ii = 0
+        for (var a = 0; a < that.data.idTypeList.length; a++) {
+          let v = that.data.idTypeList[a]
+          if (v == rr.idNumberType) {
+            ii = a
+            break
+          }
+        }
+        let iii = 0
+        for (var a = 0; a < that.data.bloodList.length; a++) {
+          let v = that.data.bloodList[a]
+          if (v == rr.bloodType) {
+            iii = a
+            break
+          }
+        }
+        let iiii = 0
+        for (var a = 0; a < that.data.ClothingList.length; a++) {
+          let v = that.data.ClothingList[a]
+          if (v == rr.clothingSize) {
+            iiii = a
+            break
+          }
+        }
+        that.setData({
+          hasPost: true,
+          idTypeI: ii,
+          birthday: rr.birthday,
+          bloodI: iii,
+          contryI: i,
+          region: rr.region.split(';'),
+          ClothingI: iiii,
+          mAw: rr.gender == '男' ? true : false,
+          wsImg: rr.scoreReport.split(';'),
+          healthImg: rr.healthReport.split(';'),
+          putMsg: rr
+        })
+      }
+    })
   },
   // 获取赛事价格信息
   getMatchMsg() {
@@ -132,7 +198,8 @@ Page({
       that.setData({
         matchPRule: rr,
         powerList: rr.power,
-        priceList: rr.matchInfo[0].priceList
+        priceList: rr.matchInfo[0].priceList,
+        group: rr.matchInfo[0]
       })
     })
   },
@@ -151,14 +218,12 @@ Page({
   },
   // 血型
   bindPickerbloodType: function (e) {
-    console.log(e)
     this.setData({
       bloodI: e.detail.value
     })
   },
   // 国籍
   bindPickerContry(e) {
-    console.log(e.detail.value)
     this.setData({
       contryI: e.detail.value
     })
@@ -205,6 +270,7 @@ Page({
         // console.log(imgUrl)
         let WI = that.data.wsImg
         let HI = that.data.healthImg
+        let CI = that.data.cardImg
         if (picS == 1) {
           WI.push(imgUrl)
           that.setData({
@@ -214,6 +280,11 @@ Page({
           HI.push(imgUrl)
           that.setData({
             healthImg: HI
+          })
+        } else if (picS == 3) {
+          CI.push(imgUrl)
+          that.setData({
+            cardImg: CI
           })
         }
       }
@@ -236,6 +307,7 @@ Page({
     let picS = e.currentTarget.dataset.ps
     let WI = that.data.wsImg
     let HI = that.data.healthImg
+    let CI = that.data.cardImg
     if (picS == 1) {
       WI.splice(i, 1)
       that.setData({
@@ -245,6 +317,11 @@ Page({
       HI.splice(i, 1)
       that.setData({
         healthImg: HI
+      })
+    } else if (picS == 3) {
+      CI.splice(i, 1)
+      that.setData({
+        cardImg: CI
       })
     }
   },
@@ -257,11 +334,12 @@ Page({
     ); //邮箱正则表达式
     var sfz = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/; //身份证正则
     let subCon = e.detail.value
+    // console.log(subCon)
     let pwList = that.data.powerList
     let trueMsg = true
     for (var k in pwList) {
       if (pwList[k]) {
-        if (subCon[k] == '') {
+        if (subCon[k] == '' || subCon[k] == []) {
           let pw = that.data.PwArr
           let tt = pw.filter(v => v.value == k)
           wx.showToast({
@@ -330,7 +408,7 @@ Page({
     subCon.idealTime = "" //预计完赛时间
     subCon.openId = that.data.openId
     subCon.matchId = that.data.matchId
-    subCon.price = that.data.price
+    subCon.groupId = that.data.group.groupId
     let wsImgPut = ''
     that.data.wsImg.forEach(item => {
       wsImgPut += item + ";";
@@ -343,59 +421,133 @@ Page({
     });
     healthImgPut = healthImgPut.substr(0, healthImgPut.length - 1);
     subCon.healthReport = healthImgPut //健康证明
-    console.log(trueMsg, subCon)
-    if (1 == 2) {
+    // console.log(trueMsg, subCon)
+    if (trueMsg) {
       tool({
-        url: '/aiyunpao/match/signUp/member/add',
+        url: '/match/signUp/member/add',
         data: subCon,
-        method: "POST"
+        method: "POST",
+        load: true
       }).then(res => {
-        wx.hideLoading()
-        if (res.data.data) {
-          subCon.memberId = res.data.data.memberId
-          subCon.signUpId = res.data.data.signUpId
-          that.setData({
-            putMsg: subCon
-          })
-          if (subCon.price <= 0) {
-
-          } else {}
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      }).catch(err => {
-        wx.hideLoading()
-        wx.showToast({
-          title: '报名提交失败',
-          icon: 'none',
-          duration: 2000
+        // 上传山顶打卡点
+        let cardImgPut = ''
+        that.data.cardImg.forEach(item => {
+          cardImgPut += item + ";";
+        });
+        cardImgPut = cardImgPut.substr(0, cardImgPut.length - 1);
+        that.data.finishCard.cpImg = cardImgPut //终点打卡图片
+        tool({
+          url: '/run/person/shifeng/addToActivity',
+          data: that.data.finishCard,
+          method: "POST",
+          load: true
         })
+        if (res.data.data) {
+          subCon.signUpId = res.data.data
+        } else {
+          subCon.signUpId = res.data.msg.signUpId
+        }
+        that.setData({
+          putMsg: subCon
+        })
+        if (that.data.price <= 0) {
+          app.globalData.match = that.data.matchId
+          wx.switchTab({
+            url: `/pages/rank/rank`,
+          })
+        } else {
+          that.putOrder()
+        }
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面加载
+  // 上传订单
+  putOrder() {
+    let that = this
+    let msg = that.data.putMsg
+    let putObj = {
+      matchId: msg.matchId,
+      groupId: msg.groupId,
+      openId: msg.openId,
+      signUpId: msg.signUpId,
+      memberName: msg.name,
+      matchName: that.data.matchPRule.name,
+      groupName: that.data.group.name,
+      price: that.data.price,
+      coupon: that.data.priceId
+    }
+    tool({
+      url: '/match/signUp/order/add',
+      data: putObj,
+      method: "POST",
+      load: true
+    }).then(res => {
+      console.log(res.data.data)
+      // that.goPay(res.data.data)
+    }).catch(err => {
+      wx.showToast({
+        title: '订单生成失败',
+        icon: 'none',
+        duration: 2000
+      })
+    })
+  },
+  // 支付
+  goPay(id) {
+    // orderId    ip    openid  totalFee
+    let that = this
+    let payObj = {
+      orderId: id,
+      openid: that.data.openId,
+      totalFee: that.data.price * 100
+    }
+    tool({
+      url: '/match/signUp/order/payApplet',
+      data: payObj,
+      method: "POST"
+    }).then(res => {
+      let param = res.data.data
+      wx.requestPayment({
+        timeStamp: param.timeStamp,
+        nonceStr: param.nonceStr,
+        package: param.package,
+        signType: param.signType,
+        paySign: param.paySign,
+        success: function (res) {
+          console.log('成功', res)
+          wx.redirectTo({
+            url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+          })
+        },
+        fail: function (res) {
+          console.log('失败', res)
+          let msg = that.data.putMsg
+        },
+      })
+    })
+  },
+  /* 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getOpenId()
     wx.hideShareMenu(); //隐藏转发分享按钮
-    options.matchId = 109
-    // let ll=JSON.parse(options.il)
-    let ll = ["20200528180733_run.png", "20200528180740_run.png"]
-    let emp = []
-    ll.forEach(v => {
-      let a = util.imgUrl + '/run/query_pic?name=' + v
-      emp.push(a)
-    })
-    // console.log(emp)
     this.setData({
       matchId: options.matchId,
-      cardImg: emp,
       contryList: contryJSON.contry,
+    })
+    let that = this
+    wx.getStorage({
+      key: 'mountaintop',
+      success(res) {
+        // console.log(res.data)
+        let r = res.data
+        let finishImg = that.data.cardImg
+        finishImg.push(r.cpImg)
+        that.setData({
+          cardImg: finishImg,
+          finishCard: r
+        })
+      }
     })
     this.getMatchMsg()
   },

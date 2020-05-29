@@ -46,6 +46,7 @@ App({
     })
   },
   globalData: {
+    match:null,
     openId:null,
     userInfo: null
   }
