@@ -60,7 +60,7 @@
   width: 100%;
   overflow: hidden;
   background-color: #fff;
-  margin: 30rpx auto;
+  margin: 0rpx auto;
 }
 
 .listBox {
@@ -93,6 +93,15 @@
   width: 100%;
   background-color: #fff;
   float: left;
+  margin-bottom: 30rpx;
+}
+.container::after{
+  clear: both;
+  content:" ";
+  display: block;
+  width:0;
+  height: 0;
+  visibility: hidden;
 }
 
 .promtWrap {
@@ -147,4 +156,68 @@
   width: 94%;
   margin: 0 auto;
   padding: 10rpx auto;
+  margin-top: 20rpx;
+}
+.myGoldtit{
+  margin-bottom: 18rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gn{
+  color: #999999;
+}
+.lv{
+  color: #15C95D;
+}
+.bigGold{
+  width: 220rpx;
+  height: 220rpx;
+  margin: 10rpx auto;
+  background-color: gold;
+  margin-bottom: 30rpx;
+}
+.bigGold>image{
+  width: 220rpx;
+  height: 220rpx;
+}
+.goldList{
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.goldItem{
+  width: 20%;
+  flex: 0 0 auto;
+  height: 120rpx;
+  background-color: gold;
+  margin-bottom: 30rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.goldTip{
+  width: 120rpx;
+  height: 120rpx;
+  position: relative;
+  background-color: pink;
+}
+.goldTip>image{
+  width: 120rpx;
+  height: 120rpx;
+}
+.goldTip>text{
+  position: absolute;
+  bottom: 0;
+  font-size: 24rpx;
+  left:0;
+  width: 100%;
+  text-align: center;
+}
+.goldTip.hasGold>text{
+  color: #C77618;
 }

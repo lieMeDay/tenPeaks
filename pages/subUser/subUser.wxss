@@ -72,6 +72,10 @@
   position: absolute;
   bottom: 0;
   font-size: 24rpx;
+  left:0;
+  width: 100%;
+  text-align: center;
+  color: #C77618;
 }
 
 /* 选择 填写 */

@@ -33,8 +33,21 @@
 			</view>
 		</view>
 		<view class="myGoldWrap">
-		<view class="myGoldtit">
-		</view>
+			<view class="myGoldtit">
+				<view>我的勋章</view>
+				<view class="gn"><text class="lv">5</text>/10</view>
+			</view>
+			<!-- 十满贯 -->
+			<view class="bigGold">
+				<image src=""></image>
+			</view>
+			<!-- 十峰 -->
+			<view class="goldList">
+			<view class="goldItem" wx:for="{{goldList}}" wx:key="index">
+			<view wx:if="{{item==1}}" class="goldTip hasGold"><image src=""></image><text>黔灵山</text></view>
+			<view wx:else class="goldTip"><image src=""></image><text>黔灵山</text></view>
+			</view>
+			</view>
 		</view>
 	</view>
 	<view class="listWrap">
