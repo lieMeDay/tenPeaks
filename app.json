@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/subUser/subUser",
-    "pages/map/map",
-    "pages/rank/rank",
     "pages/mine/mine",
-    "pages/signIn/signIn",
+    "pages/map/map",
     "pages/match/match",
+    "pages/index/index",
+    "pages/rank/rank",
+    "pages/signIn/signIn",
     "pages/feedback/feedback"
   ],
   "tabBar": {
@@ -19,12 +19,6 @@
         "iconPath": "image/i1.png",
         "pagePath": "pages/index/index",
         "text": "赛事"
-      },
-      {
-        "selectedIconPath": "image/i22.png",
-        "iconPath": "image/i2.png",
-        "pagePath": "pages/rank/rank",
-        "text": "排行"
       },
       {
         "selectedIconPath": "image/i33.png",

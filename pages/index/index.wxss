@@ -1,62 +1,57 @@
 .page{
-  background-color: #022d95;
-}
-.titWrap{
-  height: 100rpx;
-  line-height: 100rpx;
-  /* background-image: linear-gradient(to right , #111a3b, #a5196f); */
-  background-image: linear-gradient(to left, #a5196f, #111a3b);
-}
-.titBox{
-  width: 95%;
-  overflow: hidden;
-  margin: 0 auto;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
+  background-color: #f2f2f2;
 }
 .listWrap{
-  width: 90%;
+  width: 100%;
   overflow: hidden;
   margin: 0 auto;
   margin-top: 20rpx;
 }
 .listBox{
   width: 100%;
-  height: 150rpx;
-  color: #fff;
-  position: relative;
+  background-color: #fff;
   border-radius: 16rpx;
   margin-bottom: 20rpx;
   overflow: hidden;
 }
-.listBox>image{
+.itemCon{
+  width: 95%;
+  padding: 2.5% 0;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+}
+.logo{
+  width: 190rpx;
+  height: 190rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  position: relative;
+  margin-right: 10rpx;
+}
+.logo image{
+  width: 190rpx;
+  height: 190rpx;
+}
+.logoShadow{
   width: 100%;
-  height: 150rpx;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-}
-.listShadow{
-  width: 100%;
-  height: 150rpx;
-  background-color: rgba(0, 0, 0, 0.2);
-  position: relative;
+  /* background-color: rgba(0, 0, 0, 0.2); */
   z-index: 10;
 }
 .listCon{
-  width: 90%;
-  height: 150rpx;
-  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
-.listCon>view{
+.tit{
   letter-spacing: 1.5;
   font-size: 40rpx;
 }
-.keyLock,.keyLock>image{
-  width: 120rpx;
-  height: 120rpx;
+.ctip{
+  font-size: 26rpx;
+  color: #999999;
 }

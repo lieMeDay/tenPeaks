@@ -26,7 +26,6 @@ Page({
       width: 3,
     }], //线 第一项为官方路径线 第二项为自己跑的
     circles: [],
-    hasBegin: false,
     showAlert: false,
     posStart: false, //在起点
     posEnd: false, //在终点
@@ -68,7 +67,10 @@ Page({
             let rr = res.data.data
             if (rr) {
               if (rr.phone) {
-                that.getloacltion()
+                that.getloacltion(2)
+                that.setData({
+                  myMsg: rr
+                })
               } else {
                 wx.navigateTo({
                   url: '/pages/signIn/signIn',
@@ -85,7 +87,13 @@ Page({
     })
   },
   // 获取定位
-  getloacltion() {
+  getloacltion(s) {
+    if (s.currentTarget) {
+      s = s.currentTarget.dataset.s
+    } else {
+      s = s
+    }
+    // s==1>点击页面的图标 s==2>表示js里调用定位
     let that = this
     wx.getLocation({
       type: 'wgs84',
@@ -99,7 +107,16 @@ Page({
           latitude: latitude,
           altitude: altitude
         })
-        that.endAround()
+        if (s == 1) {
+          let wz = that.endAround()
+          if (wz == 'atEnd') {
+            that.setData({
+              posStart: false,
+              posEnd: true,
+              showAlert: true
+            })
+          }
+        }
       },
       fail(err) {
         console.log(err)
@@ -192,16 +209,6 @@ Page({
       })
     })
   },
-  // 点击开始
-  start() {
-    let that = this
-    that.setData({
-      hasBegin: true, //已经开始
-      posStart: true, //起点位置
-      posEnd: false, //在终点位置
-      showAlert: true //显示打卡
-    })
-  },
   // 判断是否在终点附近
   endAround() {
     let that = this
@@ -211,55 +218,12 @@ Page({
     if (point.length > 0) {
       let Dend = util.getDistance(myLat, myLng, point[point.length - 1].latitude, point[point.length - 1].longitude)
       if (Dend <= 0.05) {
-        that.setData({
-          posStart: false,
-          posEnd: true,
-          showAlert: true
-        })
         return 'atEnd'
-      }else {
+      } else {
         return 'notEnd'
       }
-    }
-    // else {
-    //   return 'notEnd'
-    // }
-  },
-  // 手动点击打卡
-  showCard() {
-    let that = this
-    that.getloacltion()
-    if (that.data.hasBegin) {
-      let state = that.endAround()
-      if (state == 'notEnd') {
-        wx.showModal({
-          title: '打卡提示',
-          content: '定位系统监测您未在山顶附近，是否坚持打卡',
-          confirmText: '确认打卡',
-          success(res) {
-            if (res.confirm) {
-              // console.log('用户点击确定')
-              that.setData({
-                posStart: false,
-                posEnd: true,
-              })
-              that.putPicBtn()
-            } else if (res.cancel) {}
-          }
-        })
-      } else {
-        that.setData({
-          posStart: false,
-          posEnd: true,
-          showAlert: true
-        })
-      }
     } else {
-      wx.showToast({
-        title: '请先开始',
-        icon: 'none',
-        duration: 2000
-      })
+      return 'notEnd'
     }
   },
   // 打卡
@@ -287,7 +251,6 @@ Page({
               imgList: il
             })
             let target = {
-              // matchId   groupId  openId  cpTime  cpName   cpImg   longitude   latitude   altitude
               matchId: that.data.matchId,
               groupId: that.data.groupMsg.id,
               openId: that.data.openId,
@@ -312,18 +275,25 @@ Page({
                 url: url,
               })
               that.setData({
-                hasBegin: false,
                 posStart: false,
                 posEnd: false,
                 showAlert: false,
               })
+              wx.removeStorage({
+                key: 'mountainStart',
+              })
             } else {
+              // 起点拍照打卡
               tool({
                 url: '/run/person/shifeng/addToActivity',
                 data: target,
                 method: "POST",
                 load: true
               }).then(resolve => {
+                wx.setStorage({
+                  data: target,
+                  key: 'mountainStart',
+                })
                 that.setData({
                   posStart: false,
                   posEnd: false,
@@ -349,8 +319,52 @@ Page({
       showAlert: false
     })
   },
+  // 点击打卡
+  toCard() {
+    let that = this
+    that.getloacltion(2)
+    let state = that.endAround()
+    if (state == 'atEnd') {
+      that.setData({
+        posStart: false,
+        posEnd: true,
+        showAlert: true
+      })
+    } else if (state == 'notEnd') {
+      wx.getStorage({
+        key: 'mountainStart',
+        success(res) {
+          wx.showModal({
+            title: '打卡提示',
+            content: '定位系统监测您未在山顶附近，是否坚持打卡',
+            confirmText: '确认打卡',
+            success(res) {
+              if (res.confirm) {
+                // console.log('用户点击确定')
+                that.setData({
+                  posStart: false,
+                  posEnd: true,
+                })
+                that.putPicBtn()
+              } else if (res.cancel) {}
+            }
+          })
+        },
+        fail(err) {
+          that.setData({
+            posStart: true, //起点位置
+            posEnd: false, //在终点位置
+            showAlert: true //显示打卡
+          })
+        }
+      })
+    }
+
+
+  },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
+    options.matchId = 109
     this.setData({
       matchId: Number(options.matchId)
     })

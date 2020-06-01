@@ -1,21 +1,18 @@
 <view class="page">
-	<view class="titWrap">
-		<view class="titBox">
-			<view>贵州十峰全民健身登山活动</view>
-		</view>
-	</view>
 	<view class="listWrap">
 		<navigator wx:for="{{allMatch}}" wx:key="index" url="/pages/match/match?matchId={{item.id}}" class="listBox">
-			<image src="{{item.logo}}"></image>
-      <view class="listShadow">
-			<view class="listCon">
-				<view>{{item.name}}</view>
-				<view class="keyLock">
-					<image wx:if="{{!item.hasRun}}" src="/image/sy.png"></image>
-          <image wx:else src="/image/sn.png"></image>
+			<view class="itemCon">
+				<view class="logo">
+					<image src="{{item.logo}}"></image>
+					<view class="logoShadow"></view>
+				</view>
+				<view class="listCon">
+					<view class="tit">{{item.name}}</view>
+					<view class="ctip">登顶人次 333人</view>
+					<view class="ctip">顶峰海拔 1116米</view>
+					<view></view>
 				</view>
 			</view>
-      </view>
 		</navigator>
 	</view>
 </view>

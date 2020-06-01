@@ -33,7 +33,7 @@ Page({
     tool({
       url: "/match/getMatchByOrg",
       data: {
-        "orgId": 7
+        "orgId": 1
       },
       load: true
     }).then(res => {

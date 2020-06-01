@@ -11,6 +11,32 @@
 				</button></view>
 		</view>
 	</view>
+	<view class="container">
+		<view class="promtWrap">
+			<view class="shu">
+				<view class="conImg">
+					<image src="/image/rh.png"></image>
+				</view>
+				<view class="vv">登山记录</view>
+			</view>
+			<view>
+				<view class="conImg">
+					4
+				</view>
+				<view class="vv vg">总次数</view>
+			</view>
+			<view>
+				<view class="conImg">
+					13
+				</view>
+				<view class="vv vg">总用时(小时)</view>
+			</view>
+		</view>
+		<view class="myGoldWrap">
+		<view class="myGoldtit">
+		</view>
+		</view>
+	</view>
 	<view class="listWrap">
 		<navigator class="listBox" url="/pages/feedback/feedback">
 			<view class="l">

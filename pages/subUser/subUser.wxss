@@ -1,23 +1,149 @@
 /* pages/subUser/subUser.wxss */
-.formBox {
-  width: 95%;
-  margin: 0 auto;
+.page {
+  background-color: #f2f2f2;
 }
-.fcon{
+
+.formBox {
+  width: 100%;
+}
+
+.fcon {
   padding-bottom: 120rpx;
 }
 
-.ftit {
-  margin: 20rpx auto;
-  font-weight: 500;
-  color: #333;
-  font-size: 38rpx;
+/* 峰顶图片 */
+.topPic {
+  width: 100%;
+  height: 560rpx;
+  background-color: #16C95D;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.topPicCon {
+  width: 460rpx;
+  height: 460rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.myTopbg {
+  width: 100%;
+  height: 100rpx;
+  background-color: pink;
+}
+
+.myTopbg>image {
+  width: 100%;
+  height: 100rpx;
+}
+
+.myTop {
+  width: 260rpx;
+  height: 260rpx;
+  border: 8rpx solid #fff;
+  /* border-radius: 10rpx; */
+  position: relative;
+  background-color: palegreen;
+}
+
+.myTop>image {
+  width: 260rpx;
+  height: 260rpx;
+}
+
+.gold {
+  width: 95rpx;
+  height: 95rpx;
+  position: absolute;
+  right: -20rpx;
+  bottom: -20rpx;
+  background-color: plum;
+}
+
+.gold>image {
+  width: 95rpx;
+  height: 95rpx;
+}
+.matchName{
+  position: absolute;
+  bottom: 0;
+  font-size: 24rpx;
+}
+
+/* 选择 填写 */
+.conWrap {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: -100rpx;
+  margin-bottom: 30rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+}
+
+.conBox {
+  width: calc(100% - 40rpx);
+  padding: 20rpx;
+}
+
+.ftitBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.tl{
+  display: flex;
+  align-items: center;
+}
+.dian{
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  background-color: #9BECB4;
+}
+.tr{
+  font-size: 30rpx;
+  color: #999999;
+}
+/* 订单列表 */
+.orderList{
+  width: 100%;
+  position: relative;
+  height: 84rpx;
+  margin-bottom: 30rpx;
+}
+.orderItem{
+  width: calc(100% - 4rpx);
+  position: absolute;
+  line-height: 80rpx;
+  border: 2rpx solid;
+  border-color: #D7D7D7;
+  border-radius: 40rpx;
+  text-align: center;
+}
+.orderItem.act{
+  border-color: #16C95D;
+  color: #16C95D;
+}
+.anniu{
+  position: absolute;
+  right: 20rpx;
 }
 
 .subCon {
   display: flex;
   align-items: center;
   margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #D7D7D7;
+  font-size: 34rpx;
+}
+.subCon:last-child{
+  border-bottom: none;
 }
 
 .scL {
@@ -32,8 +158,8 @@
 .scR {
   width: calc(100% - 230rpx);
   padding: 0 20rpx;
-  background-color: #F2F2F2;
-  height: 100rpx;
+  /* background-color: #F2F2F2; */
+  min-height: 100rpx;
   border-radius: 10rpx;
   display: flex;
   align-items: center;
@@ -136,43 +262,53 @@
   font-size: 28rpx;
   font-weight: lighter;
 }
+
 /* 推荐购买 */
 
 
-.radioBox{
+.radioBox {
   display: flex;
   margin-bottom: 15rpx;
 }
-.radioBtn{
+
+.radioBtn {
   margin-right: 8rpx;
 }
+
 radio .wx-radio-input {
   /* 自定义样式.... */
   height: 40rpx;
   width: 40rpx;
   margin-top: -8rpx;
   border-radius: 50%;
-  border: 2rpx solid #09bb07;
+  border: 2rpx solid #D7D7D7;
   background: transparent;
 }
 
 radio .wx-radio-input.wx-radio-input-checked::before {
-  border-radius: 50%; /* 圆角 */
-  width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
-  height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  border-radius: 50%;
+  /* 圆角 */
+  width: 40rpx;
+  /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 40rpx;
+  /* 选中后对勾大小，不要超过背景的尺寸 */
   line-height: 40rpx;
   text-align: center;
-  font-size: 30rpx; /* 对勾大小 30rpx */
-  color: #fff; /* 对勾颜色 白色 */
+  font-size: 30rpx;
+  /* 对勾大小 30rpx */
+  color: #fff;
+  /* 对勾颜色 白色 */
   background: #09bb07;
   transform: translate(-50%, -50%) scale(1);
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
-.sTit{
+
+.sTit {
   color: #333;
   font-size: 36rpx;
 }
-.sCon{
+
+.sCon {
   font-size: 28rpx;
   color: #999999;
 }

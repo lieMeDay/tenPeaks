@@ -2,21 +2,47 @@
 <view class="page">
 	<view class="matchLogo">
 		<image src="{{matchMsg.logo}}"></image>
+		<view class="totnum">已登顶 <text>2</text> 次</view>
+	</view>
+
+	<view class="promtBox">
+		<view>
+			<view data-s="1" bindtap="goPage">
+				<view class="conImg">
+					<image src="/image/mb.png"></image>
+				</view>
+				<view class="vv">排行榜</view>
+			</view>
+		</view>
+		<view data-s="2" bindtap="goPage">
+			<view>
+				<view class="conImg">
+					<image src="/image/mb.png"></image>
+				</view>
+				<view class="vv">登顶证明</view>
+			</view>
+		</view>
+		<view data-s="3" bindtap="goPage">
+			<view>
+				<view class="conImg">
+					<image src="/image/mb.png"></image>
+				</view>
+				<view class="vv">周边产品</view>
+			</view>
+		</view>
 	</view>
 	<view class="matchWrap">
-		<view class="mt">赛事信息</view>
-		<view class="mc">
-			<view>活动名称：{{matchMsg.name}}</view>
-			<view>活动时间：{{matchMsg.showData}}</view>
-			<view>活动地点：{{matchMsg.place}}</view>
+		<view class="mt">
+			{{matchMsg.name}}
 		</view>
-    <view class="mt">赛事简介</view>
-    <view>
-				<rich-text class="ric" nodes="{{matchMsg.introduce}}"></rich-text>
-    </view>
+		<rich-text class="ric" nodes="{{matchMsg.introduce}}"></rich-text>
 	</view>
-  <view class="btnBox">
-	<button wx:if="{{!hasInfo}}" class="goBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">参赛</button>
-	<view wx:else class="goBtn" bindtap="goMap">参赛</view>
-	</view>
+	<view class="btnBox">
+	<button wx:if="{{!hasInfo}}" class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoGo">
+		导航去这里
+	</button>
+	<view wx:else class="btn" bindtap="goAddress">导航去这里</view>
+		<button wx:if="{{!hasInfo}}" class="btn black" open-type="getUserInfo" bindgetuserinfo="getUserInfo">打卡地图</button>
+		<view wx:else class="btn black" bindtap="goMap">打卡地图</view>
+</view>
 </view>

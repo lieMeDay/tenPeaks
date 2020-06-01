@@ -9,7 +9,8 @@ Page({
    */
   data: {
     finishCard: {},
-    hasPost: false,
+    finishImg:'',
+    hasPost: false,//是否提交过
     matchPRule: {},
     priceList: [],
     powerList: [], //报名项目显示设置
@@ -27,7 +28,6 @@ Page({
     ClothingI: 0,
     wsImg: [],
     healthImg: [],
-    cardImg: [],
     price: 0,
     priceId: '',
     PwArr: [{
@@ -195,6 +195,9 @@ Page({
           rr.power[k] = true
         }
       }
+      for(var a=0;a<rr.matchInfo[0].priceList.length;a++){
+        rr.matchInfo[0].priceList[a].checked=false
+      }
       that.setData({
         matchPRule: rr,
         powerList: rr.power,
@@ -270,7 +273,6 @@ Page({
         // console.log(imgUrl)
         let WI = that.data.wsImg
         let HI = that.data.healthImg
-        let CI = that.data.cardImg
         if (picS == 1) {
           WI.push(imgUrl)
           that.setData({
@@ -281,23 +283,37 @@ Page({
           that.setData({
             healthImg: HI
           })
-        } else if (picS == 3) {
-          CI.push(imgUrl)
-          that.setData({
-            cardImg: CI
-          })
         }
       }
     })
   },
   // 选择购买
-  radioChange(e) {
+  radioChange(e) {},
+  radioTap(e){
     let that = this
-    let val = e.detail.value
-    that.setData({
-      priceId: val.split('a')[0],
-      price: val.split('a')[1],
-    })
+    let val = e.currentTarget.dataset.id
+    let pl=that.data.priceList
+    for(var a=0;a<pl.length;a++){
+      if(pl[a].id==val){
+        pl[a].checked=!pl[a].checked
+      }else{
+        pl[a].checked=false
+      }
+    }
+    let cv=pl.filter(v=>v.checked==true)
+    if(cv.length>0){
+      that.setData({
+        priceList:pl,
+        priceId: cv[0].id,
+        price: cv[0].price,
+      })
+    }else{
+      that.setData({
+        priceList:pl,
+        priceId: '',
+        price: 0,
+      })
+    }
   },
   // 删除图片
   delp(e) {
@@ -307,7 +323,6 @@ Page({
     let picS = e.currentTarget.dataset.ps
     let WI = that.data.wsImg
     let HI = that.data.healthImg
-    let CI = that.data.cardImg
     if (picS == 1) {
       WI.splice(i, 1)
       that.setData({
@@ -317,11 +332,6 @@ Page({
       HI.splice(i, 1)
       that.setData({
         healthImg: HI
-      })
-    } else if (picS == 3) {
-      CI.splice(i, 1)
-      that.setData({
-        cardImg: CI
       })
     }
   },
@@ -423,42 +433,69 @@ Page({
     subCon.healthReport = healthImgPut //健康证明
     // console.log(trueMsg, subCon)
     if (trueMsg) {
-      tool({
-        url: '/match/signUp/member/add',
-        data: subCon,
-        method: "POST",
-        load: true
-      }).then(res => {
-        // 上传山顶打卡点
-        let cardImgPut = ''
-        that.data.cardImg.forEach(item => {
-          cardImgPut += item + ";";
-        });
-        cardImgPut = cardImgPut.substr(0, cardImgPut.length - 1);
-        that.data.finishCard.cpImg = cardImgPut //终点打卡图片
+      if(1==0){
         tool({
-          url: '/run/person/shifeng/addToActivity',
-          data: that.data.finishCard,
+          url: '/run/person/shifeng/putToActivity',
+          data: subCon,
           method: "POST",
           load: true
-        })
-        if (res.data.data) {
-          subCon.signUpId = res.data.data
-        } else {
-          subCon.signUpId = res.data.msg.signUpId
-        }
-        that.setData({
-          putMsg: subCon
-        })
-        if (that.data.price <= 0) {
-          app.globalData.match = that.data.matchId
-          wx.switchTab({
-            url: `/pages/rank/rank`,
+        }).then(res=>{
+          // 上传山顶打卡点
+          tool({
+            url: '/run/person/shifeng/addToActivity',
+            data: that.data.finishCard,
+            method: "POST",
+            load: true
           })
-        } else {
-          that.putOrder()
-        }
-      })
+          if (res.data.data) {
+            subCon.signUpId = res.data.data
+          } else {
+            subCon.signUpId = res.data.msg.signUpId
+          }
+          that.setData({
+            putMsg: subCon
+          })
+          if (that.data.price <= 0) {
+            app.globalData.match = that.data.matchId
+            wx.switchTab({
+              url: `/pages/rank/rank`,
+            })
+          } else {
+            that.putOrder()
+          }
+        })
+      }else{
+        tool({
+          url: '/shifeng/match/signUp/member/add',
+          data: subCon,
+          method: "POST",
+          load: true
+        }).then(res => {
+          // 上传山顶打卡点
+          tool({
+            url: '/run/person/shifeng/addToActivity',
+            data: that.data.finishCard,
+            method: "POST",
+            load: true
+          })
+          if (res.data.data) {
+            subCon.signUpId = res.data.data
+          } else {
+            subCon.signUpId = res.data.msg.signUpId
+          }
+          that.setData({
+            putMsg: subCon
+          })
+          if (that.data.price <= 0) {
+            app.globalData.match = that.data.matchId
+            wx.redirectTo({
+              url: `/pages/rank/rank`,
+            })
+          } else {
+            that.putOrder()
+          }
+        })
+      }
     }
   },
   // 上传订单
@@ -529,6 +566,7 @@ Page({
   /* 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    options.matchId=109
     this.getOpenId()
     wx.hideShareMenu(); //隐藏转发分享按钮
     this.setData({
@@ -541,10 +579,8 @@ Page({
       success(res) {
         // console.log(res.data)
         let r = res.data
-        let finishImg = that.data.cardImg
-        finishImg.push(r.cpImg)
         that.setData({
-          cardImg: finishImg,
+          finishImg: r.cpImg,
           finishCard: r
         })
       }

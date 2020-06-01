@@ -1,8 +1,20 @@
 <view class="page">
+	<!-- 赛事信息 -->
+	<view class="matchWrap">
+		<view class="matchBox">
+			<view class="matchl">
+				<view class="matchLogo">
+					<image src="{{matchMsg.logo}}"></image>
+				</view>
+				<view>{{matchMsg.name}}</view>
+			</view>
+			<view class="matchr"></view>
+		</view>
+	</view>
 	<view class="mapBox">
 		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" circles="{{circles}}" enable-rotate show-location></map>
 		<!-- 定位 -->
-		<view class="mb mb1" bindtap="getloacltion">
+		<view class="mb mb1" data-s="1" bindtap="getloacltion">
 			<image src="/image/map1.png"></image>
 		</view>
 		<!-- 分享 -->
@@ -11,25 +23,30 @@
 			<text>分享</text>
 		</button>
 		<!-- 排行 -->
-		<navigator open-type="switchTab" url="/pages/rank/rank" class="mb mby mb3">
+		<navigator url="/pages/rank/rank" class="mb mby mb3">
 			<image src="/image/map3.png"></image>
 			<text>排行</text>
 		</navigator>
-		<!-- 打卡 -->
-		<view class="mb mby mb4" bindtap="showCard">
-			<image src="/image/map4.png"></image>
-			<text>打卡</text>
+	</view>
+	<!-- 我的 -->
+	<view class="myWrap">
+		<view class="myBox">
+			<view>
+			<view class="myHead"><image src="{{myMsg.headImgUrl}}"></image></view>
+			<view class="myName">{{myMsg.nikeName}}</view>
+			</view>
+			<!-- <view class="myr">峰顶</view> -->
 		</view>
-		<!-- 开始 -->
-		<view class="startBtn" bindtap="start" wx:if="{{!hasBegin}}">
-			<image src="/image/start.png"></image>
+		<view class="CardBtn" bindtap="toCard">
+		<image src="/image/camera.png"></image>
+		<text>打卡</text>
 		</view>
 	</view>
 </view>
 <!-- 打卡弹框 -->
 <view class="alertWrap" wx:if="{{showAlert}}">
 	<view class="alertBox">
-		<view class="closeBtn" wx:if="{{posEnd}}">
+		<view class="closeBtn">
 			<image src="/image/close.png" bindtap="closeBind"></image>
 		</view>
 		<view class="alertCon">
