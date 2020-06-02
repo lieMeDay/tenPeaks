@@ -2,12 +2,18 @@
 <view class="page">
 	<view class="matchLogo">
 		<image src="{{matchMsg.logo}}"></image>
-		<view class="totnum">已登顶 <text>2</text> 次</view>
+		<view class="totnum">已登顶 <text>{{myRunNum}}</text> 次</view>
 	</view>
 
 	<view class="promtBox">
 		<view>
-			<view data-s="1" bindtap="goPage">
+			<button class="gornu" wx:if="{{!hasInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfoGoR">
+				<view class="conImg">
+					<image src="/image/mb.png"></image>
+				</view>
+				<view class="vv">排行榜</view>
+			</button>
+			<view wx:else data-s="1" bindtap="goPage">
 				<view class="conImg">
 					<image src="/image/mb.png"></image>
 				</view>

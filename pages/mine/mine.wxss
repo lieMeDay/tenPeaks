@@ -212,7 +212,7 @@
 }
 .goldTip>text{
   position: absolute;
-  bottom: 0;
+  bottom: 19rpx;
   font-size: 24rpx;
   left:0;
   width: 100%;

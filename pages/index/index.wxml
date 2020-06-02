@@ -1,16 +1,31 @@
 <view class="page">
+	<swiper autoplay="{{true}}" circular="{{true}}" interval="{{2000}}" duration="{{1000}}" previous-margin="58rpx" next-margin="58rpx" class="swiper" bindchange="swiperChange">
+		<block wx:for="{{allMatch}}" wx:key="index">
+			<swiper-item>
+				<view class="swiper_item" style="transition:all 0.3s ease;transform:{{curIndex==index?'scale(1,1)':'scale(0.92,0.9)'}}">
+					<image src="{{item.logo}}"></image>
+				</view>
+			</swiper-item>
+		</block>
+	</swiper>
 	<view class="listWrap">
 		<navigator wx:for="{{allMatch}}" wx:key="index" url="/pages/match/match?matchId={{item.id}}" class="listBox">
 			<view class="itemCon">
-				<view class="logo">
+				<view class="imgBox">
 					<image src="{{item.logo}}"></image>
-					<view class="logoShadow"></view>
+					<view class="boxshawod"></view>
 				</view>
-				<view class="listCon">
-					<view class="tit">{{item.name}}</view>
-					<view class="ctip">登顶人次 333人</view>
-					<view class="ctip">顶峰海拔 1116米</view>
-					<view></view>
+				<view class="conBox">
+					<view class="cl">
+						<view class="clN">{{item.name}}</view>
+						<view class="clt"><text class="quan"></text> <text>登顶人次 {{item.runNum}}人</text></view>
+						<view class="clt"><text class="quan"></text> <text>顶峰海拔 {{item.altitude}}米</text></view>
+					</view>
+					<view class="cr">
+					<view hidden="{{!item.hasRun}}"><image src="/image/sn.png"></image></view>
+					<view hidden="{{item.hasRun}}"><image src="/image/sy.png"></image></view>
+					<view hidden="{{!item.hasRun}}" class="ddcs">已登顶 <text>{{item.myRunNum}}</text> 次</view>
+					</view>
 				</view>
 			</view>
 		</navigator>

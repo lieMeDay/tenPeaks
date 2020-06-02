@@ -1,59 +1,59 @@
 <view class="page">
-	<view class="rankBox">
-		<view class="rankName">
-			<view class="rnz"><text class="shu">|</text><text>我的排名</text></view>
-			<view class="rny">
-				<picker class="pickerBox" value="{{hillI}}" range="{{hillList}}">
-					<view class="listCon">
-						<view class="picker">
-							{{hillList[hillI]}}
-						</view>
-						<view class="arrmore">
-							<image src="/image/arrb.png"></image>
-						</view>
-					</view>
-				</picker>
+	<view class="matchWarp">
+		<view class="matchBox">
+			<view class="mlogo">
+				<image src="{{matchMsg.logo}}"></image>
 			</view>
+			<view class="mn">{{matchMsg.name}}</view>
 		</view>
-		<view class="rankCon rmy">
-			<view class="flexB">
-				<view class="headImg">
-					<image></image>
+	</view>
+	<view class="rankList">
+		<view class="rankBox">
+			<view class="rankTitle">
+				<view class="{{seeI==0?'act':''}}" data-i="0" bindtap="toggle">
+					<text>总榜</text>
+					<text class="diLine"></text>
 				</view>
-				<text>吹呀吹</text>
+				<view class="{{seeI==1?'act':''}}" data-i="1" bindtap="toggle">
+					<text>年榜</text>
+					<text class="diLine"></text>
+				</view>
+				<view class="{{seeI==2?'act':''}}" data-i="2" bindtap="toggle">
+					<text>月榜</text>
+					<text class="diLine"></text>
+				</view>
 			</view>
-			<view>0次</view>
-			<view>0座</view>
-			<view>1</view>
 		</view>
-		<view class="rankName">
-			<view class="rnz"><text class="shu">|</text><text>当前排名</text></view>
-		</view>
-		<view class="rankCon rt">
-			<view class="flexB">用户</view>
-			<view>登顶次数</view>
-			<view>挑战山峰</view>
-			<view>排名</view>
+		<view class="rankCon myRank">
+			<view class="rankc">
+				<view class="userMsg">
+					<view class="rank">34</view>
+					<view class="userhead">
+						<image src=""></image>
+					</view>
+					<view class="usen">hahahahah</view>
+				</view>
+				<view class="ddcs">
+					登顶 <text>12</text> 次
+				</view>
+			</view>
 		</view>
 		<view class="rankCon" wx:for="{{rankList}}" wx:key="index">
-			<view class="flexB">
-				<view class="headImg">
-					<image></image>
+			<view class="rankc">
+				<view class="userMsg">
+					<view wx:if="{{index==0}}" class="rank"><image src="/image/ra.png"></image></view>
+					<view wx:elif="{{index==1}}" class="rank"><image src="/image/rb.png"></image></view>
+					<view wx:elif="{{index==2}}" class="rank"><image src="/image/rc.png"></image></view>
+					<view wx:else class="rank">{{index+1}}</view>
+					<view class="userhead">
+						<image src=""></image>
+					</view>
+					<view class="usen">hahahahah</view>
 				</view>
-				<text>吹呀吹</text>
+				<view class="ddcs">
+					登顶 <text>12</text> 次
+				</view>
 			</view>
-			<view>0次</view>
-			<view>0座</view>
-			<view wx:if="{{index==0}}" class="rImg">
-				<image src="/image/ra.png"></image>
-			</view>
-			<view wx:elif="{{index==1}}" class="rImg">
-				<image src="/image/rb.png"></image>
-			</view>
-			<view wx:elif="{{index==2}}" class="rImg">
-				<image src="/image/rc.png"></image>
-			</view>
-			<view wx:else>1</view>
 		</view>
 	</view>
 </view>

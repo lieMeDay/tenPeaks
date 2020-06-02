@@ -1,0 +1,81 @@
+/* pages/record/record.wxss */
+.page{
+  background-color: #f2f2f2;
+}
+.yearBox{
+  width: 95%;
+  padding: 20rpx;
+  color: #666666;
+}
+.listBox{
+  width: 100%;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 20rpx 0;
+}
+.list{
+  width: 95%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.monthBox{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
+  background-color: #16C95D;
+  border-radius: 15rpx;
+  float: left;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.month{
+  font-size: 60rpx;
+}
+.monthT{
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  font-size: 22rpx;
+}
+.listCon{
+  width: calc(100% - 140rpx);
+  height: 100rpx;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #D7D7D7;
+  float: right;
+}
+.itemleft{
+  float: left;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.nn{
+  color: #111111;
+}
+.dd{
+  font-size: 32rpx;
+  color: #999999;
+}
+.itemright{
+  height: 100rpx;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+.ddpic,.ddpic>image{
+  width: 35rpx;
+  height: 35rpx;
+  background-color: pink;
+}
+.ut{
+  margin: 0 20rpx;
+}
+.more,.more>image{
+  width: 30rpx;
+  height: 30rpx;
+  background-color: pink;
+}

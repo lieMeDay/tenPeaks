@@ -9,7 +9,14 @@ Page({
    */
   data: {
     openId: '',
-    allMatch: []
+    allMatch: [],
+    curIndex: 0
+  },
+  swiperChange(e) {
+    // console.log(e.detail.current)
+    this.setData({
+      curIndex: e.detail.current
+    })
   },
   // 获取openId
   getOpenId() {
@@ -33,11 +40,26 @@ Page({
     tool({
       url: "/match/getMatchByOrg",
       data: {
-        "orgId": 1
+        "orgId": 7
       },
       load: true
     }).then(res => {
-      let rr = res.data.data
+      var rr = res.data.data
+      for(let a=0;a<rr.length;a++){
+        rr[a].altitude=0
+        let opt ={matchId:rr[a].id}
+        tool({
+          url: "/match/getMatchById",
+          data: opt,
+          load: true
+        }).then(val=>{
+          let vv=val.data.data.matchInfo
+          rr[a].altitude=vv[0].rise
+          that.setData({
+            allMatch: rr
+          })
+        })
+      }
       that.setData({
         allMatch: rr
       })
@@ -45,30 +67,64 @@ Page({
     })
   },
   // 获取用户参加的赛事
-  getUserMatch(){
-    let that=this
+  getUserMatch() {
+    let that = this
     tool({
-      url:'/match/signUp/member/getByOpenId',
-      data:{openId:that.data.openId}
-    }).then(res=>{
-      let rr=res.data.data
-      let did={}
-      rr = rr.reduce(function(item, next) {
+      url: '/match/signUp/member/getByOpenId',
+      data: {
+        openId: that.data.openId
+      }
+    }).then(res => {
+      let ee = res.data.data
+      let rr = res.data.data
+      let did = {}
+      rr = rr.reduce(function (item, next) {
         did[next.matchId] ? "" : (did[next.matchId] = true && item.push(next));
         return item;
       }, []);
-      let ml=that.data.allMatch
-      for(var a=0;a<ml.length;a++){
-        for(var b=0;b<rr.length;b++){
-          if(ml[a].id==rr[b].matchId){
-            ml[a].hasRun=true
-          }else{
-            ml[a].hasRun=false
+      let ml = that.data.allMatch
+      for (var a = 0; a < ml.length; a++) {
+        for (var b = 0; b < rr.length; b++) {
+          if (ml[a].id == rr[b].matchId) {
+            ml[a].hasRun = true
+          } else {
+            ml[a].hasRun = false
+          }
+        }
+      }
+      for (var a = 0; a < ml.length; a++) {
+        ml[a].myRunNum = 0
+        for (var b = 0; b < ee.length; b++) {
+          if (ml[a].id == ee[b].matchId) {
+            ml[a].myRunNum = ++ml[a].myRunNum
           }
         }
       }
       that.setData({
-        allMatch:ml
+        allMatch: ml
+      })
+      this.getTopNum()
+    })
+  },
+  // 获取登顶人数
+  getTopNum() {
+    let that = this
+    tool({
+      url: '/run/person/shifeng/count',
+      method: "GET"
+    }).then(res => {
+      let rr = res.data.data
+      let ml = that.data.allMatch
+      for (var b = 0; b < ml.length; b++) {
+        ml[b].runNum = 0
+        for (var a = 0; a < rr.length; a++) {
+          if (rr[a].match_id == ml[b].id) {
+            ml[b].runNum = rr[a].num
+          }
+        }
+      }
+      that.setData({
+        allMatch: ml
       })
     })
   },
@@ -104,8 +160,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getOpenId()
-    this.getLocation()
   },
 
   /**
@@ -119,7 +173,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getOpenId()
+    this.getLocation()
   },
 
   /**

@@ -1,0 +1,32 @@
+<view class="page">
+	<view class="conBox">
+		<view class="bglv">
+			<text>黔灵山·大罗岭</text>
+		</view>
+		<view class="bgb">
+			<view class="bigImg">
+				<image src=""></image>
+			</view>
+			<view class="lvtxt lvtip">登顶次数</view>
+			<view class="lvtxt">3</view>
+			<view class="wrap">
+				<view>
+					<view class="gg">姓名</view>
+					<view class="hh">刘天</view>
+				</view>
+				<view class="a">
+					<view class="shu"></view>
+					<view class="sgh">
+						<view class="gg">首次登顶</view>
+						<view class="hh">2020/5/4</view>
+					</view>
+					<view class="shu ys"></view>
+				</view>
+				<view>
+					<view class="gg">排名</view>
+					<view class="hh">34</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

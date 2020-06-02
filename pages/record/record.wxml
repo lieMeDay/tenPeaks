@@ -1,0 +1,47 @@
+<!-- 登山记录 -->
+<view class="page">
+	<view class="yearBox">
+		2020年
+	</view>
+	<view class="listBox">
+		<view class="list">
+			<view class="monthBox"><text class="month">5</text><text class="monthT">月</text></view>
+			<view class="listCon">
+				<view class="itemleft">
+					<view class="nn">黔灵山</view>
+					<view class="dd">2020/05/11</view>
+				</view>
+				<view class="itemright">
+					<view class="ddpic">
+						<image src=""></image>
+					</view>
+					<view class="ut">02:43:41</view>
+					<view class="more">
+						<image src=""></image>
+					</view>
+				</view>
+				<view>
+				</view>
+			</view>
+			<view class="listCon">
+				<view class="itemleft">
+					<view class="nn">黔灵山</view>
+					<view class="dd">2020/05/11</view>
+				</view>
+				<view class="itemright">
+					<view class="ddpic">
+						<image src=""></image>
+					</view>
+					<view class="ut">02:43:41</view>
+					<view class="more">
+						<image src=""></image>
+					</view>
+				</view>
+				<view>
+				</view>
+			</view>
+			<view>
+			</view>
+		</view>
+	</view>
+</view>

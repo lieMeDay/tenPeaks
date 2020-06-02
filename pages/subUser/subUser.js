@@ -566,7 +566,6 @@ Page({
   /* 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options.matchId=109
     this.getOpenId()
     wx.hideShareMenu(); //隐藏转发分享按钮
     this.setData({

@@ -1,14 +1,28 @@
-.page{
-  background-color: #f2f2f2;
+/* 轮播 */
+.swiper {
+  width: 100%;
+  height: 380rpx;
+  margin-top: 20rpx;
+  /* background-color: #fff; */
 }
+
+.swiper_item {
+  height: 100%;
+}
+.swiper_item image{
+  width: 100%;
+  height: 100%;
+  border-radius: 15rpx;
+}
+/* 列表 */
 .listWrap{
   width: 100%;
   overflow: hidden;
-  margin: 0 auto;
-  margin-top: 20rpx;
+  margin: 20rpx auto;
 }
 .listBox{
   width: 100%;
+  height: 220rpx;
   background-color: #fff;
   border-radius: 16rpx;
   margin-bottom: 20rpx;
@@ -16,42 +30,90 @@
 }
 .itemCon{
   width: 95%;
-  padding: 2.5% 0;
+  height: 220rpx;
   margin: 0 auto;
   overflow: hidden;
-  display: flex;
-}
-.logo{
-  width: 190rpx;
-  height: 190rpx;
-  border-radius: 10rpx;
-  overflow: hidden;
   position: relative;
-  margin-right: 10rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
 }
-.logo image{
-  width: 190rpx;
-  height: 190rpx;
-}
-.logoShadow{
+.imgBox{
   width: 100%;
-  height: 100%;
+  height: 220rpx;
+  position: relative;
+}
+.imgBox>image{
+  width: 100%;
+  height: 220rpx;
+}
+.boxshawod{
+  width: 100%;
+  height: 220rpx;
   position: absolute;
   top: 0;
   left: 0;
-  /* background-color: rgba(0, 0, 0, 0.2); */
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.conBox{
+  width: 90%;
+  height: 220rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   z-index: 10;
 }
-.listCon{
+.cl{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #fff;
 }
-.tit{
-  letter-spacing: 1.5;
-  font-size: 40rpx;
+.clN{
+  max-width: 360rpx;
+  line-height: 90rpx;
+  font-size: 44rpx;
+  white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-.ctip{
-  font-size: 26rpx;
-  color: #999999;
+.clt{
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  line-height: 40rpx;
+}
+.quan{
+  float: left;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background-color: #D7D7D7;
+  margin-right: 10rpx;
+}
+
+.cr{
+  width: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cr image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.ddcs{
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 25rpx;
+  padding: 10rpx 20rpx;
+  color: #fff;
+}
+.ddcs>text{
+  color: #16C95D;
 }

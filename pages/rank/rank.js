@@ -9,9 +9,8 @@ Page({
    */
   data: {
     openId: '',
-    hillList:['所有山峰',"黔灵山","花溪区云顶草原"],
-    hillI:0,
-    rankList:[1,1,1,1]
+    rankList:[1,2,3,4,5],
+    seeI:0,
   },
   // 获取openId
   getOpenId() {
@@ -44,12 +43,40 @@ Page({
         wx.navigateTo({
           url: '/pages/signIn/signIn',
         })
+      }else{
+
       }
+    })
+  },
+  // 获取赛事信息
+  getMatch(opt) {
+    let that = this
+    tool({
+      url: "/match/getMatchById",
+      data: opt,
+      load: true
+    }).then(res => {
+      let rr = res.data.data
+      rr.showData = util.timeShift(rr.matchDate, rr.matchEndDate)
+      that.setData({
+        matchMsg: rr
+      })
+    })
+  },
+  // 切换
+  toggle(e){
+    let that=this
+    var i=e.currentTarget.dataset.i
+    that.setData({
+      seeI:i
     })
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
-    
+    let opt={
+      matchId:options.matchId
+    }
+    this.getMatch(opt)
   },
 
   /*生命周期函数--监听页面初次渲染完成*/

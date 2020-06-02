@@ -1,0 +1,25 @@
+<view class="page">
+	<view class="matchWarp">
+		<view class="matchBox">
+			<view class="mlogo">
+				<image src="{{matchMsg.logo}}"></image>
+			</view>
+			<view class="mn">{{matchMsg.name}}</view>
+		</view>
+	</view>
+	<view class="cardList c1">
+		<view class="cL">
+			<text>起</text>
+		</view>
+		<view class="cR">
+			<view class="cardMsg">
+				<view>起点</view>
+				<view class="x">距离：0KM</view>
+				<view class="x">打卡时间：09:09:09</view>
+			</view>
+			<view class="myPic nohas">
+				<image src="/image/camera.png"></image>
+			</view>
+		</view>
+	</view>
+</view>
