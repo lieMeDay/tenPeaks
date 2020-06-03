@@ -23,11 +23,13 @@ Page({
       this.setData({
         openId: app.globalData.openId,
       })
+      this.getUserMatch()
     } else {
       app.CallbackOpenid = res => {
         this.setData({
           openId: res.data.data.openid
         })
+        this.getUserMatch()
       }
     }
     // 获取用户信息
@@ -42,8 +44,11 @@ Page({
     })
   },
   // 获取赛事信息
-  getMatch(opt) {
+  getMatch() {
     let that = this
+    let opt = {
+      matchId: that.data.matchId
+    }
     tool({
       url: "/match/getMatchById",
       data: opt,
@@ -173,8 +178,8 @@ Page({
     let that=this
     let l=that.data.startloc
     wx.openLocation({
-      latitude: l.split(';')[0],
-      longitude: l.split(';')[1],
+      latitude: Number(l.split(';')[0]),
+      longitude: Number(l.split(';')[1]),
     })
   },
   // 打卡 =>授权
@@ -239,11 +244,23 @@ Page({
   },
   // 三个
   goPage(e){
+    let that=this
     let i=e
     if(i.currentTarget){
-      i=currentTarget.dataset.s
+      i=i.currentTarget.dataset.s
     }else{
       i=e
+    }
+    // 排行榜
+    if(i==1){
+      wx.navigateTo({
+        url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+      })
+    }else if(i==2){
+      // 登顶证明
+      wx.navigateTo({
+        url: `/pages/climbTop/climbTop?matchId=${that.data.matchId}`,
+      })
     }
   },
   
@@ -272,15 +289,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options.matchId=112
     this.getopenId()
     this.setData({
       matchId: options.matchId
     })
-    let opt = {
-      matchId: options.matchId
-    }
-    this.getMatch(opt)
+    this.getMatch()
   },
 
   /**

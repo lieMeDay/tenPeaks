@@ -61,6 +61,7 @@
   overflow: hidden;
   background-color: #fff;
   margin: 0rpx auto;
+  margin-bottom: 30rpx;
 }
 
 .listBox {
@@ -82,7 +83,11 @@
   display: flex;
   align-items: center;
 }
-
+.l>view{
+  display: flex;
+  align-items: center;
+  margin-right: 10rpx;
+}
 .l image,
 .r image {
   width: 50rpx;
@@ -116,7 +121,7 @@
   z-index: 10;
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
 }
-
+.promtWrap>navigator,
 .promtWrap>view {
   flex: 1;
   display: flex;
@@ -174,7 +179,6 @@
   width: 220rpx;
   height: 220rpx;
   margin: 10rpx auto;
-  background-color: gold;
   margin-bottom: 30rpx;
 }
 .bigGold>image{
@@ -185,7 +189,6 @@
   width: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -193,7 +196,6 @@
   width: 20%;
   flex: 0 0 auto;
   height: 120rpx;
-  background-color: gold;
   margin-bottom: 30rpx;
   position: relative;
   display: flex;
@@ -204,7 +206,6 @@
   width: 120rpx;
   height: 120rpx;
   position: relative;
-  background-color: pink;
 }
 .goldTip>image{
   width: 120rpx;
@@ -217,6 +218,7 @@
   left:0;
   width: 100%;
   text-align: center;
+  color: #999999;
 }
 .goldTip.hasGold>text{
   color: #C77618;

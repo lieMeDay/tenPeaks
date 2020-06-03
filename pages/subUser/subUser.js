@@ -8,9 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    finishCard: {},
-    finishImg:'',
-    hasPost: false,//是否提交过
+    finishImg: '',
+    hasPost: false, //是否提交过
     matchPRule: {},
     priceList: [],
     powerList: [], //报名项目显示设置
@@ -127,8 +126,8 @@ Page({
       }
     }).then(res => {
       let rr = res.data.data
-      if (rr.length>0) {
-        rr = rr[0]
+      if (rr.length > 0) {
+        rr = rr[rr.length-1]
         let i = 0
         for (var a = 0; a < that.data.contryList.length; a++) {
           let v = that.data.contryList[a].name
@@ -195,8 +194,8 @@ Page({
           rr.power[k] = true
         }
       }
-      for(var a=0;a<rr.matchInfo[0].priceList.length;a++){
-        rr.matchInfo[0].priceList[a].checked=false
+      for (var a = 0; a < rr.matchInfo[0].priceList.length; a++) {
+        rr.matchInfo[0].priceList[a].checked = false
       }
       that.setData({
         matchPRule: rr,
@@ -289,27 +288,27 @@ Page({
   },
   // 选择购买
   radioChange(e) {},
-  radioTap(e){
+  radioTap(e) {
     let that = this
     let val = e.currentTarget.dataset.id
-    let pl=that.data.priceList
-    for(var a=0;a<pl.length;a++){
-      if(pl[a].id==val){
-        pl[a].checked=!pl[a].checked
-      }else{
-        pl[a].checked=false
+    let pl = that.data.priceList
+    for (var a = 0; a < pl.length; a++) {
+      if (pl[a].id == val) {
+        pl[a].checked = !pl[a].checked
+      } else {
+        pl[a].checked = false
       }
     }
-    let cv=pl.filter(v=>v.checked==true)
-    if(cv.length>0){
+    let cv = pl.filter(v => v.checked == true)
+    if (cv.length > 0) {
       that.setData({
-        priceList:pl,
+        priceList: pl,
         priceId: cv[0].id,
         price: cv[0].price,
       })
-    }else{
+    } else {
       that.setData({
-        priceList:pl,
+        priceList: pl,
         priceId: '',
         price: 0,
       })
@@ -433,51 +432,12 @@ Page({
     subCon.healthReport = healthImgPut //健康证明
     // console.log(trueMsg, subCon)
     if (trueMsg) {
-      if(1==0){
-        tool({
-          url: '/run/person/shifeng/putToActivity',
-          data: subCon,
-          method: "POST",
-          load: true
-        }).then(res=>{
-          // 上传山顶打卡点
-          tool({
-            url: '/run/person/shifeng/addToActivity',
-            data: that.data.finishCard,
-            method: "POST",
-            load: true
-          })
-          if (res.data.data) {
-            subCon.signUpId = res.data.data
-          } else {
-            subCon.signUpId = res.data.msg.signUpId
-          }
-          that.setData({
-            putMsg: subCon
-          })
-          if (that.data.price <= 0) {
-            app.globalData.match = that.data.matchId
-            wx.switchTab({
-              url: `/pages/rank/rank`,
-            })
-          } else {
-            that.putOrder()
-          }
-        })
-      }else{
         tool({
           url: '/shifeng/match/signUp/member/add',
           data: subCon,
           method: "POST",
           load: true
         }).then(res => {
-          // 上传山顶打卡点
-          tool({
-            url: '/run/person/shifeng/addToActivity',
-            data: that.data.finishCard,
-            method: "POST",
-            load: true
-          })
           if (res.data.data) {
             subCon.signUpId = res.data.data
           } else {
@@ -489,13 +449,12 @@ Page({
           if (that.data.price <= 0) {
             app.globalData.match = that.data.matchId
             wx.redirectTo({
-              url: `/pages/rank/rank`,
+              url: `/pages/rank/rank?matchId=${that.data.matchId}`,
             })
           } else {
             that.putOrder()
           }
         })
-      }
     }
   },
   // 上传订单
@@ -566,23 +525,16 @@ Page({
   /* 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // options = {
+    //   matchId: 112,
+    //   turl: '20200603110217_run.png'
+    // }
     this.getOpenId()
     wx.hideShareMenu(); //隐藏转发分享按钮
     this.setData({
+      finishImg: util.imgUrl + '/run/query_pic?name=' + options.turl,
       matchId: options.matchId,
       contryList: contryJSON.contry,
-    })
-    let that = this
-    wx.getStorage({
-      key: 'mountaintop',
-      success(res) {
-        // console.log(res.data)
-        let r = res.data
-        that.setData({
-          finishImg: r.cpImg,
-          finishCard: r
-        })
-      }
     })
     this.getMatchMsg()
   },

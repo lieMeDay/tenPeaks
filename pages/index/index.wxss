@@ -55,7 +55,7 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 .conBox{
-  width: 90%;
+  width: 85%;
   height: 220rpx;
   position: absolute;
   top: 0;
@@ -103,8 +103,8 @@
   justify-content: center;
 }
 .cr image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 62rpx;
+  height: 74rpx;
 }
 .ddcs{
   margin-top: 10rpx;

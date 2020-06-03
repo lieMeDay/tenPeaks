@@ -9,13 +9,13 @@
 		<view>
 			<button class="gornu" wx:if="{{!hasInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfoGoR">
 				<view class="conImg">
-					<image src="/image/mb.png"></image>
+					<image src="/image/ma.png"></image>
 				</view>
 				<view class="vv">排行榜</view>
 			</button>
 			<view wx:else data-s="1" bindtap="goPage">
 				<view class="conImg">
-					<image src="/image/mb.png"></image>
+					<image src="/image/ma.png"></image>
 				</view>
 				<view class="vv">排行榜</view>
 			</view>
@@ -31,7 +31,7 @@
 		<view data-s="3" bindtap="goPage">
 			<view>
 				<view class="conImg">
-					<image src="/image/mb.png"></image>
+					<image src="/image/mc.png"></image>
 				</view>
 				<view class="vv">周边产品</view>
 			</view>

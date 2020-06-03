@@ -6,13 +6,13 @@
 				<view class="topPic">
 					<view class="topPicCon">
 						<view class="myTopbg">
-							<image src=""></image>
+							<image src="/image/banner.png"></image>
 						</view>
 						<view class="myTop">
 							<image src="{{finishImg}}"></image>
 							<view class="gold">
-								<image src=""></image>
-								<text class="matchName">黔灵山</text>
+								<image src="/image/gx1.png"></image>
+								<text class="matchName">{{matchPRule.matchInfo[0].name}}</text>
 							</view>
 						</view>
 					</view>
@@ -47,7 +47,7 @@
 						<view class="ftitBox">
 							<view class="tl">
 								<view class="dian"></view>
-								<text>收货人信息</text>
+								<text>参与人员信息</text>
 							</view>
 						</view>
 						<view>
@@ -68,7 +68,7 @@
 							<!-- 性别 -->
 							<view class="subCon">
 								<view class="scL"><text>性别</text><text class="redStart">*</text></view>
-								<view class="scR bai">
+								<view class="scR">
 									<radio-group name="gender" class="sexchioce">
 										<label class="fl">
 											<view>
@@ -249,7 +249,7 @@
 						<view class="sblT">价格</view>
 						<view class="sblB">{{price}}元</view>
 					</view>
-					<button class="sbR" form-type='submit' style="width:{{price>0?'calc(100% - 280rpx)':'100%'}}">提交报名</button>
+					<button class="sbR" form-type='submit' style="width:{{price>0?'calc(100% - 280rpx)':'100%'}}">提交</button>
 				</view>
 			</view>
 		</form>

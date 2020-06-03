@@ -27,11 +27,22 @@ overflow: hidden;
   position: relative;
   margin:0 auto;
   margin-top: -125rpx;
-  background-color: pink;
 }
 .bigImg>image{
   width: 250rpx;
   height: 250rpx;
+}
+.bigImg>text{
+  position: absolute;
+  bottom: 56rpx;
+  color: #C77718;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  font-size: 36rpx;
+}
+.hui.bigImg>text{
+  color: #999999;
 }
 .lvtxt{
   text-align: center;

@@ -45,68 +45,95 @@ Page({
       load: true
     }).then(res => {
       var rr = res.data.data
-      for(let a=0;a<rr.length;a++){
-        rr[a].altitude=0
-        let opt ={matchId:rr[a].id}
+      for (let a = 0; a < rr.length; a++) {
+        rr[a].altitude = 0
+        let opt = {
+          matchId: rr[a].id
+        }
         tool({
           url: "/match/getMatchById",
           data: opt,
           load: true
-        }).then(val=>{
-          let vv=val.data.data.matchInfo
-          rr[a].altitude=vv[0].rise
+        }).then(val => {
+          let vv = val.data.data.matchInfo
+          rr[a].altitude = vv[0].rise
           that.setData({
             allMatch: rr
           })
+          let obj = {
+            matchId: rr[a].id,
+            groupId: vv[0].id,
+            openId: that.data.openId
+          }
+          that.getUserMatch(obj, rr, a)
         })
       }
       that.setData({
         allMatch: rr
       })
-      that.getUserMatch()
+    this.getTopNum()
     })
   },
   // 获取用户参加的赛事
-  getUserMatch() {
+  getUserMatch(obj, ml, a) {
     let that = this
     tool({
-      url: '/match/signUp/member/getByOpenId',
-      data: {
-        openId: that.data.openId
-      }
+      url: '/run/person/shifeng/finishData/get',
+      data: obj,
+      method: "GET",
+      load: true
     }).then(res => {
-      let ee = res.data.data
       let rr = res.data.data
-      let did = {}
-      rr = rr.reduce(function (item, next) {
-        did[next.matchId] ? "" : (did[next.matchId] = true && item.push(next));
-        return item;
-      }, []);
-      let ml = that.data.allMatch
-      for (var a = 0; a < ml.length; a++) {
-        for (var b = 0; b < rr.length; b++) {
-          if (ml[a].id == rr[b].matchId) {
-            ml[a].hasRun = true
-          } else {
-            ml[a].hasRun = false
-          }
-        }
-      }
-      for (var a = 0; a < ml.length; a++) {
-        ml[a].myRunNum = 0
-        for (var b = 0; b < ee.length; b++) {
-          if (ml[a].id == ee[b].matchId) {
-            ml[a].myRunNum = ++ml[a].myRunNum
-          }
-        }
+      if (rr) {
+        ml[a].hasRun = true
+        // myRunNum
+      } else {
+        ml[a].hasRun = false
       }
       that.setData({
         allMatch: ml
       })
-      this.getTopNum()
     })
+
+
+    // tool({
+    //   url: '/match/signUp/member/getByOpenId',
+    //   data: {
+    //     openId: that.data.openId
+    //   }
+    // }).then(res => {
+    //   let ee = res.data.data
+    //   let rr = res.data.data
+    //   let did = {}
+    //   rr = rr.reduce(function (item, next) {
+    //     did[next.matchId] ? "" : (did[next.matchId] = true && item.push(next));
+    //     return item;
+    //   }, []);
+    //   let ml = that.data.allMatch
+    //   for (var a = 0; a < ml.length; a++) {
+    //     for (var b = 0; b < rr.length; b++) {
+    //       if (ml[a].id == rr[b].matchId) {
+    //         ml[a].hasRun = true
+    //       } else {
+    //         ml[a].hasRun = false
+    //       }
+    //     }
+    //   }
+    //   for (var a = 0; a < ml.length; a++) {
+    //     ml[a].myRunNum = 0
+    //     for (var b = 0; b < ee.length; b++) {
+    //       if (ml[a].id == ee[b].matchId) {
+    //         ml[a].myRunNum = ++ml[a].myRunNum
+    //       }
+    //     }
+    //   }
+    //   that.setData({
+    //     allMatch: ml
+    //   })
+    //   this.getTopNum()
+    // })
   },
-  // 获取登顶人数
+  // 获取赛事总登顶人数
   getTopNum() {
     let that = this
     tool({
@@ -159,8 +186,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  },
+  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成

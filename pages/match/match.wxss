@@ -77,7 +77,7 @@
   overflow: hidden;
   margin: 0 auto;
   margin-top: 40rpx;
-  padding-bottom: 100rpx;
+  padding-bottom: 120rpx;
 }
 .mt{
   font-size: 40rpx;

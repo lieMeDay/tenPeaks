@@ -13,15 +13,15 @@
 	</view>
 	<view class="container">
 		<view class="promtWrap">
-			<view class="shu">
+			<navigator class="shu" url="/pages/record/record">
 				<view class="conImg">
 					<image src="/image/rh.png"></image>
 				</view>
 				<view class="vv">登山记录</view>
-			</view>
+			</navigator>
 			<view>
 				<view class="conImg">
-					4
+					{{total.length}}
 				</view>
 				<view class="vv vg">总次数</view>
 			</view>
@@ -35,18 +35,22 @@
 		<view class="myGoldWrap">
 			<view class="myGoldtit">
 				<view>我的勋章</view>
-				<view class="gn"><text class="lv">5</text>/10</view>
+				<view class="gn"><text class="lv">{{rNum}}</text>/{{allMatch.length}}</view>
 			</view>
 			<!-- 十满贯 -->
-			<view class="bigGold">
-				<image src=""></image>
+			<view class="bigGold" wx:if="{{rNum==allMatch.length}}">
+				<image src="/image/gold.png"></image>
 			</view>
 			<!-- 十峰 -->
 			<view class="goldList">
-			<view class="goldItem" wx:for="{{goldList}}" wx:key="index">
-			<view wx:if="{{item==1}}" class="goldTip hasGold"><image src="/image/g1.png"></image><text>黔灵山</text></view>
-			<view wx:else class="goldTip"><image src=""></image><text>黔灵山</text></view>
-			</view>
+				<view class="goldItem" wx:for="{{allMatch}}" wx:key="index">
+					<view wx:if="{{item.hasRun}}" class="goldTip hasGold">
+						<image src="/image/gx1.png"></image><text>{{item.showName}}</text>
+					</view>
+					<view wx:else class="goldTip">
+						<image src="/image/gx2.png"></image><text>{{item.showName}}</text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -54,7 +58,7 @@
 		<navigator class="listBox" url="/pages/feedback/feedback">
 			<view class="l">
 				<view>
-					<image></image>
+					<image src="/image/x1.png"></image>
 				</view>
 				<view>用户反馈</view>
 			</view>
@@ -65,7 +69,7 @@
 		<view class="listBox">
 			<view class="l">
 				<view>
-					<image></image>
+					<image src="/image/x2.png"></image>
 				</view>
 				<view>帮助</view>
 			</view>

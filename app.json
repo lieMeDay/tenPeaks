@@ -1,16 +1,17 @@
 {
   "pages": [
     "pages/mine/mine",
-    "pages/match/match",
     "pages/index/index",
-    "pages/map/map",
     "pages/climbTop/climbTop",
+    "pages/match/match",
+    "pages/subUser/subUser",
+    "pages/map/map",
     "pages/rank/rank",
     "pages/cardMsg/cardMsg",
     "pages/record/record",
-    "pages/subUser/subUser",
     "pages/signIn/signIn",
-    "pages/feedback/feedback"
+    "pages/feedback/feedback",
+    "pages/allRank/allRank"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -22,6 +23,12 @@
         "iconPath": "image/i1.png",
         "pagePath": "pages/index/index",
         "text": "赛事"
+      },
+      {
+        "selectedIconPath": "image/i22.png",
+        "iconPath": "image/i2.png",
+        "pagePath": "pages/allRank/allRank",
+        "text": "排行"
       },
       {
         "selectedIconPath": "image/i33.png",
