@@ -127,7 +127,7 @@ Page({
     }).then(res => {
       let rr = res.data.data
       if (rr.length > 0) {
-        rr = rr[rr.length-1]
+        rr = rr[rr.length - 1]
         let i = 0
         for (var a = 0; a < that.data.contryList.length; a++) {
           let v = that.data.contryList[a].name
@@ -334,6 +334,54 @@ Page({
       })
     }
   },
+  // 上传终点
+  putTop() {
+    let that=this
+    wx.getStorage({
+      key: 'mountainTop',
+      success(res) {
+        if (res.data.auto) {
+          // 属于自动弹出
+          tool({
+            url: '/run/person/shifeng/addToActivity/auto',
+            data: res.data,
+            method: "POST",
+            load: true
+          }).then(resolve => {
+            let newObj = {
+              // matchId   groupId  openId  sex  
+              matchId: that.data.putMsg.matchId,
+              groupId: that.data.putMsg.groupId,
+              openId: that.data.putMsg.openId,
+              memberName:that.data.putMsg.name,
+              sex: that.data.putMsg.gender
+            }
+            tool({
+              url: "/run/person/shifeng/finishData/add",
+              method: 'POST',
+              data: newObj,
+              load: true
+            }).then(res => {
+              wx.removeStorage({
+                key: 'mountainTop',
+              })
+            })
+          })
+        } else {
+          tool({
+            url: '/run/person/shifeng/addToActivity',
+            data: res.data,
+            method: "POST",
+            load: true
+          }).then(res => {
+            wx.removeStorage({
+              key: 'mountainTop',
+            })
+          })
+        }
+      },
+    })
+  },
   // 获取提交信息
   formSubmit(e) {
     let that = this
@@ -343,7 +391,6 @@ Page({
     ); //邮箱正则表达式
     var sfz = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/; //身份证正则
     let subCon = e.detail.value
-    // console.log(subCon)
     let pwList = that.data.powerList
     let trueMsg = true
     for (var k in pwList) {
@@ -364,6 +411,7 @@ Page({
           r.forEach(v => {
             c += v + ';'
           })
+          c=c.substr(0, c.length - 1);  
           subCon[k] = c
         } else if (k == 'phone') {
           if (!sj.test(subCon[k])) {
@@ -432,29 +480,31 @@ Page({
     subCon.healthReport = healthImgPut //健康证明
     // console.log(trueMsg, subCon)
     if (trueMsg) {
-        tool({
-          url: '/shifeng/match/signUp/member/add',
-          data: subCon,
-          method: "POST",
-          load: true
-        }).then(res => {
-          if (res.data.data) {
-            subCon.signUpId = res.data.data
-          } else {
-            subCon.signUpId = res.data.msg.signUpId
-          }
-          that.setData({
-            putMsg: subCon
-          })
-          if (that.data.price <= 0) {
-            app.globalData.match = that.data.matchId
-            wx.redirectTo({
-              url: `/pages/rank/rank?matchId=${that.data.matchId}`,
-            })
-          } else {
-            that.putOrder()
-          }
+      tool({
+        url: '/shifeng/match/signUp/member/add',
+        data: subCon,
+        method: "POST",
+        load: true
+      }).then(res => {
+        if (res.data.data) {
+          subCon.signUpId = res.data.data
+        } else {
+          subCon.signUpId = res.data.msg.signUpId
+        }
+        that.setData({
+          putMsg: subCon
         })
+        // 上传终点
+        that.putTop()
+        if (that.data.price <= 0) {
+          app.globalData.match = that.data.matchId
+          wx.redirectTo({
+            url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+          })
+        } else {
+          that.putOrder()
+        }
+      })
     }
   },
   // 上传订单
@@ -478,8 +528,8 @@ Page({
       method: "POST",
       load: true
     }).then(res => {
-      console.log(res.data.data)
-      // that.goPay(res.data.data)
+      // console.log(res.data.data)
+      that.goPay(res.data.data)
     }).catch(err => {
       wx.showToast({
         title: '订单生成失败',
@@ -498,7 +548,7 @@ Page({
       totalFee: that.data.price * 100
     }
     tool({
-      url: '/match/signUp/order/payApplet',
+      url: '/match/signUp/order/payAppletSF',
       data: payObj,
       method: "POST"
     }).then(res => {
@@ -517,7 +567,12 @@ Page({
         },
         fail: function (res) {
           console.log('失败', res)
-          let msg = that.data.putMsg
+          wx.showToast({
+            title: '支付失败',
+            icon: 'none',
+            duration: 2000
+          })
+          // let msg = that.data.putMsg
         },
       })
     })

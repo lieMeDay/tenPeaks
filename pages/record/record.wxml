@@ -1,46 +1,32 @@
 <!-- 登山记录 -->
 <view class="page">
-	<view class="yearBox">
-		2020年
-	</view>
-	<view class="listBox">
-		<view class="list">
-			<view class="monthBox"><text class="month">5</text><text class="monthT">月</text></view>
-			<view class="listCon">
-				<view class="itemleft">
-					<view class="nn">黔灵山</view>
-					<view class="dd">2020/05/11</view>
-				</view>
-				<view class="itemright">
-					<view class="ddpic">
-						<image src=""></image>
+<view wx:if="{{allRecord.length<=0}}" class="nodata">暂无</view>
+	<view wx:for="{{allRecord}}" wx:key="index">
+		<view class="yearBox">
+			{{item.year}}年
+		</view>
+		<view class="listBox">
+			<view class="list">
+				<view class="monthBox"><text class="month">{{item.month}}</text><text class="monthT">月</text></view>
+				<view class="listCon" wx:for="{{item.data}}" wx:for-index="ins" wx:for-item="items" wx:key="ins" data-v="{{items}}" bindtap="seeCard">
+					<view class="itemleft">
+						<view class="nn">{{items.name}}</view>
+						<view class="dd">{{items.runtime}}</view>
 					</view>
-					<view class="ut">02:43:41</view>
-					<view class="more">
-						<image src=""></image>
+					<view class="itemright">
+						<view class="ddpic">
+							<image src="/image/sz.png"></image>
+						</view>
+						<view class="ut">{{items.useTime}}</view>
+						<view class="more">
+							<image src="/image/more.png"></image>
+						</view>
 					</view>
-				</view>
-				<view>
-				</view>
-			</view>
-			<view class="listCon">
-				<view class="itemleft">
-					<view class="nn">黔灵山</view>
-					<view class="dd">2020/05/11</view>
-				</view>
-				<view class="itemright">
-					<view class="ddpic">
-						<image src=""></image>
-					</view>
-					<view class="ut">02:43:41</view>
-					<view class="more">
-						<image src=""></image>
+					<view>
 					</view>
 				</view>
 				<view>
 				</view>
-			</view>
-			<view>
 			</view>
 		</view>
 	</view>

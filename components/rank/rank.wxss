@@ -1,0 +1,129 @@
+.page{
+  background-color: #f2f2f2;
+}
+.matchWarp{
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  padding: 20rpx 0;
+}
+.matchBox{
+  width: 95%;
+  height: 100rpx;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.picker{
+  display: flex;
+  align-items: center;
+}
+.mlogo{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-right: 15rpx;
+}
+.mlogoImage{
+  width: 100rpx;
+  height: 100rpx;
+}
+.drop{
+  margin-left: 10rpx;
+}
+.drop,.dropImage{
+  width: 40rpx;
+  height: 40rpx;
+}
+.rankList{
+  width: 100%;
+  overflow: hidden;
+  margin: 10rpx auto;
+  background-color: #fff;
+  padding: 20rpx 0;
+}
+.rankBox{
+  width: 95%;
+  margin: 0 auto;
+}
+.rankTitle{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  line-height: 70rpx;
+  padding-bottom: 10rpx;
+}
+.rankTitleV{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15rpx;
+  color: #999999;
+}
+.diLine{
+  width: 100%;
+  padding: 0 15rpx;
+  height: 8rpx;
+  background-color: transparent;
+}
+.rankTitleV.act{
+  color: #16C95D;
+}
+.rankTitleV.act .diLine{
+  background-color: #16C95D;
+}
+.rankCon{
+  width: 100%;
+  height: 142rpx;
+}
+.rankCon:last-child .rankc{
+  border-bottom: none;
+}
+.myRank{
+  background-color: #DFF7E8;
+}
+.rankc{
+  width: 95%;
+  height: 140rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #E8E8E8;
+}
+.userMsg{
+  display: flex;
+  align-items: center;
+}
+.rank{
+  font-size: 40rpx;
+  color: #333;
+  width: 65rpx;
+  height: 65rpx;
+  text-align: center;
+}
+.rankImg{
+  width: 65rpx;
+  height: 65rpx;
+}
+.userhead{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 15rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #E8E8E8;
+}
+.userheadImg{
+  width: 100rpx;
+  height: 100rpx;
+}
+.usen{
+  font-size: 32rpx;
+  font-size: #333;
+}
+.ddcsTxt{
+  color: #16C95D;
+}

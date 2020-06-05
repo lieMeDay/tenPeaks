@@ -121,3 +121,6 @@
   background-color: #16C95D;
   color: #fff;
 }
+.black.quan{
+  width: 80% !important;
+}

@@ -81,30 +81,38 @@ Page({
   subBind() {
     let that = this
     let newImg = that.data.imgList.join(';')
-    let obj = {
-      openId: that.data.openId,
-      content: that.data.textV,
-      quesImg: newImg,
-      time: new Date().getTime()
-    }
-    console.log(obj)
-    tool({
-      url:'/run/addFeedback',
-      data:obj,
-      method:"POST"
-    }).then(res=>{
-      wx.showModal({
-        title: '提示',
-        content: '提交成功，感谢反馈',
-        showCancel:false,
-        success (res) {
-          if (res.confirm) {
-            // console.log('用户点击确定')
-            wx.navigateBack()
-          }
-        }
+    if(that.data.textV==''){
+      wx.showToast({
+        title: '请填写内容',
+        icon:'none',
+        duration: 2000
       })
-    })
+    }else{
+      let obj = {
+        openId: that.data.openId,
+        content: that.data.textV,
+        quesImg: newImg,
+        time: new Date().getTime(),
+        type:'shifeng'
+      }
+      tool({
+        url:'/run/addFeedback',
+        data:obj,
+        method:"POST"
+      }).then(res=>{
+        wx.showModal({
+          title: '提示',
+          content: '提交成功，感谢反馈',
+          showCancel:false,
+          success (res) {
+            if (res.confirm) {
+              // console.log('用户点击确定')
+              wx.navigateBack()
+            }
+          }
+        })
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载

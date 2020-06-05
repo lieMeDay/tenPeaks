@@ -1,8 +1,8 @@
 
 <view class="errorWrap">
 	<view class="errorBox">
-		<view class="errorTit gt">感谢您使用爱云跑小程序</view>
-		<view class="errTips">在使用过程中，您碰到任何问题，或者有宝贵的建议，都可以反馈给我们，爱云跑会更好的提升您的使用体验。</view>
+		<view class="errorTit gt">感谢您使用贵阳十峰小程序</view>
+		<view class="errTips">在使用过程中，您碰到任何问题，或者有宝贵的建议，都可以反馈给我们，贵阳十峰会更好的提升您的使用体验。</view>
 		<!-- 图片 -->
 		<view class="imgBox">
 			<view wx:for="{{imgList}}" wx:key="index">

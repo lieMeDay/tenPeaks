@@ -6,20 +6,31 @@
 			</view>
 			<view class="mn">{{matchMsg.name}}</view>
 		</view>
+		<view class="tips" wx:if="{{examine}}">成绩待审核</view>
 	</view>
-	<view class="cardList c1">
+	<view class="cardList c1" wx:for="{{info}}" wx:key='index'>
 		<view class="cL">
-			<text>起</text>
+			<image wx:if="{{item.cpImg}}" src="{{item.cpImg}}"></image>
+			<text wx:else>{{item.showName}}</text>
 		</view>
 		<view class="cR">
 			<view class="cardMsg">
-				<view>起点</view>
-				<view class="x">距离：0KM</view>
-				<view class="x">打卡时间：09:09:09</view>
+				<view>{{item.cpName}}</view>
+				<!-- <view class="x">距离：0KM</view> -->
+				<view class="x">打卡时间：{{item.cptime}}</view>
 			</view>
-			<view class="myPic nohas">
+			<view wx:if="{{item.cardImg}}" class="myPic" data-v="{{item.cardImg}}" bindtap="seeBig">
+				<image src="{{item.cardImg}}"></image>
+			</view>
+			<view wx:else class="myPic nohas">
 				<image src="/image/camera.png"></image>
 			</view>
 		</view>
 	</view>
+</view>
+<view class="alert" wx:if="{{seeImg}}">
+<view class="alertCon">
+<view class="imgBox"><image src="{{seeImg}}"></image></view>
+<view class="closeBtn" bindtap="closeImg"><image src="/image/close.png"></image></view>
+</view>
 </view>

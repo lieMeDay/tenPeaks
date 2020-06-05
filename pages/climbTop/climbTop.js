@@ -49,46 +49,49 @@ Page({
   // 获取我的登顶次数
   getUserMatch() {
     let that = this
+    // 首次登顶时间
     tool({
-      url: '/match/signUp/member/getByOpenId',
+      url: '/run/person/shifeng/gets',
       data: {
+        matchId: that.data.matchId,
         openId: that.data.openId
-      }
+      },
+      method: "GET"
     }).then(res => {
-      let ee = res.data.data
-      let mymsg = []
-      for (var b = 0; b < ee.length; b++) {
-        if (that.data.matchId == ee[b].matchId) {
-          mymsg.push(ee[b])
+      let rr = res.data.data
+      if (rr && rr.length > 0) {
+        let rend = rr.filter(v => v.cpName == '终点' && v.state == 1)
+        if (rend.length > 0) {
+          for (var a = 0; a < rend.length; a++) {
+            rend[a].showdata = util.timeConvert(rend[a].cpTime)
+          }
+          rend = that.sortKey(rend, 'showdata')
+          rend[0].showdata= rend[0].showdata.slice(0,10)
+          that.setData({
+            firstDtate: rend[0].showdata
+          })
         }
       }
-      if (mymsg.length > 0) {
-        mymsg = that.sortKey(mymsg, 'signUpDate')
-        for (var a = 0; a < mymsg.length; a++) {
-          mymsg[a].showDate = mymsg[a].signUpDate.slice(0, 10)
-          mymsg[a].showDate = mymsg[a].showDate.split('-')[0] + '/' + mymsg[a].showDate.split('-')[1] + '/' + mymsg[a].showDate.split('-')[2]
-        }
-      }
-      that.setData({
-        mymsg: mymsg
-      })
     })
-    
+
     let obj = {
       matchId: that.data.matchId,
       groupId: that.data.matchMsg.matchInfo[0].id,
       openId: that.data.openId
     }
     tool({
-      url:'/run/person/shifeng/finishData/get',
-      data:obj,
-      method:"GET",
-      load:true
-    }).then(res=>{
-      let ml = 0
-      that.setData({
-        myRunNum: ml,
-      })
+      url: '/run/person/shifeng/finishData/get',
+      data: obj,
+      method: "GET",
+      load: true
+    }).then(res => {
+      let rr = res.data.data
+      if (rr) {
+        that.setData({
+          myRunNum: rr.joinNum,
+          myName:rr.memberName
+        })
+      }
     })
   },
   // 获取首次
@@ -111,7 +114,7 @@ Page({
       url: "/run/person/shifeng/myRank",
       data: obj,
       method: "GET",
-      load:true
+      load: true
     }).then(res => {
       if (res.data.data) {
         that.setData({
@@ -132,7 +135,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options.matchId = 112
     this.setData({
       matchId: options.matchId
     })

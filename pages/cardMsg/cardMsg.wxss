@@ -3,15 +3,24 @@
 }
 .matchWarp{
   width: 100%;
-  height: 100rpx;
+  /* height: 100rpx; */
   background-color: #fff;
   padding: 20rpx 0;
 }
+.tips{
+  width: 100%;
+  margin: 0 auto;
+  font-size: 30rpx;
+  border-top: 2rpx solid #D7D7D7;
+  line-height: 50rpx;
+  text-indent: 2.5%;
+}
 .matchBox{
   width: 95%;
-  height: 100rpx;
+  /* height: 100rpx; */
   display: flex;
   align-items: center;
+  margin: 0 auto;
 }
 .mlogo{
   width: 100rpx;
@@ -48,6 +57,11 @@
   color: #fff;
   font-size: 48rpx;
 }
+
+.cL >image{
+  width: 160rpx;
+  height: 160rpx;
+}
 .cR{
   width: calc(100% - 200rpx);
   height: 160rpx;
@@ -76,12 +90,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .myPic >image{
   width: 100rpx;
   height: 100rpx;
 }
 .nohas>image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 查看大图 */
+.alert{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alertCon{
+  width: 80%;
+  height: 770rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.imgBox,.imgBox>image{
+  width: 100%;
+  height: 700rpx;
+}
+.closeBtn{
+  margin-top: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeBtn>image{
   width: 50rpx;
   height: 50rpx;
 }

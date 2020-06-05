@@ -45,93 +45,64 @@ Page({
       load: true
     }).then(res => {
       var rr = res.data.data
-      for (let a = 0; a < rr.length; a++) {
-        rr[a].altitude = 0
-        let opt = {
-          matchId: rr[a].id
-        }
-        tool({
-          url: "/match/getMatchById",
-          data: opt,
-          load: true
-        }).then(val => {
-          let vv = val.data.data.matchInfo
-          rr[a].altitude = vv[0].rise
-          that.setData({
-            allMatch: rr
-          })
-          let obj = {
-            matchId: rr[a].id,
-            groupId: vv[0].id,
-            openId: that.data.openId
-          }
-          that.getUserMatch(obj, rr, a)
-        })
-      }
+      that.matchMsg(rr, 0, rr.length)
       that.setData({
         allMatch: rr
       })
-    this.getTopNum()
+      this.getTopNum()
     })
   },
-  // 获取用户参加的赛事
-  getUserMatch(obj, ml, a) {
+  // 获取赛事信息
+  matchMsg(rr, a, length) {
+    // console.log(1)
+    let that = this
+    rr[a].altitude = 0
+    let opt = {
+      matchId: rr[a].id
+    }
+    tool({
+      url: "/match/getMatchById",
+      data: opt,
+    }).then(val => {
+      let vv = val.data.data.matchInfo
+      rr[a].altitude = vv[0].rise
+      that.setData({
+        allMatch: rr
+      })
+      let obj = {
+        matchId: rr[a].id,
+        groupId: vv[0].id,
+        openId: that.data.openId
+      }
+      that.getUserMatch(obj, rr, a, length)
+    })
+  },
+  // 获取用户赛事登顶次数
+  getUserMatch(obj, ml, a, length) {
+    // console.log(2)
     let that = this
     tool({
       url: '/run/person/shifeng/finishData/get',
       data: obj,
       method: "GET",
-      load: true
+      // load:true
     }).then(res => {
       let rr = res.data.data
       if (rr) {
         ml[a].hasRun = true
-        // myRunNum
+        ml[a].myRunNum = rr.joinNum
       } else {
         ml[a].hasRun = false
+        ml[a].myRunNum = 0
       }
-      that.setData({
-        allMatch: ml
-      })
+      if (++a < length) {
+        that.matchMsg(ml, a, length)
+      } else {
+        that.setData({
+          allMatch: ml
+        })
+      }
     })
-
-
-    // tool({
-    //   url: '/match/signUp/member/getByOpenId',
-    //   data: {
-    //     openId: that.data.openId
-    //   }
-    // }).then(res => {
-    //   let ee = res.data.data
-    //   let rr = res.data.data
-    //   let did = {}
-    //   rr = rr.reduce(function (item, next) {
-    //     did[next.matchId] ? "" : (did[next.matchId] = true && item.push(next));
-    //     return item;
-    //   }, []);
-    //   let ml = that.data.allMatch
-    //   for (var a = 0; a < ml.length; a++) {
-    //     for (var b = 0; b < rr.length; b++) {
-    //       if (ml[a].id == rr[b].matchId) {
-    //         ml[a].hasRun = true
-    //       } else {
-    //         ml[a].hasRun = false
-    //       }
-    //     }
-    //   }
-    //   for (var a = 0; a < ml.length; a++) {
-    //     ml[a].myRunNum = 0
-    //     for (var b = 0; b < ee.length; b++) {
-    //       if (ml[a].id == ee[b].matchId) {
-    //         ml[a].myRunNum = ++ml[a].myRunNum
-    //       }
-    //     }
-    //   }
-    //   that.setData({
-    //     allMatch: ml
-    //   })
-    //   this.getTopNum()
-    // })
   },
   // 获取赛事总登顶人数
   getTopNum() {
@@ -156,30 +127,32 @@ Page({
     })
   },
   // 获取定位
-  getLocation() {
+  getLoc() {
     wx.getLocation({
       type: 'wgs84',
       success(res) {
         // console.log(res)
       },
       fail(err) {
-        // console.log(err)
-        wx.showModal({
-          title: '定位权限为授予',
-          content: '需要获取您的位置才能够继续提供服务请在设置中允许授权位置信息',
-          confirmText: "授权",
-          success(res) {
-            if (res.confirm) {
-              wx.openSetting({
-                success(res) {
-                  console.log(res.authSetting)
-                  let r = res.authSetting
-                  // if (!r["scope.userLocation"]) {}
-                }
-              })
-            } else if (res.cancel) {}
-          }
-        })
+        console.log(err)
+        if (err.errMsg == 'getLocation:fail auth deny') {
+          wx.showModal({
+            title: '定位权限为授予',
+            content: '需要获取您的位置才能够继续提供服务请在设置中允许授权位置信息',
+            confirmText: "授权",
+            success(res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success(res) {
+                    console.log(res.authSetting)
+                    let r = res.authSetting
+                    // if (!r["scope.userLocation"]) {}
+                  }
+                })
+              } else if (res.cancel) {}
+            }
+          })
+        }
       }
     })
   },
@@ -200,7 +173,7 @@ Page({
    */
   onShow: function () {
     this.getOpenId()
-    this.getLocation()
+    this.getLoc()
   },
 
   /**

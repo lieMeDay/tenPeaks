@@ -1,12 +1,11 @@
-
 // 图片上传头
-// const imgUrl = "https://paoner.lvtutech.com/game"
-const imgUrl="http://192.168.0.101:9898"
+const imgUrl = "https://paoner.lvtutech.com/game"
+// const imgUrl="http://192.168.0.101:9898"
 
 // 接口调用函数
 const request = (options) => {
-  // let BaseUrl = "https://paoner.lvtutech.com/game"
-  let BaseUrl = 'http://192.168.0.101:9898'
+  let BaseUrl = "https://paoner.lvtutech.com/game"
+  // let BaseUrl = 'http://192.168.0.101:9898'
   return new Promise((resolve, reject) => {
     if (!options.method) {
       options.method = "GET"
@@ -20,16 +19,20 @@ const request = (options) => {
       success: resolve,
       fail: reject,
       complete: (res) => {
-        if (options.load) {
-          wx.hideLoading()
-        }
+        // if (options.load) {
+        //   wx.hideLoading({
+        //     fail: (res) => {
+        //       console.log('已关闭')
+        //     },
+        //   })
+        // }
       },
     })
-    if (options.load) {
-      wx.showLoading({
-        title: '加载中...',
-      })
-    }
+    // if (options.load) {
+    //   wx.showLoading({
+    //     title: '加载中...',
+    //   })
+    // }
     wx.request(options)
   })
 }
@@ -56,9 +59,37 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
   s = Math.round(s * 10000) / 10000;
   return s;
 }
+//将时间戳转换成正常时间格式
+const timeConvert = (timestamp) => {
+  var date = new Date(timestamp);
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  m = m < 10 ? "0" + m : m;
+  var d = date.getDate();
+  d = d < 10 ? "0" + d : d;
+  var h = date.getHours();
+  h = h < 10 ? "0" + h : h;
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+  minute = minute < 10 ? "0" + minute : minute;
+  second = second < 10 ? "0" + second : second;
+  return y + "/" + m + "/" + d + " " + h + ":" + minute + ":" + second;
+}
+// 秒转时分秒
+const formatSeconds = (time) => {
+  let min = Math.floor(time % 3600)
+  let hh = Math.floor(time / 3600) > 9 ? Math.floor(time / 3600) : '0' + Math.floor(time / 3600)
+  let mm = Math.floor(min / 60) > 9 ? Math.floor(min / 60) : '0' + Math.floor(min / 60)
+  let ss = time % 60 > 9 ? time % 60 : '0' + time % 60
+  let val = hh + ':' + mm + ':' + ss
+  return val
+}
+
 module.exports = {
-  tool:request,
-  imgUrl:imgUrl,
-  timeShift:timeShift,
-  getDistance:getDistance
+  tool: request, // 接口调用函数
+  imgUrl: imgUrl,
+  timeShift: timeShift, // 日期时间拼接转换
+  getDistance: getDistance, // 根据两点经纬度计算距离 单位(KM)
+  timeConvert: timeConvert, //将时间戳转换成正常时间格式
+  formatSeconds: formatSeconds, // 秒转时分秒
 }

@@ -1,0 +1,72 @@
+<view class="page">
+	<view class="matchWarp">
+		<view class="matchBox">
+			<picker bindchange="bindPickerChange" value="{{curI}}" range="{{matchList}}" range-key="name">
+				<view class="picker">
+					<view class="mlogo">
+						<image src="{{matchList[curI].logo}}" class="mlogoImage"></image>
+					</view>
+					<view class="mn">{{matchList[curI].name}}</view>
+					<view class="drop">
+						<image src="/image/drop.png" class="dropImage"></image>
+					</view>
+				</view>
+			</picker>
+		</view>
+	</view>
+	<view class="rankList">
+		<view class="rankBox">
+			<view class="rankTitle">
+				<view class="rankTitleV {{seeI==0?'act':''}}" data-i="0" bindtap="toggle">
+					<text>总榜</text>
+					<text class="diLine"></text>
+				</view>
+				<view class="rankTitleV {{seeI==1?'act':''}}" data-i="1" bindtap="toggle">
+					<text>年榜</text>
+					<text class="diLine"></text>
+				</view>
+				<view class="rankTitleV {{seeI==2?'act':''}}" data-i="2" bindtap="toggle">
+					<text>月榜</text>
+					<text class="diLine"></text>
+				</view>
+			</view>
+		</view>
+		<navigator class="rankCon myRank" url="/pages/record/record">
+			<view class="rankc">
+				<view class="userMsg">
+					<view class="rank">{{myRank}}</view>
+					<view class="userhead">
+						<image src="{{mymsg.headImgUrl}}" class="userheadImg"></image>
+					</view>
+					<view class="usen">{{mymsg.nikeName}}</view>
+				</view>
+				<view class="ddcs">
+					登顶 <text class="ddcsTxt">{{mytotal}}</text> 次
+				</view>
+			</view>
+		</navigator>
+		<view class="rankCon" wx:for="{{rankList}}" wx:key="index">
+			<view class="rankc">
+				<view class="userMsg">
+					<view wx:if="{{index==0}}" class="rank">
+						<image src="/image/ra.png" class="rankImg"></image>
+					</view>
+					<view wx:elif="{{index==1}}" class="rank">
+						<image src="/image/rb.png" class="rankImg"></image>
+					</view>
+					<view wx:elif="{{index==2}}" class="rank">
+						<image src="/image/rc.png" class="rankImg"></image>
+					</view>
+					<view wx:else class="rank">{{index+1}}</view>
+					<view class="userhead">
+						<image src="{{item.head_img_url}}" class="userheadImg"></image>
+					</view>
+					<view class="usen">{{item.nike_name}}</view>
+				</view>
+				<view class="ddcs">
+					登顶 <text class="ddcsTxt">{{item.join_num}}</text> 次
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

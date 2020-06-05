@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    seeImg:''
   },
   // 获取赛事信息
   getMatch(opt) {
@@ -19,9 +19,44 @@ Page({
     }).then(res => {
       let rr = res.data.data
       rr.showData = util.timeShift(rr.matchDate, rr.matchEndDate)
-      that.setData({
-        matchMsg: rr
+      var ss=wx.getStorageSync('seeRecord')
+      rr.matchInfo[0].info.forEach(v=>{
+        if(v.name=='起点'||v.name=='终点'){
+          v.showName=v.name.split('')[0]
+        }else{
+          v.showName=v.name
+        }
+        if(ss){
+          ss.forEach(vv=>{
+            if(v.name==vv.cpName){
+              v.cardImg=vv.cpImg
+              v.cptime=util.timeConvert(vv.cpTime).slice(11)
+            }
+          })
+        }
       })
+      let h=ss.filter(v=>v.state==0)
+      if(h.length>0){
+        that.setData({
+          examine:true
+        })
+      }
+      that.setData({
+        matchMsg: rr,
+        info:rr.matchInfo[0].info
+      })
+    })
+  },
+  // 查看图片
+  seeBig(e){
+    let v=e.currentTarget.dataset.v
+    this.setData({
+      seeImg:v
+    })
+  },
+  closeImg(){
+    this.setData({
+      seeImg:''
     })
   },
 
@@ -53,7 +88,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.removeStorage({
+      key: 'seeRecord',
+    })
   },
 
   /**

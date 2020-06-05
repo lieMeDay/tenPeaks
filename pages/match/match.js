@@ -13,8 +13,8 @@ Page({
     matchMsg: {},
     hasInfo: true,
     userInfo: '',
-    myRunNum:0,
-    startloc:''//起点位置
+    myRunNum: 0,
+    startloc: '' //起点位置
   },
   // 获取openId
   getopenId() {
@@ -23,13 +23,13 @@ Page({
       this.setData({
         openId: app.globalData.openId,
       })
-      this.getUserMatch()
+      this.getMatch()
     } else {
       app.CallbackOpenid = res => {
         this.setData({
           openId: res.data.data.openid
         })
-        this.getUserMatch()
+        this.getMatch()
       }
     }
     // 获取用户信息
@@ -59,12 +59,14 @@ Page({
       rr.introduce = rr.introduce.replace(/<img/gi, '<img class="inPimg" ')
       that.setData({
         matchMsg: rr,
-        startloc:rr.matchInfo[0].info[0].endDate
+        startloc: rr.matchInfo[0].info[0].endDate
       })
+      // console.log(that.data.startloc.split(';')[0])
+      this.getUserMatch()
     })
   },
   // 排行 =>授权
-  getUserInfoGoR(e){
+  getUserInfoGoR(e) {
     let that = this
     if (e.detail.errMsg == "getUserInfo:ok") {
       app.globalData.userInfo = e.detail.userInfo
@@ -175,11 +177,11 @@ Page({
   },
   // go 导航到这里
   goAddress() {
-    let that=this
-    let l=that.data.startloc
+    let that = this
+    let l = that.data.startloc
     wx.openLocation({
-      latitude: Number(l.split(';')[0]),
-      longitude: Number(l.split(';')[1]),
+      longitude:Number(l.split(';')[0]),
+      latitude:Number(l.split(';')[1])
     })
   },
   // 打卡 =>授权
@@ -243,57 +245,62 @@ Page({
     })
   },
   // 三个
-  goPage(e){
-    let that=this
-    let i=e
-    if(i.currentTarget){
-      i=i.currentTarget.dataset.s
-    }else{
-      i=e
+  goPage(e) {
+    let that = this
+    let i = e
+    if (i.currentTarget) {
+      i = i.currentTarget.dataset.s
+    } else {
+      i = e
     }
     // 排行榜
-    if(i==1){
+    if (i == 1) {
       wx.navigateTo({
         url: `/pages/rank/rank?matchId=${that.data.matchId}`,
       })
-    }else if(i==2){
+    } else if (i == 2) {
       // 登顶证明
       wx.navigateTo({
         url: `/pages/climbTop/climbTop?matchId=${that.data.matchId}`,
       })
     }
   },
-  
+
   // 获取我的登顶次数
   getUserMatch() {
     let that = this
+    let obj = {
+      // matchMsg
+      matchId: that.data.matchMsg.id,
+      groupId: that.data.matchMsg.matchInfo[0].id,
+      openId: that.data.openId
+    }
     tool({
-      url: '/match/signUp/member/getByOpenId',
-      data: {
-        openId: that.data.openId
-      }
+      url: '/run/person/shifeng/finishData/get',
+      data: obj,
+      method: "GET",
+      load: true
     }).then(res => {
-      let ee = res.data.data
-      let ml=0
-      for (var b = 0; b < ee.length; b++) {
-        if (that.data.matchId == ee[b].matchId) {
-          ml= ++ml
-        }
+      let rr = res.data.data
+      if (rr) {
+        that.setData({
+          myRunNum: rr.joinNum
+        })
+      } else {
+        that.setData({
+          myRunNum: 0
+        })
       }
-      that.setData({
-        myRunNum: ml
-      })
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getopenId()
     this.setData({
       matchId: options.matchId
     })
-    this.getMatch()
+    this.getopenId()
   },
 
   /**

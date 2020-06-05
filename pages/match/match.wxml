@@ -44,11 +44,11 @@
 		<rich-text class="ric" nodes="{{matchMsg.introduce}}"></rich-text>
 	</view>
 	<view class="btnBox">
-	<button wx:if="{{!hasInfo}}" class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoGo">
+	<button wx:if="{{!hasInfo&&startloc!=';'}}" class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoGo">
 		导航去这里
 	</button>
-	<view wx:else class="btn" bindtap="goAddress">导航去这里</view>
-		<button wx:if="{{!hasInfo}}" class="btn black" open-type="getUserInfo" bindgetuserinfo="getUserInfo">打卡地图</button>
-		<view wx:else class="btn black" bindtap="goMap">打卡地图</view>
+	<view wx:if="{{hasInfo&&startloc!=';'}}" class="btn" bindtap="goAddress">导航去这里</view>
+		<button wx:if="{{!hasInfo}}" class="btn black {{startloc==';'?'quan':''}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">打卡地图</button>
+		<view wx:else class="btn black {{startloc==';'?'quan':''}}" bindtap="goMap">打卡地图</view>
 </view>
 </view>

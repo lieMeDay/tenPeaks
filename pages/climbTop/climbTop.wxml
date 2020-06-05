@@ -17,13 +17,13 @@
 			<view class="wrap">
 				<view>
 					<view class="gg">姓名</view>
-					<view class="hh">{{mymsg[0]?mymsg[0].name:'---'}}</view>
+					<view class="hh">{{myName?myName:'---'}}</view>
 				</view>
 				<view class="a">
 					<view class="shu"></view>
 					<view class="sgh">
 						<view class="gg">首次登顶</view>
-						<view class="hh">{{mymsg[0]?mymsg[0].showDate:'---'}}</view>
+						<view class="hh">{{firstDtate?firstDtate:'---'}}</view>
 					</view>
 					<view class="shu ys"></view>
 				</view>

@@ -23,7 +23,7 @@
 			<text>分享</text>
 		</button>
 		<!-- 排行 -->
-		<navigator url="/pages/rank/rank" class="mb mby mb3">
+		<navigator url="/pages/rank/rank?matchId={{matchId}}" class="mb mby mb3">
 			<image src="/image/map3.png"></image>
 			<text>排行</text>
 		</navigator>
@@ -32,14 +32,17 @@
 	<view class="myWrap">
 		<view class="myBox">
 			<view>
-			<view class="myHead"><image src="{{myMsg.headImgUrl}}"></image></view>
-			<view class="myName">{{myMsg.nikeName}}</view>
+				<view class="myHead">
+					<image src="{{myMsg.headImgUrl}}"></image>
+				</view>
+				<view class="myName">{{myMsg.nikeName}}</view>
 			</view>
 			<!-- <view class="myr">峰顶</view> -->
 		</view>
 		<view class="CardBtn" bindtap="toCard">
-		<image src="/image/camera.png"></image>
-		<text>打卡</text>
+			<image src="/image/camera.png"></image>
+			<text wx:if="{{hasqid}}">峰顶打卡</text>
+			<text wx:else>打卡</text>
 		</view>
 	</view>
 </view>
@@ -52,6 +55,12 @@
 		<view class="alertCon">
 			<view class="alertTit" wx:if="{{posStart}}">请在开始位置拍照打卡</view>
 			<view class="alertTit" wx:if="{{posEnd}}">请在终点拍照打卡</view>
+			<view class="cimg" wx:if="{{posStart&&listImg[0].cpImg}}">
+				<image src="{{listImg[0].cpImg}}"></image>
+			</view>
+			<view class="cimg" wx:if="{{posEnd&&listImg[listImg.length-1].cpImg}}">
+				<image src="{{listImg[listImg.length-1].cpImg}}"></image>
+			</view>
 			<view class="alertBtn" bindtap="putPicBtn">拍照打卡</view>
 		</view>
 	</view>

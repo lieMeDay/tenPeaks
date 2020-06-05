@@ -12,8 +12,9 @@ Page({
     openId: '',
     hasInfo: false,
     userInfo: {},
-    goldList:[1,2,3,4,5,6,7,8,9,10],
-    total:[]
+    goldList:[],
+    total:0,
+    rNum:0
   },
   // 获取openId
   getOpenId() {
@@ -25,7 +26,6 @@ Page({
       this.getMatch()
       if(that.data.flag){
         this.needSignIn()
-        this.getUserMatch()
       }
     } else {
       app.CallbackOpenid = res => {
@@ -35,7 +35,6 @@ Page({
         this.getMatch()
         if(that.data.flag){
           this.needSignIn()
-          this.getUserMatch()
         }
       }
     }
@@ -133,6 +132,11 @@ Page({
   // 获取赛事
   getMatch() {
     let that = this
+    that.setData({
+      total:0,
+      rNum:0
+    })
+    that.allTime()
     tool({
       url: "/match/getMatchByOrg",
       data: {
@@ -141,72 +145,110 @@ Page({
       load: true
     }).then(res => {
       var rr = res.data.data
-      for(let a=0;a<rr.length;a++){
-        let opt ={matchId:rr[a].id}
-        tool({
-          url: "/match/getMatchById",
-          data: opt,
-          load: true
-        }).then(val=>{
-          let vv=val.data.data.matchInfo
-          rr[a].showName=vv[0].name
-          that.setData({
-            allMatch: rr
-          })
-        })
-      }
+      that.getMatchMsg(rr,0,rr.length)
       that.setData({
         allMatch: rr
       })
     })
   },
-  // 获取用户参加所有的赛事次数
-  getUserMatch() {
-    let that = this
-    that.setData({
-      flag:false
-    })
+  // 获取赛事信息
+  getMatchMsg(rr,a,length){
+    let that=this
+      let opt ={matchId:rr[a].id}
+      wx.showLoading({
+        title: '加载中...',
+      })
+      tool({
+        url: "/match/getMatchById",
+        data: opt,
+        // load: true
+      }).then(val=>{
+        let vv=val.data.data.matchInfo
+        rr[a].showName=vv[0].name
+        that.setData({
+          allMatch: rr
+        })
+        let obj = {
+          matchId: rr[a].id,
+          groupId: vv[0].id,
+          openId: that.data.openId
+        }
+        that.getUserMatch(obj, rr, a,length)
+      })
+    
+  },
+  // 总用时
+  allTime(){
+    let that=this
+    let op={
+      openId: that.data.openId
+    }
     tool({
-      url: '/match/signUp/member/getByOpenId',
-      data: {
-        openId: that.data.openId
+      url: '/run/person/shifeng/getByOpenId',
+      data: op,
+      method: "GET"
+    }).then(res=>{
+      let rr = res.data.data
+      let dd=res.data.data
+      rr=rr.filter(vv=>vv.state==1&&vv.cpName=='终点')
+      dd=dd.filter(vv=>vv.state==1)
+      let oo = {}
+      rr = rr.reduce(function (item, next) {
+        oo[next.startTime] ?
+          "" :
+          (oo[next.startTime] = true && item.push(next));
+        return item;
+      }, []);
+      let ut=0
+      for (let a = 0; a < rr.length; a++) {
+        let uu = dd.filter(s => s.startTime == rr[a].startTime)
+        ut+=uu[uu.length - 1].cpTime - uu[0].cpTime
       }
-    }).then(res => {
-      let ee = res.data.data
-      if(ee){
-        that.setData({
-          total:ee
-        })
-      }else{
-        that.setData({
-          total:[]
-        })
-      }
-      that.gethasR()
+      that.setData({
+        allUseTime:Math.round(ut/1000/3600)
+      })
     })
   },
-  // 跑过的赛事
-  gethasR(){
-    let that=this
-    let allMatch=that.data.allMatch
-    let myTotal=that.data.total
-    let rNum=0
-    for(var a=0;a<allMatch.length;a++){
-      for(var b=0;b<myTotal.length;b++){
-        if(allMatch[a].id==myTotal[b].matchId){
-          allMatch[a].hasRun=true
-          rNum++
-        }
+  // 获取用户赛事登顶次数
+  getUserMatch(obj, ml, a,length) {
+    let that = this
+    tool({
+      url: '/run/person/shifeng/finishData/get',
+      data: obj,
+      method: "GET",
+      // load: true
+    }).then(res => {
+      let rr = res.data.data
+      if (rr) {
+        ml[a].hasRun = true
+        let rNum=that.data.rNum
+        rNum+=1
+        that.setData({
+          rNum:rNum
+        })
+        ml[a].myRunNum=rr.joinNum
+      } else {
+        ml[a].hasRun = false
+        ml[a].myRunNum=0
       }
-    }
-    that.setData({
-      allMatch:allMatch,
-      rNum:rNum
+      let total=that.data.total
+      total+=ml[a].myRunNum
+      that.setData({
+        total:total
+      })
+      if(++a<length){
+        that.getMatchMsg(ml,a,length)
+      }else{
+        wx.hideLoading()
+        that.setData({
+          allMatch: ml,
+        })
+      }
     })
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
-    this.getOpenId()
+    
   },
 
   /*生命周期函数--监听页面初次渲染完成*/
@@ -218,8 +260,8 @@ Page({
   onShow: function () {
     if(this.data.openId&&this.data.flag){
       this.needSignIn()
-      this.getUserMatch()
     }
+    this.getOpenId()
   },
 
   /*生命周期函数--监听页面隐藏*/

@@ -21,13 +21,13 @@
 			</navigator>
 			<view>
 				<view class="conImg">
-					{{total.length}}
+					{{total}}
 				</view>
 				<view class="vv vg">总次数</view>
 			</view>
 			<view>
 				<view class="conImg">
-					13
+					{{allUseTime}}
 				</view>
 				<view class="vv vg">总用时(小时)</view>
 			</view>
@@ -37,8 +37,8 @@
 				<view>我的勋章</view>
 				<view class="gn"><text class="lv">{{rNum}}</text>/{{allMatch.length}}</view>
 			</view>
-			<!-- 十满贯 -->
-			<view class="bigGold" wx:if="{{rNum==allMatch.length}}">
+			<!-- 十满贯 rNum==allMatch.length -->
+			<view class="bigGold" wx:if="{{rNum==10}}">
 				<image src="/image/gold.png"></image>
 			</view>
 			<!-- 十峰 -->
@@ -55,6 +55,7 @@
 		</view>
 	</view>
 	<view class="listWrap">
+		<!-- url="/pages/feedback/feedback" -->
 		<navigator class="listBox" url="/pages/feedback/feedback">
 			<view class="l">
 				<view>

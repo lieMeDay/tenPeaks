@@ -1,32 +1,38 @@
 /* pages/map/map.wxss */
-.matchWrap{
+.matchWrap {
   background-color: #fff;
   overflow: hidden;
   width: 100%;
 }
-.matchBox{
+
+.matchBox {
   width: 95%;
   margin: 10rpx auto;
   display: flex;
 }
-.matchl{
-  flex:2;
+
+.matchl {
+  flex: 2;
   display: flex;
   align-items: center;
 }
+
 .matchLogo,
-.matchLogo>image{
+.matchLogo>image {
   width: 80rpx;
   height: 80rpx;
   border-radius: 10rpx;
   overflow: hidden;
 }
-.matchLogo{
+
+.matchLogo {
   margin-right: 10rpx;
 }
-.matchr{
+
+.matchr {
   flex: 1;
 }
+
 .mapBox {
   width: 100%;
   height: calc(100% - 230rpx);
@@ -39,7 +45,8 @@
   height: 100%;
   position: absolute;
 }
-.mb{
+
+.mb {
   width: 90rpx;
   height: 90rpx;
   background-color: #fff;
@@ -49,19 +56,23 @@
   justify-content: center;
   align-items: center;
 }
-.mb1>image{
+
+.mb1>image {
   width: 70rpx;
   height: 70rpx;
 }
-.mby{
+
+.mby {
   flex-direction: column;
   right: 20rpx;
 }
-.mby >image{
+
+.mby>image {
   width: 50rpx;
   height: 50rpx;
 }
-.mby>text{
+
+.mby>text {
   font-size: 24rpx;
 }
 
@@ -76,21 +87,26 @@
 .shareBtn::after {
   border: none;
 }
+
 .shareBtn {
   box-sizing: initial;
 }
-.mb1{
+
+.mb1 {
   left: 20rpx;
   bottom: 40rpx;
 }
-.mb2{
+
+.mb2 {
   bottom: 150rpx;
 }
-.mb3{
+
+.mb3 {
   bottom: 40rpx;
 }
+
 /* 开始 */
-.startBtn{
+.startBtn {
   width: 180rpx;
   height: 180rpx;
   border-radius: 50%;
@@ -103,12 +119,14 @@
   justify-content: center;
   align-items: center;
 }
-.startBtn image{
+
+.startBtn image {
   width: 90rpx;
   height: 90rpx;
 }
+
 /* 打卡弹框 */
-.alertWrap{
+.alertWrap {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -120,41 +138,61 @@
   justify-content: center;
   align-items: center;
 }
-.alertBox{
+
+.alertBox {
   width: 75%;
 }
-.closeBtn{
+
+.closeBtn {
   overflow: hidden;
 }
-.closeBtn image{
+
+.closeBtn image {
   width: 40rpx;
   height: 40rpx;
   float: right;
   margin-bottom: 20rpx;
 }
-.alertCon{
+
+.alertCon {
   color: #333;
   background-color: #fff;
   border-radius: 10rpx;
   padding: 30rpx;
   text-align: center;
 }
-.alertTit{
+
+.alertTit {
   font-weight: 500;
   margin-bottom: 15rpx;
 }
-.alertBtn{
+
+.alertBtn {
   width: 100%;
   height: 80rpx;
   border-radius: 10rpx;
   text-align: center;
   line-height: 80rpx;
   color: #fff;
-  background-color: #333333;
+  background-color: #16C95D;
+}
+
+.cimg {
+  width: 400rpx;
+  height: 400rpx;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.cimg>image {
+  width: 400rpx;
+  height: 400rpx;
 }
 
 /* 我的信息 */
-.myWrap{
+.myWrap {
   width: 100%;
   height: 150rpx;
   background-color: #fff;
@@ -162,38 +200,47 @@
   position: absolute;
   bottom: 0;
 }
-.myBox{
+
+.myBox {
   width: 95%;
   height: 130rpx;
   margin: 10rpx auto;
   display: flex;
 }
-.myBox >view{
+
+.myBox>view {
   flex: 1;
   display: flex;
   /* justify-content: center; */
   align-items: center;
 }
-.myHead{
+
+.myHead {
   width: 130rpx;
   height: 130rpx;
   border-radius: 50%;
   overflow: hidden;
 }
-.myHead>image{
+
+.myHead>image {
   width: 130rpx;
   height: 130rpx;
 }
-.myName{
-font-size: 30rpx;
+
+.myName {
+  font-size: 30rpx;
 }
-.myBox >view.myr{
+
+.myBox>view.myr {
   text-align: right;
-  flex-direction: column; /*垂直排列*/
+  flex-direction: column;
+  /*垂直排列*/
   justify-content: center;
-  align-items: flex-end; /*右对齐*/
+  align-items: flex-end;
+  /*右对齐*/
 }
-.CardBtn{
+
+.CardBtn {
   width: 160rpx;
   height: 160rpx;
   border-radius: 50%;
@@ -202,17 +249,19 @@ font-size: 30rpx;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-100%);
+  transform: translate(-50%, -100%);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.CardBtn>image{
+
+.CardBtn>image {
   width: 55rpx;
   height: 50rpx;
   margin-bottom: 10rpx;
 }
-.CardBtn>text{
+
+.CardBtn>text {
   font-size: 32rpx;
 }
