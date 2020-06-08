@@ -23,6 +23,7 @@ Page({
       this.setData({
         openId: app.globalData.openId,
       })
+      this.getOrder()
       this.getMatch()
       if(that.data.flag){
         this.needSignIn()
@@ -32,6 +33,7 @@ Page({
         this.setData({
           openId: res.data.data.openid
         })
+        this.getOrder()
         this.getMatch()
         if(that.data.flag){
           this.needSignIn()
@@ -128,6 +130,19 @@ Page({
         hasInfo: false
       })
     }
+  },
+  // 获取我的订单量
+  getOrder(){
+    let that=this
+    tool({
+      url:'/match/signUp/order/getByOpenId',
+      data:{openId:that.data.openId}
+    }).then(res=>{
+      let rr=res.data.data
+      that.setData({
+        orderNum:rr.length
+      })
+    })
   },
   // 获取赛事
   getMatch() {

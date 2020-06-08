@@ -1,17 +1,18 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/mine/mine",
-    "pages/cardMsg/cardMsg",
+    "pages/index/index",
     "pages/allRank/allRank",
     "pages/subUser/subUser",
     "pages/match/match",
     "pages/map/map",
     "pages/signIn/signIn",
+    "pages/cardMsg/cardMsg",
     "pages/rank/rank",
     "pages/climbTop/climbTop",
     "pages/record/record",
-    "pages/feedback/feedback"
+    "pages/feedback/feedback",
+    "pages/order/order"
   ],
   "tabBar": {
     "color": "#a9b7b7",

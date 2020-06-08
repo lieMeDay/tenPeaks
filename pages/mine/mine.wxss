@@ -223,3 +223,7 @@
 .goldTip.hasGold>text{
   color: #C77618;
 }
+
+.ddNum{
+  color: #15C95D;
+}

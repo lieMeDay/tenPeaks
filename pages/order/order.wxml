@@ -1,0 +1,19 @@
+<view class="page">
+	<view class="list" wx:for="{{orderList}}" wx:key="index">
+		<view class="item">
+    <view>
+    <view class="pic">
+    <image src="{{item.logo}}"></image>
+    </view>
+    <view class="pb">
+    <view class="pn">{{item.orderName}}</view>
+    <view>￥{{item.price}}</view>
+    </view>
+    </view>
+    <view class="rr">
+    <view class="nn">{{item.groupName}}</view>
+    <view class="dd">{{item.orderShowDate}}</view>
+    </view>
+    </view>
+	</view>
+</view>
