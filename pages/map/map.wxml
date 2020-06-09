@@ -13,6 +13,7 @@
 	</view>
 	<view class="mapBox">
 		<map class="mapTU" id="map" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" circles="{{circles}}" enable-rotate show-location></map>
+		<view class="mypos">{{slongitude}},{{slatitude}}</view>
 		<!-- 定位 -->
 		<view class="mb mb1" data-s="1" bindtap="getloacltion">
 			<image src="/image/map1.png"></image>

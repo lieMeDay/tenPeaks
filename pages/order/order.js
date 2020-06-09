@@ -54,7 +54,6 @@ Page({
   orderMsg(rr, a, length, dd) {
     let that = this
     tool({
-      // url: '/match/getMatchById',
       url: '/match/signUp/getByMatchId',
       data: {
         matchId: rr[a].matchId

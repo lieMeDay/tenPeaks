@@ -56,7 +56,9 @@ Page({
     }).then(res => {
       let rr = res.data.data
       rr.showData = util.timeShift(rr.matchDate, rr.matchEndDate)
-      rr.introduce = rr.introduce.replace(/<img/gi, '<img class="inPimg" ')
+      if (rr.introduce) {
+        rr.introduce = rr.introduce.replace(/<img/gi, '<img class="inPimg" ')
+      }
       that.setData({
         matchMsg: rr,
         startloc: rr.matchInfo[0].info[0].endDate
@@ -180,8 +182,8 @@ Page({
     let that = this
     let l = that.data.startloc
     wx.openLocation({
-      longitude:Number(l.split(';')[0]),
-      latitude:Number(l.split(';')[1])
+      longitude: Number(l.split(';')[0]),
+      latitude: Number(l.split(';')[1])
     })
   },
   // 打卡 =>授权

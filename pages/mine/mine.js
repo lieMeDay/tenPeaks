@@ -68,7 +68,6 @@ Page({
       data: {
         openId: that.data.openId
       },
-      load: true
     }).then(res => {
       let rr = res.data.data
       if (!rr || !rr.phone) {
@@ -157,7 +156,6 @@ Page({
       data: {
         "orgId": 7
       },
-      load: true
     }).then(res => {
       var rr = res.data.data
       that.getMatchMsg(rr,0,rr.length)
@@ -176,7 +174,6 @@ Page({
       tool({
         url: "/match/getMatchById",
         data: opt,
-        // load: true
       }).then(val=>{
         let vv=val.data.data.matchInfo
         rr[a].showName=vv[0].name
@@ -231,7 +228,6 @@ Page({
       url: '/run/person/shifeng/finishData/get',
       data: obj,
       method: "GET",
-      // load: true
     }).then(res => {
       let rr = res.data.data
       if (rr) {

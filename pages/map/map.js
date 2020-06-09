@@ -68,7 +68,7 @@ Page({
             let rr = res.data.data
             if (rr) {
               if (rr.phone) {
-                that.getloacltion(1)
+                that.getMatch()
                 that.setData({
                   myMsg: rr
                 })
@@ -107,7 +107,9 @@ Page({
         that.setData({
           longitude: longitude,
           latitude: latitude,
-          altitude: altitude
+          altitude: altitude,
+          slongitude: longitude.toFixed(6),
+          slatitude: latitude.toFixed(6),
         })
         if (s == 1) {
           let wz = that.endAround()
@@ -165,7 +167,6 @@ Page({
   },
   // 获取赛事信息
   getMatch() {
-    console.log(112233)
     let that = this
     let opt = {
       matchId: that.data.matchId
@@ -192,38 +193,20 @@ Page({
             ss.kmlProperty.kmlLines[0].points.forEach(vv => {
               kmlLine.push(vv)
             })
-            let empmk = [
-              //   {
-              //   iconPath: '/image/first.png',
-              //   id: 1,
-              //   longitude: kmlLine[0].longitude,
-              //   latitude: kmlLine[0].latitude,
-              //   width: 25,
-              //   height: 25
-              // }, 
-              {
-                iconPath: '/image/last.png',
-                id: 2,
-                longitude: kmlLine[kmlLine.length - 1].longitude,
-                latitude: kmlLine[kmlLine.length - 1].latitude,
-                width: 25,
-                height: 25
-              }
-            ]
-            let circle = [
-              //   {
-              //   longitude: kmlLine[0].longitude,
-              //   latitude: kmlLine[0].latitude,
-              //   fillColor: '#7cb5ec88',
-              //   radius: 50
-              // },
-              {
-                longitude: kmlLine[kmlLine.length - 1].longitude,
-                latitude: kmlLine[kmlLine.length - 1].latitude,
-                fillColor: '#7cb5ec88',
-                radius: 50
-              }
-            ]
+            let empmk = [{
+              iconPath: '/image/last.png',
+              id: 2,
+              longitude: kmlLine[kmlLine.length - 1].longitude,
+              latitude: kmlLine[kmlLine.length - 1].latitude,
+              width: 25,
+              height: 25
+            }]
+            let circle = [{
+              longitude: kmlLine[kmlLine.length - 1].longitude,
+              latitude: kmlLine[kmlLine.length - 1].latitude,
+              fillColor: '#7cb5ec88',
+              radius: 50
+            }]
             let cardPoint = [{
               longitude: kmlLine[0].longitude,
               latitude: kmlLine[0].latitude,
@@ -237,6 +220,15 @@ Page({
               circles: circle,
               cardPoint: cardPoint
             })
+            let listImg = []
+            listImg.push(group.info[0])
+            listImg.push(group.info[group.info])
+            that.setData({
+              matchMsg: rr,
+              groupMsg: group,
+              listImg: listImg
+            })
+            that.getloacltion(1)
           })
         }
       } else {
@@ -259,20 +251,6 @@ Page({
           latitude: Number(group.info[group.info.length - 1].endDate.split(';')[1]),
         }]
         if (Number(group.info[0].endDate.split(';')[0])) {
-          // empmk.unshift({
-          //   iconPath: '/image/first.png',
-          //   id: 1,
-          //   longitude: Number(group.info[0].endDate.split(';')[0]),
-          //   latitude: Number(group.info[0].endDate.split(';')[1]),
-          //   width: 25,
-          //   height: 25
-          // })
-          // circle.unshift({
-          //   longitude: Number(group.info[0].endDate.split(';')[0]),
-          //   latitude: Number(group.info[0].endDate.split(';')[1]),
-          //   fillColor: '#7cb5ec88',
-          //   radius: 50
-          // })
           cardPoint.unshift({
             longitude: Number(group.info[0].endDate.split(';')[0]),
             latitude: Number(group.info[0].endDate.split(';')[1]),
@@ -283,15 +261,16 @@ Page({
           circles: circle,
           cardPoint: cardPoint
         })
+        let listImg = []
+        listImg.push(group.info[0])
+        listImg.push(group.info[group.info])
+        that.setData({
+          matchMsg: rr,
+          groupMsg: group,
+          listImg: listImg
+        })
+        that.getloacltion(1)
       }
-      let listImg = []
-      listImg.push(group.info[0])
-      listImg.push(group.info[group.info])
-      that.setData({
-        matchMsg: rr,
-        groupMsg: group,
-        listImg: listImg
-      })
     })
   },
   // 判断是否在打卡点附近
@@ -353,7 +332,7 @@ Page({
             }
             var vv = wx.getStorageSync('mountainStart')
             if (vv) {
-              that.data.posEnd=true
+              that.data.posEnd = true
               target.startTime = vv.cpTime
             } else {
               target.startTime = target.cpTime
@@ -405,7 +384,7 @@ Page({
       posStart: false,
       posEnd: false,
       showAlert: false,
-      hasqid:true
+      hasqid: true
     })
   },
   // 终点打完卡
@@ -459,7 +438,6 @@ Page({
       }
     } else {
       let vv = wx.getStorageSync('mountainStart')
-      console.log(vv)
       if (vv) {
         wx.showModal({
           title: '打卡提示',
@@ -489,16 +467,24 @@ Page({
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
-    wx.removeStorage({
-      key: 'mountainStart',
-    })
+    let s = wx.getStorageSync('mountainStart')
+    if (s) {
+      let n = new Date().getTime()
+      let b = 12 * 60 * 60 * 1000
+      let a = s.startTime
+      if (n > a + b) {
+        wx.removeStorage({
+          key: 'mountainStart',
+        })
+      }
+    }
     wx.removeStorage({
       key: 'mountainTop',
     })
     this.setData({
       matchId: Number(options.matchId)
     })
-    this.getMatch()
+    // this.getMatch()
   },
 
   /* 生命周期函数--监听页面显示*/

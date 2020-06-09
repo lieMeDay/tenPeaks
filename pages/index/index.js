@@ -37,12 +37,14 @@ Page({
   // 获取赛事
   getMatch() {
     let that = this
+    wx.showLoading({
+      title: '加载中...',
+    })
     tool({
       url: "/match/getMatchByOrg",
       data: {
         "orgId": 7
       },
-      load: true
     }).then(res => {
       var rr = res.data.data
       that.matchMsg(rr, 0, rr.length)
@@ -79,13 +81,11 @@ Page({
   },
   // 获取用户赛事登顶次数
   getUserMatch(obj, ml, a, length) {
-    // console.log(2)
     let that = this
     tool({
       url: '/run/person/shifeng/finishData/get',
       data: obj,
       method: "GET",
-      // load:true
     }).then(res => {
       let rr = res.data.data
       if (rr) {
@@ -98,6 +98,7 @@ Page({
       if (++a < length) {
         that.matchMsg(ml, a, length)
       } else {
+        wx.hideLoading()
         that.setData({
           allMatch: ml
         })
