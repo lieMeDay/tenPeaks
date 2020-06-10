@@ -1,11 +1,11 @@
 // 图片上传头
-// const imgUrl = "https://paoner.lvtutech.com/game"
-const imgUrl="http://192.168.0.101:9898"
+const imgUrl = "https://paoner.lvtutech.com/game"
+// const imgUrl="http://192.168.0.101:9898"
 
 // 接口调用函数
 const request = (options) => {
-  // let BaseUrl = "https://paoner.lvtutech.com/game"
-  let BaseUrl = 'http://192.168.0.101:9898'
+  let BaseUrl = "https://paoner.lvtutech.com/game"
+  // let BaseUrl = 'http://192.168.0.101:9898'
   return new Promise((resolve, reject) => {
     if (!options.method) {
       options.method = "GET"

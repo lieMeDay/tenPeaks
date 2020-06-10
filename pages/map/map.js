@@ -467,6 +467,9 @@ Page({
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
+    this.setData({
+      matchId: Number(options.matchId)
+    })
     let s = wx.getStorageSync('mountainStart')
     if (s) {
       let n = new Date().getTime()
@@ -477,12 +480,14 @@ Page({
           key: 'mountainStart',
         })
       }
+      if (s.matchId != options.matchId) {
+        wx.removeStorage({
+          key: 'mountainStart',
+        })
+      }
     }
     wx.removeStorage({
       key: 'mountainTop',
-    })
-    this.setData({
-      matchId: Number(options.matchId)
     })
     // this.getMatch()
   },
