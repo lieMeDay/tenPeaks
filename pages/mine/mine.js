@@ -230,7 +230,7 @@ Page({
       method: "GET",
     }).then(res => {
       let rr = res.data.data
-      if (rr) {
+      if (rr&&rr.joinNum>0) {
         ml[a].hasRun = true
         let rNum=that.data.rNum
         rNum+=1

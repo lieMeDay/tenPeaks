@@ -88,7 +88,7 @@ Page({
       method: "GET",
     }).then(res => {
       let rr = res.data.data
-      if (rr) {
+      if (rr&&rr.joinNum>0) {
         ml[a].hasRun = true
         ml[a].myRunNum = rr.joinNum
       } else {
