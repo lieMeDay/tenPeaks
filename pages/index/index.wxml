@@ -1,9 +1,11 @@
 <view class="page">
-	<swiper autoplay="{{true}}" circular="{{true}}" interval="{{2000}}" duration="{{1000}}" previous-margin="58rpx" next-margin="58rpx" class="swiper" bindchange="swiperChange">
+	<swiper autoplay="{{true}}" circular="{{true}}" interval="{{2000}}" class="swiper" bindchange="swiperChange">
 		<block wx:for="{{allMatch}}" wx:key="index">
 			<swiper-item>
-				<view class="swiper_item" style="transition:all 0.3s ease;transform:{{curIndex==index?'scale(1,1)':'scale(0.92,0.9)'}}">
-					<image src="{{item.logo}}"></image>
+				<view class="swiper_item" data-id="{{item.id}}" bindtap="goMatch">
+					<!-- <navigator url="/pages/match/match?matchId={{item.id}}"> -->
+						<image src="{{item.logo}}"></image>
+					<!-- </navigator> -->
 				</view>
 			</swiper-item>
 		</block>
@@ -22,9 +24,13 @@
 						<view class="clt"><text class="quan"></text> <text>顶峰海拔 {{item.altitude}}米</text></view>
 					</view>
 					<view class="cr">
-					<view hidden="{{!item.hasRun}}"><image src="/image/sn.png"></image></view>
-					<view hidden="{{item.hasRun}}"><image src="/image/sy.png"></image></view>
-					<view hidden="{{!item.hasRun}}" class="ddcs">已登顶 <text>{{item.myRunNum}}</text> 次</view>
+						<view hidden="{{!item.hasRun}}">
+							<image src="/image/sn.png"></image>
+						</view>
+						<view hidden="{{item.hasRun}}">
+							<image src="/image/sy.png"></image>
+						</view>
+						<view hidden="{{!item.hasRun}}" class="ddcs">已登顶 <text>{{item.myRunNum}}</text> 次</view>
 					</view>
 				</view>
 			</view>

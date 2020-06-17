@@ -1,0 +1,14 @@
+/* pages/orderDetail/orderDetail.wxss */
+.li{
+  width: 96%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  line-height: 60rpx;
+}
+.Big{
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 46rpx;
+  border-bottom: 2rpx solid #ccc;
+}

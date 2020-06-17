@@ -157,6 +157,12 @@ Page({
       }
     })
   },
+  goMatch(e){
+    let id=e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/match/match?matchId=${id}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

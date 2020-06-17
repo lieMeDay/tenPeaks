@@ -63,13 +63,24 @@
 				<view>我的订单</view>
 			</view>
 			<view class="r">
-			<view class="ddNum">{{orderNum}}</view>
+				<view class="ddNum">{{orderNum}}</view>
 				<image src="/image/more.png"></image>
 			</view>
 		</navigator>
 	</view>
 	<view class="listWrap">
-		<!-- url="/pages/feedback/feedback" -->
+		<view class="listBox" bindtap="cUs">
+			<view class="l">
+				<!-- <view>
+					<image src="/image/x2.png"></image>
+				</view> -->
+				<view>联系我们</view>
+			</view>
+			<view class="r">
+				<text class="concatUs">0851-86800173</text>
+				<!-- <image src="/image/more.png"></image> -->
+			</view>
+		</view>
 		<navigator class="listBox" url="/pages/feedback/feedback">
 			<view class="l">
 				<view>

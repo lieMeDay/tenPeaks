@@ -2,6 +2,10 @@
 .page{
   background-color: #f2f2f2;
 }
+.zno{
+  text-align: center;
+  margin-top: 100rpx;
+}
 .list{
   width: 85%;
   /* height: 180rpx; */

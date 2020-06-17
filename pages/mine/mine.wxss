@@ -227,3 +227,6 @@
 .ddNum{
   color: #15C95D;
 }
+.concatUs{
+  font-size: 30rpx;
+}

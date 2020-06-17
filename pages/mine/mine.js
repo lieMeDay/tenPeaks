@@ -257,6 +257,12 @@ Page({
       }
     })
   },
+  // 联系我们
+  cUs(){
+    wx.makePhoneCall({
+      phoneNumber: '0851-86800173' //仅为示例，并非真实的电话号码
+    })
+  },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
     

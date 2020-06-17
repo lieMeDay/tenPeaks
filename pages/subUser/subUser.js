@@ -189,9 +189,26 @@ Page({
     }).then(res => {
       let rr = res.data.data
       for (var k in rr.power) {
-        rr.power[k] = JSON.parse(rr.power[k])
-        if (k == 'name' || k == 'gender' || k == 'phone' || k == 'idNumberType' || k == 'idNumber') {
-          rr.power[k] = true
+        // rr.power[k] = JSON.parse(rr.power[k])
+        if (k != "id" && k != "matchId") {
+          if (rr.power[k] == 'false') {
+            rr.power[k] = {
+              check: false,
+              must: false
+            }
+          } else {
+            if (rr.power[k].indexOf("*") != -1) {
+              rr.power[k] = {
+                check: true,
+                must: true
+              }
+            } else {
+              rr.power[k] = {
+                check: true,
+                must: false
+              }
+            }
+          }
         }
       }
       for (var a = 0; a < rr.matchInfo[0].priceList.length; a++) {
@@ -336,7 +353,7 @@ Page({
   },
   // 上传终点
   putTop() {
-    let that=this
+    let that = this
     wx.getStorage({
       key: 'mountainTop',
       success(res) {
@@ -353,7 +370,7 @@ Page({
               matchId: that.data.putMsg.matchId,
               groupId: that.data.putMsg.groupId,
               openId: that.data.putMsg.openId,
-              memberName:that.data.putMsg.name,
+              memberName: that.data.putMsg.name,
               sex: that.data.putMsg.gender
             }
             tool({
@@ -394,7 +411,7 @@ Page({
     let pwList = that.data.powerList
     let trueMsg = true
     for (var k in pwList) {
-      if (pwList[k]) {
+      if (pwList[k].must) {
         if (subCon[k] == '' || subCon[k] == []) {
           let pw = that.data.PwArr
           let tt = pw.filter(v => v.value == k)
@@ -411,7 +428,7 @@ Page({
           r.forEach(v => {
             c += v + ';'
           })
-          c=c.substr(0, c.length - 1);  
+          c = c.substr(0, c.length - 1);
           subCon[k] = c
         } else if (k == 'phone') {
           if (!sj.test(subCon[k])) {
@@ -478,7 +495,7 @@ Page({
     });
     healthImgPut = healthImgPut.substr(0, healthImgPut.length - 1);
     subCon.healthReport = healthImgPut //健康证明
-    // console.log(trueMsg, subCon)
+    console.log(trueMsg, subCon)
     if (trueMsg) {
       tool({
         url: '/shifeng/match/signUp/member/add',

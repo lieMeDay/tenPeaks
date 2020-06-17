@@ -47,7 +47,13 @@ Page({
           (oo[next.matchId] = true && item.push(next));
         return item;
       }, []);
-      that.orderMsg(rr, 0, rr.length, dd)
+      if(rr.length>0){
+        that.orderMsg(rr, 0, rr.length, dd)
+      }else{
+        this.setData({
+          orderList: []
+        })
+      }
     })
   },
   // 获取产品信息
@@ -84,6 +90,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu(); //隐藏转发分享按钮
     this.getOpenId()
   },
 

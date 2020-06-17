@@ -148,18 +148,32 @@ Component({
           }
         }).then(res => {
           let rr = res.data.data
-          rr=rr.filter(vv=>vv.open_id&&vv.join_num!=0)
+          rr = rr.filter(vv => vv.open_id && vv.join_num != 0)
           let my = {}
-          for(var a=0;a<rr.length;a++){
-            if(rr[a].open_id == that.data.openId){
-              my=rr[a]
-              my.index=a
-              break
+          for (var a = 0; a < rr.length; a++) {
+            if (rr[a].open_id == that.data.openId) {
+              my = rr[a]
+              my.index = a
+            }
+            if (!rr[a].nike_name) {
+              let arr = [
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+              ];
+              let pos = 0
+              let str = ''
+              for (let i = 0; i < 6; i++) {
+                pos = Math.round(Math.random() * (arr.length - 1));
+                str += arr[pos];
+              }
+              rr[a].nike_name = str
             }
           }
           if (JSON.stringify(my) != "{}") {
             that.setData({
-              myRank: my.index+1,
+              myRank: my.index + 1,
               mytotal: my.join_num
             })
           } else {
@@ -172,7 +186,7 @@ Component({
             rankList: rr,
           })
         })
-      }else if(i==1){
+      } else if (i == 1) {
         // console.log('年榜')
         tool({
           url: '/run/shifeng/getRankingListByYear',
@@ -181,18 +195,18 @@ Component({
           }
         }).then(res => {
           let rr = res.data.data
-          rr=rr.filter(vv=>vv.open_id&&vv.join_num!=0)
+          rr = rr.filter(vv => vv.open_id && vv.join_num != 0)
           let my = {}
-          for(var a=0;a<rr.length;a++){
-            if(rr[a].open_id == that.data.openId){
-              my=rr[a]
-              my.index=a
+          for (var a = 0; a < rr.length; a++) {
+            if (rr[a].open_id == that.data.openId) {
+              my = rr[a]
+              my.index = a
               break
             }
           }
           if (JSON.stringify(my) != "{}") {
             that.setData({
-              myRank: my.index+1,
+              myRank: my.index + 1,
               mytotal: my.join_num
             })
           } else {
@@ -205,7 +219,7 @@ Component({
             rankList: rr,
           })
         })
-      }else if(i==2){
+      } else if (i == 2) {
         // console.log('月榜')
         tool({
           url: '/run/shifeng/getRankingListByMonth',
@@ -214,18 +228,18 @@ Component({
           }
         }).then(res => {
           let rr = res.data.data
-          rr=rr.filter(vv=>vv.open_id&&vv.join_num!=0)
+          rr = rr.filter(vv => vv.open_id && vv.join_num != 0)
           let my = {}
-          for(var a=0;a<rr.length;a++){
-            if(rr[a].open_id == that.data.openId){
-              my=rr[a]
-              my.index=a
+          for (var a = 0; a < rr.length; a++) {
+            if (rr[a].open_id == that.data.openId) {
+              my = rr[a]
+              my.index = a
               break
             }
           }
           if (JSON.stringify(my) != "{}") {
             that.setData({
-              myRank: my.index+1,
+              myRank: my.index + 1,
               mytotal: my.join_num
             })
           } else {

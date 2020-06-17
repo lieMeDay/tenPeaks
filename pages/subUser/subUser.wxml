@@ -52,22 +52,22 @@
 						</view>
 						<view>
 							<!-- 姓名 -->
-							<view class="subCon">
-								<view class="scL"><text>姓名</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.name.check}}">
+								<view class="scL"><text>姓名</text><text class="redStart" wx:if="{{powerList.name.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" name="name" value="{{putMsg.name}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 英文名 -->
-							<view class="subCon" wx:if="{{powerList.englishName}}">
-								<view class="scL"><text>英文名</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.englishName.check}}">
+								<view class="scL"><text>英文名</text><text class="redStart" wx:if="{{powerList.englishName.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" name="englishName" value="{{putMsg.englishName}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 性别 -->
-							<view class="subCon">
-								<view class="scL"><text>性别</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.gender.check}}">
+								<view class="scL"><text>性别</text><text class="redStart" wx:if="{{powerList.gender.must}}">*</text></view>
 								<view class="scR">
 									<radio-group name="gender" class="sexchioce">
 										<label class="fl">
@@ -86,15 +86,15 @@
 								</view>
 							</view>
 							<!-- 手机号 -->
-							<view class="subCon">
-								<view class="scL"><text>手机号</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.phone.check}}">
+								<view class="scL"><text>手机号</text><text class="redStart" wx:if="{{powerList.phone.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" type="number" name="phone" value="{{putMsg.phone}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 证件类型 -->
-							<view class="subCon">
-								<view class="scL"><text>证件类型</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.idNumberType.check}}">
+								<view class="scL"><text>证件类型</text><text class="redStart" wx:if="{{powerList.idNumberType.must}}">*</text></view>
 								<view class="scR">
 									<picker class="pickerBox" name="idNumberType" bindchange="bindPickeridType" value="{{idTypeList[idTypeI]}}" range="{{idTypeList}}">
 										<view class="picker">
@@ -104,15 +104,15 @@
 								</view>
 							</view>
 							<!-- 证件号 -->
-							<view class="subCon">
-								<view class="scL"><text>证件号</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.idNumber.check}}">
+								<view class="scL"><text>证件号</text><text class="redStart" wx:if="{{powerList.idNumber.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" name="idNumber" type="idcard" value="{{putMsg.idNumber}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 出生日期 -->
-							<view class="subCon" wx:if="{{powerList.birthday}}">
-								<view class="scL"><text>出生日期</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.birthday.check}}">
+								<view class="scL"><text>出生日期</text><text class="redStart" wx:if="{{powerList.birthday.must}}">*</text></view>
 								<view class="scR">
 									<picker name="birthday" class="pickerBox" mode="date" value="{{birthday}}" start="1900-09-01" end="2020-09-01" bindchange="bindDateChange">
 										<view class="picker">
@@ -122,8 +122,8 @@
 								</view>
 							</view>
 							<!-- 血型 -->
-							<view class="subCon" wx:if="{{powerList.bloodType}}">
-								<view class="scL"><text>血型</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.bloodType.check}}">
+								<view class="scL"><text>血型</text><text class="redStart" wx:if="{{powerList.bloodType.must}}">*</text></view>
 								<view class="scR">
 									<picker class="pickerBox" name="bloodType" bindchange="bindPickerbloodType" value="{{bloodList[bloodI]}}" range="{{bloodList}}">
 										<view class="picker">
@@ -133,8 +133,8 @@
 								</view>
 							</view>
 							<!-- 国籍 -->
-							<view class="subCon" wx:if="{{powerList.nationality}}">
-								<view class="scL"><text>国籍</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.nationality.check}}">
+								<view class="scL"><text>国籍</text><text class="redStart"  wx:if="{{powerList.nationality.must}}">*</text></view>
 								<view class="scR">
 									<picker class="pickerBox" name="nationality" bindchange="bindPickerContry" value="{{contryList[contryI].name}}" range="{{contryList}}" range-key="{{'name'}}">
 										<view class="picker">
@@ -144,8 +144,8 @@
 								</view>
 							</view>
 							<!-- 地区 -->
-							<view class="subCon" wx:if="{{powerList.region}}">
-								<view class="scL"><text>地区</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.region.check}}">
+								<view class="scL"><text>地区</text><text class="redStart" wx:if="{{powerList.region.must}}">*</text></view>
 								<view class="scR">
 									<picker class="pickerBox" name="region" mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
 										<view class="picker" wx:if="{{region.length<=0}}">请选择</view>
@@ -156,23 +156,23 @@
 								</view>
 							</view>
 							<!-- 详细地址 -->
-							<view class="subCon" wx:if="{{powerList.address}}">
-								<view class="scL"><text>详细地址</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.address.check}}">
+								<view class="scL"><text>详细地址</text><text class="redStart" wx:if="{{powerList.address.must}}">*</text></view>
 								<view class="scR">
 									<!-- <input class="ipt" name="address" value="{{putMsg.address}}" placeholder="请输入街道,楼牌号等"></input> -->
 									<textarea class="ipt" name="address" value="{{putMsg.address}}" auto-height placeholder="请输入街道,楼牌号等" />
 								</view>
 							</view>
 							<!-- 邮箱 -->
-							<view class="subCon" wx:if="{{powerList.email}}">
-								<view class="scL"><text>邮箱</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.email.check}}">
+								<view class="scL"><text>邮箱</text><text class="redStart" wx:if="{{powerList.email.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" name="email" value="{{putMsg.email}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 衣服尺码 -->
-							<view class="subCon" wx:if="{{powerList.clothingSize}}">
-								<view class="scL"><text>衣服尺码</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.clothingSize.check}}">
+								<view class="scL"><text>衣服尺码</text><text class="redStart" wx:if="{{powerList.clothingSize.must}}">*</text></view>
 								<view class="scR">
 									<picker class="pickerBox" name="clothingSize" bindchange="bindPickerClothingSize" value="{{ClothingList[ClothingI]}}" range="{{ClothingList}}">
 										<view class="picker">
@@ -182,22 +182,22 @@
 								</view>
 							</view>
 							<!-- 紧急联系人姓名 -->
-							<view class="subCon" wx:if="{{powerList.emergencyContactName}}">
-								<view class="scL"><text>紧急联系人姓名</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.emergencyContactName.check}}">
+								<view class="scL"><text>紧急联系人姓名</text><text class="redStart" wx:if="{{powerList.emergencyContactName.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" name="emergencyContactName" value="{{putMsg.emergencyContactName}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 紧急联系人电话 -->
-							<view class="subCon" wx:if="{{powerList.emergencyContactPhone}}">
-								<view class="scL"><text>紧急联系人电话</text><text class="redStart">*</text></view>
+							<view class="subCon" wx:if="{{powerList.emergencyContactPhone.check}}">
+								<view class="scL"><text>紧急联系人电话</text><text class="redStart" wx:if="{{powerList.emergencyContactPhone.must}}">*</text></view>
 								<view class="scR">
 									<input class="ipt" type="number" name="emergencyContactPhone" value="{{putMsg.emergencyContactPhone}}" placeholder="请输入"></input>
 								</view>
 							</view>
 							<!-- 成绩证书 -->
-							<view class="subCon ipic" wx:if="{{powerList.scoreReport}}">
-								<view class="scL"><text>成绩证书</text><text class="redStart">*</text></view>
+							<view class="subCon ipic" wx:if="{{powerList.scoreReport.check}}">
+								<view class="scL"><text>成绩证书</text><text class="redStart" wx:if="{{powerList.scoreReport.must}}">*</text></view>
 								<view class="picBox">
 									<view class="imgBox">
 										<view wx:for="{{wsImg}}" wx:key="index">
@@ -218,8 +218,8 @@
 								</view>
 							</view>
 							<!-- 健康证明 -->
-							<view class="subCon ipic" wx:if="{{powerList.healthReport}}">
-								<view class="scL"><text>健康证明</text><text class="redStart">*</text></view>
+							<view class="subCon ipic" wx:if="{{powerList.healthReport.check}}">
+								<view class="scL"><text>健康证明</text><text class="redStart" wx:if="{{powerList.healthReport.must}}">*</text></view>
 								<view class="picBox">
 									<view class="imgBox">
 										<view wx:for="{{healthImg}}" wx:key="index">

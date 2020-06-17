@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadEnd: false,
+    yiEnd: false,
     openId: "",
     matchId: '',
     matchMsg: '',
@@ -56,7 +58,9 @@ Page({
     wx.getSetting({
       success: res => {
         if (!res.authSetting['scope.userInfo']) {
-          wx.navigateBack()
+          wx.redirectTo({
+            url: `/pages/match/match?matchId=${that.data.matchId}`
+          })
         } else {
           tool({
             url: "/run/getUser",
@@ -89,6 +93,7 @@ Page({
   },
   // 获取定位
   getloacltion(s) {
+    console.log(111)
     if (s.currentTarget) {
       s = s.currentTarget.dataset.s
     } else {
@@ -226,9 +231,15 @@ Page({
             that.setData({
               matchMsg: rr,
               groupMsg: group,
-              listImg: listImg
+              listImg: listImg,
+              loadEnd: true
             })
-            that.getloacltion(1)
+            if (!that.data.yiEnd) {
+              that.setData({
+                yiEnd: true
+              })
+              that.getloacltion(1)
+            }
           })
         }
       } else {
@@ -267,9 +278,15 @@ Page({
         that.setData({
           matchMsg: rr,
           groupMsg: group,
-          listImg: listImg
+          listImg: listImg,
+          loadEnd: true
         })
-        that.getloacltion(1)
+        if (!that.data.yiEnd) {
+          that.setData({
+            yiEnd: true
+          })
+          that.getloacltion(1)
+        }
       }
     })
   },
@@ -467,6 +484,7 @@ Page({
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
+    // options.matchId = 113
     this.setData({
       matchId: Number(options.matchId)
     })
@@ -489,12 +507,14 @@ Page({
     wx.removeStorage({
       key: 'mountainTop',
     })
-    // this.getMatch()
+    this.getOpenId()
   },
 
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
-    this.getOpenId()
+    if (this.data.loadEnd && this.data.yiEnd) {
+      this.getloacltion(1)
+    }
   },
 
   /* 生命周期函数--监听页面隐藏*/

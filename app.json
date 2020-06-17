@@ -1,13 +1,14 @@
 {
   "pages": [
+    "pages/orderDetail/orderDetail",
     "pages/index/index",
     "pages/allRank/allRank",
-    "pages/mine/mine",
-    "pages/subUser/subUser",
     "pages/match/match",
+    "pages/cardMsg/cardMsg",
+    "pages/mine/mine",
     "pages/map/map",
     "pages/signIn/signIn",
-    "pages/cardMsg/cardMsg",
+    "pages/subUser/subUser",
     "pages/rank/rank",
     "pages/climbTop/climbTop",
     "pages/record/record",

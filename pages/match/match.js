@@ -24,12 +24,14 @@ Page({
         openId: app.globalData.openId,
       })
       this.getMatch()
+      this.getLoc()
     } else {
       app.CallbackOpenid = res => {
         this.setData({
           openId: res.data.data.openid
         })
         this.getMatch()
+        this.getLoc()
       }
     }
     // 获取用户信息
@@ -292,6 +294,37 @@ Page({
         that.setData({
           myRunNum: 0
         })
+      }
+    })
+  },
+  
+  // 获取定位
+  getLoc() {
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        // console.log(res)
+      },
+      fail(err) {
+        console.log(err)
+        if (err.errMsg == 'getLocation:fail auth deny') {
+          wx.showModal({
+            title: '定位权限为授予',
+            content: '需要获取您的位置才能够继续提供服务请在设置中允许授权位置信息',
+            confirmText: "授权",
+            success(res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success(res) {
+                    console.log(res.authSetting)
+                    let r = res.authSetting
+                    // if (!r["scope.userLocation"]) {}
+                  }
+                })
+              } else if (res.cancel) {}
+            }
+          })
+        }
       }
     })
   },

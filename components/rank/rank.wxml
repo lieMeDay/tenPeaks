@@ -3,7 +3,7 @@
 		<view class="matchBox">
 			<picker bindchange="bindPickerChange" value="{{curI}}" range="{{matchList}}" range-key="name">
 				<view class="picker">
-					<view class="mlogo">
+					<view class="mlogo" wx:if="{{matchList[curI].logo}}">
 						<image src="{{matchList[curI].logo}}" class="mlogoImage"></image>
 					</view>
 					<view class="mn">{{matchList[curI].name}}</view>
