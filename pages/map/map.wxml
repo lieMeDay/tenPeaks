@@ -42,8 +42,7 @@
 		</view>
 		<view class="CardBtn" bindtap="toCard">
 			<image src="/image/camera.png"></image>
-			<text wx:if="{{hasqid}}">峰顶打卡</text>
-			<text wx:else>打卡</text>
+			<text>打卡</text>
 		</view>
 	</view>
 </view>
@@ -54,13 +53,9 @@
 			<image src="/image/close.png" bindtap="closeBind"></image>
 		</view>
 		<view class="alertCon">
-			<view class="alertTit" wx:if="{{posStart}}">请在开始位置拍照打卡</view>
-			<view class="alertTit" wx:if="{{posEnd}}">请在终点拍照打卡</view>
-			<view class="cimg" wx:if="{{posStart&&listImg[0].cpImg}}">
-				<image src="{{listImg[0].cpImg}}"></image>
-			</view>
-			<view class="cimg" wx:if="{{posEnd&&listImg[listImg.length-1].cpImg}}">
-				<image src="{{listImg[listImg.length-1].cpImg}}"></image>
+			<view class="alertTit">请在{{pointCard.cpName}}拍照打卡</view>
+			<view class="cimg" wx:if="{{pointCard.cpImg}}">
+				<image src="{{pointCard.cpImg}}"></image>
 			</view>
 			<view class="alertBtn" bindtap="putPicBtn">拍照打卡</view>
 		</view>

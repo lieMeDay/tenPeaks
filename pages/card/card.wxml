@@ -6,7 +6,6 @@
 			</view>
 			<view class="mn">{{matchMsg.name}}</view>
 		</view>
-		<view class="tips" wx:if="{{examine}}">成绩待审核</view>
 	</view>
 	<view class="cardList c1" wx:for="{{info}}" wx:key='index'>
 		<view class="cL">
@@ -22,9 +21,8 @@
 			<view wx:if="{{item.cardImg}}" class="myPic" data-v="{{item.cardImg}}" bindtap="seeBig">
 				<image src="{{item.cardImg}}"></image>
 			</view>
-			<view wx:else class="myPic nohas">
-			暂无
-				<!-- <image src="/image/camera.png"></image> -->
+			<view wx:else class="myPic nohas" data-val="{{item}}" bindtap="putCard">
+				<image src="/image/camera.png"></image>
 			</view>
 		</view>
 	</view>

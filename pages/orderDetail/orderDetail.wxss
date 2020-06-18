@@ -12,3 +12,7 @@
   font-size: 46rpx;
   border-bottom: 2rpx solid #ccc;
 }
+.x{
+  font-size: 30rpx;
+  color: #999999;
+}

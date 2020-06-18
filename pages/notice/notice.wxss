@@ -1,0 +1,33 @@
+/* pagesA/notice/notice.wxss */
+.nonotice{
+  text-align: center;
+  margin-top: 50rpx;
+  color: #999999;
+}
+.list{
+  margin-top: 30rpx;
+}
+.list:last-child{
+  margin-bottom: 30rpx;
+}
+.dd{
+  color: #999999;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
+.item{
+  width: calc(95% - 40rpx);
+  padding: 20rpx;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+}
+.item image{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 10rpx;
+  margin-right: 30rpx;
+}

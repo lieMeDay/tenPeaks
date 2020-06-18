@@ -8,6 +8,39 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cpimgList: [{
+      a: '/image/cpImg/a0.png',
+    }, {
+      a: '/image/cpImg/a1.png',
+    }, {
+      a: '/image/cpImg/a2.png',
+    }, {
+      a: '/image/cpImg/a3.png',
+    }, {
+      a: '/image/cpImg/a4.png',
+    }, {
+      a: '/image/cpImg/a5.png',
+    }, {
+      a: '/image/cpImg/a6.png',
+    }, {
+      a: '/image/cpImg/a7.png',
+    }, {
+      a: '/image/cpImg/a8.png',
+    }, {
+      a: '/image/cpImg/a9.png',
+    }, {
+      a: '/image/cpImg/a10.png',
+    }, {
+      a: '/image/cpImg/a11.png',
+    }, {
+      a: '/image/cpImg/a12.png',
+    }, {
+      a: '/image/cpImg/a13.png',
+    }, {
+      a: '/image/cpImg/a14.png',
+    }, {
+      a: '/image/cpImg/a15.png',
+    }],
     loadEnd: false,
     yiEnd: false,
     openId: "",
@@ -29,10 +62,8 @@ Page({
     }], //线 第一项为官方路径线 第二项为自己跑的
     circles: [],
     showAlert: false,
-    posStart: false, //在起点
-    posEnd: false, //在终点
+    pointCard: {}, //正在打卡点信息
     auto: false, //是否是弹出自动打卡
-    imgList: []
   },
   // 获取openId
   getOpenId() {
@@ -91,9 +122,95 @@ Page({
       }
     })
   },
+  // 开启前后台实时获取位置
+  openBGloc() {
+    let that = this
+    wx.startLocationUpdate()
+    wx.startLocationUpdateBackground({
+      success(res) {
+        console.log('开启后台定位成功', res)
+        that.getMylocRT()
+      },
+      fail(res) {
+        console.log('开启后台定位失败', res)
+      }
+    })
+    wx.getSetting({
+      success(res) {
+        let ULB = res.authSetting
+        if (!ULB.hasOwnProperty('scope.userLocationBackground')) {
+          wx.showModal({
+            title: '提示',
+            content: '请在位置设置中选择使用小程序期间和离开小程序后',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                // console.log('用户点击确定')
+                that.openBG()
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  // 实时获取位置
+  getMylocRT() {
+    let that = this
+    wx.onLocationChange(function (res) {
+      that.setData({
+        longitude: res.longitude,
+        latitude: res.latitude,
+        altitude: res.altitude,
+        slongitude: res.longitude.toFixed(6),
+        slatitude: res.latitude.toFixed(6),
+      })
+      let wz = that.endAround()
+      if (wz) {
+        if (!that.data.showAlert) {
+          that.vibrate(0)
+          that.setData({
+            pointCard: wz, //正在打卡点信息
+            showAlert: true, //显示打卡弹框
+            auto: true, //是否自动打卡
+          })
+        }
+      } else {
+        that.setData({
+          showAlert: false, //显示打卡
+          auto: false, //是否自动打卡
+        })
+      }
+    })
+  },
+  // 判断 openSetting 选择使用时和离开后
+  openBG() {
+    let that = this
+    wx.openSetting({
+      success(res) {
+        // console.log(res.authSetting)
+        let ULB = res.authSetting
+        if (!ULB.hasOwnProperty('scope.userLocationBackground')) {
+          wx.showModal({
+            title: '提示',
+            content: '请在位置设置中选择使用小程序期间和离开小程序后',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                // console.log('用户点击确定')
+                that.goSQ()
+              }
+            }
+          })
+        }
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
   // 获取定位
-  getloacltion(s) {
-    console.log(111)
+  getloacltion(s, o) {
     if (s.currentTarget) {
       s = s.currentTarget.dataset.s
     } else {
@@ -116,32 +233,24 @@ Page({
           slongitude: longitude.toFixed(6),
           slatitude: latitude.toFixed(6),
         })
-        if (s == 1) {
-          let wz = that.endAround()
-          if (wz == 'atEnd') {
-            that.setData({
-              posStart: false,
-              posEnd: true,
-              showAlert: true,
-              auto: true
-            })
-          } else if (wz == 'atStart') {
-            let vv = wx.getStorageSync('mountainStart')
-            if (!vv) {
+        if (o) {
+          that.openBGloc()
+        } else {
+          if (s == 1) {
+            let wz = that.endAround()
+            if (wz) {
+              that.vibrate(0)
               that.setData({
-                posStart: true, //起点位置
-                posEnd: false, //在终点位置
-                showAlert: true, //显示打卡
-                auto: true
+                pointCard: wz, //正在打卡点信息
+                showAlert: true, //显示打卡弹框
+                auto: true, //是否自动打卡
+              })
+            } else {
+              that.setData({
+                showAlert: false, //显示打卡
+                auto: false, //是否自动打卡
               })
             }
-          } else {
-            that.setData({
-              // posStart: false, //起点位置
-              // posEnd: false, //在终点位置
-              showAlert: false, //显示打卡
-              auto: false
-            })
           }
         }
       },
@@ -198,95 +307,65 @@ Page({
             ss.kmlProperty.kmlLines[0].points.forEach(vv => {
               kmlLine.push(vv)
             })
-            let empmk = [{
-              iconPath: '/image/last.png',
-              id: 2,
-              longitude: kmlLine[kmlLine.length - 1].longitude,
-              latitude: kmlLine[kmlLine.length - 1].latitude,
-              width: 25,
-              height: 25
-            }]
-            let circle = [{
-              longitude: kmlLine[kmlLine.length - 1].longitude,
-              latitude: kmlLine[kmlLine.length - 1].latitude,
-              fillColor: '#7cb5ec88',
-              radius: 50
-            }]
-            let cardPoint = [{
-              longitude: kmlLine[0].longitude,
-              latitude: kmlLine[0].latitude,
-            }, {
-              longitude: kmlLine[kmlLine.length - 1].longitude,
-              latitude: kmlLine[kmlLine.length - 1].latitude,
-            }]
             that.setData({
-              'polyline[0].points': kmlLine,
-              markers: empmk,
-              circles: circle,
-              cardPoint: cardPoint
+              'polyline[0].points': kmlLine
             })
-            let listImg = []
-            listImg.push(group.info[0])
-            listImg.push(group.info[group.info])
-            that.setData({
-              matchMsg: rr,
-              groupMsg: group,
-              listImg: listImg,
-              loadEnd: true
-            })
-            if (!that.data.yiEnd) {
-              that.setData({
-                yiEnd: true
-              })
-              that.getloacltion(1)
-            }
           })
         }
-      } else {
-        let empmk = [{
-          iconPath: '/image/last.png',
-          id: 2,
-          longitude: Number(group.info[group.info.length - 1].endDate.split(';')[0]),
-          latitude: Number(group.info[group.info.length - 1].endDate.split(';')[1]),
-          width: 25,
-          height: 25
-        }]
-        let circle = [{
-          longitude: Number(group.info[group.info.length - 1].endDate.split(';')[0]),
-          latitude: Number(group.info[group.info.length - 1].endDate.split(';')[1]),
-          fillColor: '#7cb5ec88',
-          radius: 50
-        }]
-        let cardPoint = [{
-          longitude: Number(group.info[group.info.length - 1].endDate.split(';')[0]),
-          latitude: Number(group.info[group.info.length - 1].endDate.split(';')[1]),
-        }]
-        if (Number(group.info[0].endDate.split(';')[0])) {
-          cardPoint.unshift({
-            longitude: Number(group.info[0].endDate.split(';')[0]),
-            latitude: Number(group.info[0].endDate.split(';')[1]),
-          })
+      }
+      let empmk = []
+      let circle = []
+      let cardPoint = []
+      for (let a = 0; a < group.info.length; a++) {
+        if (group.info[a].endDate != ';') {
+          let op = {
+            iconPath: that.data.cpimgList[a]['a'],
+            id: a,
+            longitude: Number(group.info[a].endDate.split(';')[0]),
+            latitude: Number(group.info[a].endDate.split(';')[1]),
+            width: 25,
+            height: 25
+          }
+          if (a == group.info.length - 1) {
+            op.iconPath = '/image/last.png'
+          }
+          empmk.push(op)
+          let cq = {
+            longitude: Number(group.info[a].endDate.split(';')[0]),
+            latitude: Number(group.info[a].endDate.split(';')[1]),
+            fillColor: '#7cb5ec88',
+            radius: 50
+          }
+          circle.push(cq)
+          let pp = {
+            longitude: Number(group.info[a].endDate.split(';')[0]),
+            latitude: Number(group.info[a].endDate.split(';')[1]),
+            name: group.info[a].name,
+            cpName: group.info[a].cpName,
+            cpImg: group.info[a].cpImg,
+          }
+          cardPoint.push(pp)
         }
+      }
+      that.setData({
+        markers: empmk,
+        circles: circle,
+        cardPoint: cardPoint
+      })
+      let listImg = []
+      listImg.push(group.info[0])
+      listImg.push(group.info[group.info])
+      that.setData({
+        matchMsg: rr,
+        groupMsg: group,
+        listImg: listImg,
+        loadEnd: true
+      })
+      if (!that.data.yiEnd) {
         that.setData({
-          markers: empmk,
-          circles: circle,
-          cardPoint: cardPoint
+          yiEnd: true
         })
-        let listImg = []
-        listImg.push(group.info[0])
-        listImg.push(group.info[group.info])
-        that.setData({
-          matchMsg: rr,
-          groupMsg: group,
-          listImg: listImg,
-          loadEnd: true
-        })
-        if (!that.data.yiEnd) {
-          that.setData({
-            yiEnd: true
-          })
-          that.getloacltion(1)
-        }
+        that.getloacltion(1, true)
       }
     })
   },
@@ -296,24 +375,27 @@ Page({
     let myLat = that.data.latitude
     let myLng = that.data.longitude
     let point = that.data.cardPoint
-    let Dend = util.getDistance(myLat, myLng, point[point.length - 1].latitude, point[point.length - 1].longitude)
-    if (Dend <= 0.1) {
-      return 'atEnd'
-    } else if (point.length > 1) {
-      let Dstart = util.getDistance(myLat, myLng, point[0].latitude, point[0].longitude)
-      if (Dstart <= 0.1) {
-        return 'atStart'
-      } else {
-        return 'notCpoint'
+    for (let a = 0; a < point.length; a++) {
+      let DD = util.getDistance(myLat, myLng, point[a].latitude, point[a].longitude)
+      // if (DD <= 0.1) {
+      //   return point[a]
+      // }
+      if (a == 0) {
+        let ll = wx.getStorageSync('mountainList')
+        if (ll) {
+          let hh = ll.filter(v => v.cpName == point[a].name)
+          if (hh.length <= 0) {
+            return point[a]
+          }
+        } else {
+          return point[a]
+        }
       }
-    } else {
-      return 'notCpoint'
     }
   },
   // 打卡
   putPicBtn() {
     let that = this
-    // console.log(that.data.sOe)
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -332,11 +414,6 @@ Page({
           success(res) {
             const imgName = JSON.parse(res.data).data.img
             let imgUrl = util.imgUrl + '/run/query_pic?name=' + imgName
-            let il = that.data.imgList
-            il.push(imgName)
-            that.setData({
-              imgList: il
-            })
             let target = {
               matchId: that.data.matchId,
               groupId: that.data.groupMsg.id,
@@ -349,14 +426,12 @@ Page({
             }
             var vv = wx.getStorageSync('mountainStart')
             if (vv) {
-              that.data.posEnd = true
               target.startTime = vv.cpTime
             } else {
               target.startTime = target.cpTime
             }
-            // 终点
-            if (that.data.posEnd) {
-              target.cpName = '终点'
+            target.cpName = that.data.pointCard.name
+            if (that.data.pointCard.name == '终点') {
               // 自动弹出打卡
               if (that.data.auto) {
                 target.auto = true
@@ -365,8 +440,7 @@ Page({
                 that.hasEnd(imgName, target)
               }
             } else {
-              // 起点拍照打卡
-              target.cpName = '起点'
+              // 不是终点拍照
               tool({
                 url: '/run/person/shifeng/addToActivity/auto',
                 data: target,
@@ -376,7 +450,6 @@ Page({
                 that.hasStart(target)
               })
             }
-
           }
         })
       },
@@ -389,19 +462,26 @@ Page({
       }
     });
   },
-  // 起点打完卡
+  // 其他点打完卡
   hasStart(target) {
     wx.hideLoading()
     let that = this
-    wx.setStorage({
-      data: target,
-      key: 'mountainStart',
-    })
+    let vv = wx.getStorageSync('mountainStart')
+    if (!vv) {
+      wx.setStorageSync('mountainStart', target);
+    }
+    let ll = wx.getStorageSync('mountainList')
+    if (ll) {
+      ll.push(target)
+      wx.setStorageSync('mountainList', ll);
+    } else {
+      let arr = []
+      arr.push(target)
+      wx.setStorageSync('mountainList', arr);
+    }
     that.setData({
-      posStart: false,
-      posEnd: false,
-      showAlert: false,
-      hasqid: true
+      pointCard: {},
+      showAlert: false
     })
   },
   // 终点打完卡
@@ -412,18 +492,17 @@ Page({
       data: target,
       key: 'mountainTop',
     })
+    wx.stopLocationUpdate()
     let url = `/pages/subUser/subUser?matchId=${that.data.matchId}&turl=${imgName}`
     wx.redirectTo({
       url: url,
     })
     that.setData({
-      posStart: false,
-      posEnd: false,
+      pointCard: {},
       showAlert: false,
     })
-    wx.removeStorage({
-      key: 'mountainStart',
-    })
+    wx.removeStorageSync('mountainStart')
+    wx.removeStorageSync('mountainList')
   },
   // 关闭打卡
   closeBind() {
@@ -436,55 +515,45 @@ Page({
     let that = this
     that.getloacltion(2)
     let state = that.endAround()
-    if (state == 'atEnd') {
+    console.log(state)
+    if (state) {
       that.setData({
-        posStart: false,
-        posEnd: true,
-        showAlert: true,
-        auto: true
+        pointCard: state, //正在打卡点信息
+        showAlert: true, //显示打卡弹框
+        auto: true, //是否自动打卡
       })
-    } else if (state == 'atStart') {
-      let vv = wx.getStorageSync('mountainStart')
-      if (!vv) {
-        that.setData({
-          posStart: true, //起点位置
-          posEnd: false, //在终点位置
-          showAlert: true, //显示打卡
-          auto: true
-        })
-      }
     } else {
-      let vv = wx.getStorageSync('mountainStart')
-      if (vv) {
-        wx.showModal({
-          title: '打卡提示',
-          content: '定位系统监测您未在山顶附近，是否坚持打卡',
-          confirmText: '确认打卡',
-          success(res) {
-            if (res.confirm) {
-              // console.log('用户点击确定')
-              that.setData({
-                posStart: false,
-                posEnd: true,
-                auto: false
-              })
-              that.putPicBtn()
-            } else if (res.cancel) {}
-          }
-        })
-      } else {
-        that.setData({
-          posStart: true, //起点位置
-          posEnd: false, //在终点位置
-          showAlert: true, //显示打卡
-          auto: false
-        })
-      }
+      that.setData({
+        showAlert: false, //显示打卡
+        auto: false, //是否自动打卡
+      })
+      wx.navigateTo({
+        url: `/pages/card/card?matchId=${that.data.matchId}`,
+      })
     }
+  },
+  // 震动
+  vibrate(i) {
+    console.log(i)
+    let that = this
+    wx.vibrateLong({
+      success(res) {
+        i = ++i
+        // console.log(i)
+        if (i < 3) {
+          setTimeout(function () {
+            that.vibrate(i)
+          }, 200)
+        }
+      },
+      fail(err) {
+        console.log('暂不支持震动', err)
+      }
+    })
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
-    // options.matchId = 113
+    wx.hideShareMenu(); //隐藏转发分享按钮
     this.setData({
       matchId: Number(options.matchId)
     })
@@ -494,26 +563,30 @@ Page({
       let b = 12 * 60 * 60 * 1000
       let a = s.startTime
       if (n > a + b) {
-        wx.removeStorage({
-          key: 'mountainStart',
-        })
+        wx.removeStorageSync('mountainStart')
+        wx.removeStorageSync('mountainList')
       }
       if (s.matchId != options.matchId) {
-        wx.removeStorage({
-          key: 'mountainStart',
-        })
+        wx.removeStorageSync('mountainStart')
+        wx.removeStorageSync('mountainList')
       }
     }
-    wx.removeStorage({
-      key: 'mountainTop',
-    })
+    wx.removeStorageSync('mountainTop')
     this.getOpenId()
   },
 
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
+    let vh=wx.getStorageSync('mountainTop')
+    if(vh){
+      let imgName=vh.cpImg.split('/run/query_pic?name=')[1]
+      let url = `/pages/subUser/subUser?matchId=${this.data.matchId}&turl=${imgName}`
+      wx.redirectTo({
+        url: url,
+      })
+    }
     if (this.data.loadEnd && this.data.yiEnd) {
-      this.getloacltion(1)
+      this.getloacltion(1, true)
     }
   },
 
@@ -524,7 +597,7 @@ Page({
 
   /* 生命周期函数--监听页面卸载*/
   onUnload: function () {
-
+    wx.stopLocationUpdate()
   },
 
   /*页面相关事件处理函数--监听用户下拉动作*/

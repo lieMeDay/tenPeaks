@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seeImg:''
+    seeImg: ''
   },
   // 获取赛事信息
   getMatch(opt) {
@@ -19,44 +19,46 @@ Page({
     }).then(res => {
       let rr = res.data.data
       rr.showData = util.timeShift(rr.matchDate, rr.matchEndDate)
-      var ss=wx.getStorageSync('seeRecord')
-      rr.matchInfo[0].info.forEach(v=>{
-        if(v.name=='起点'||v.name=='终点'){
-          v.showName=v.name.split('')[0]
-        }else{
-          v.showName=v.name
+      var ss = wx.getStorageSync('seeRecord')
+      rr.matchInfo[0].info.forEach(v => {
+        if (v.name == '起点' || v.name == '终点') {
+          v.showName = v.name.split('')[0]
+        } else {
+          v.showName = v.name
         }
-        if(ss){
-          ss.forEach(vv=>{
-            if(v.name==vv.cpName){
-              v.cardImg=vv.cpImg
-              v.cptime=util.timeConvert(vv.cpTime).slice(11)
+        if (ss) {
+          ss.forEach(vv => {
+            if (v.name == vv.cpName) {
+              v.cardImg = vv.cpImg
+              v.cptime = util.timeConvert(vv.cpTime).slice(11)
             }
           })
         }
       })
-      let h=ss.filter(v=>v.state==0)
-      if(h.length>0){
-        that.setData({
-          examine:true
-        })
+      if (ss) {
+        let h = ss.filter(v => v.state == 0)
+        if (h.length > 0) {
+          that.setData({
+            examine: true
+          })
+        }
       }
       that.setData({
         matchMsg: rr,
-        info:rr.matchInfo[0].info
+        info: rr.matchInfo[0].info
       })
     })
   },
   // 查看图片
-  seeBig(e){
-    let v=e.currentTarget.dataset.v
+  seeBig(e) {
+    let v = e.currentTarget.dataset.v
     this.setData({
-      seeImg:v
+      seeImg: v
     })
   },
-  closeImg(){
+  closeImg() {
     this.setData({
-      seeImg:''
+      seeImg: ''
     })
   },
 
@@ -64,8 +66,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let opt={
-      matchId:options.matchId
+    wx.hideShareMenu(); //隐藏转发分享按钮
+    let opt = {
+      matchId: options.matchId
     }
     this.getMatch(opt)
   },
@@ -87,17 +90,15 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    wx.removeStorage({
-      key: 'seeRecord',
-    })
-  },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorage({
+      key: 'seeRecord',
+    })
   },
 
   /**

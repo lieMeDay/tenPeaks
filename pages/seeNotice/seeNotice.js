@@ -1,6 +1,6 @@
-// pages/orderDetail/orderDetail.js
+// pages/seeNotice/seeNotice.js
 const app = getApp()
-const util = require('../../utils/util')
+const util = require('../../utils/util.js')
 const tool = util.tool
 Page({
 
@@ -8,48 +8,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg: {}
+    notice:{}
   },
-  getdetail() {
-    let that = this
-    let opt = {
-      id: that.data.id
-    }
+  getNotice(opt){
     tool({
-      url: '/match/signUp/order/getById',
-      data: opt
-    }).then(res => {
-      let rr = res.data.data
-      tool({
-        url: '/match/signUp/info/price/get',
-        data: {
-          id: rr.coupon
-        }
-      }).then(val => {
-        let vv = val.data.data
-        rr.spName = vv.name
-        if (rr.shipState == 1) {
-          rr.fhState = '已发货'
-        }else if (rr.shipState == 2) {
-          rr.fhState = '其他'
-        } else{
-          rr.fhState = '未发货'
-        } 
-        that.setData({
-          msg: rr
-        })
+      url:'/match/notice/getById',
+      data:opt
+    }).then(res=>{
+      console.log(res)
+      let rr=res.data.data
+      rr.noticeContent = rr.noticeContent.replace(/<img/gi, '<img class="inPimg" ')
+      rr.showDate=this.timechange(rr.creatTime)
+      this.setData({
+        notice:rr
       })
     })
+  },
+  timechange(time) {
+    let date = new Date(time)
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    return year+'.'+month+'.'+day+" "+hour+":"+minute
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.hideShareMenu() //禁止分享
-    this.setData({
-      id: options.id
-    })
-    this.getdetail()
+    this.getNotice(options)
   },
 
   /**

@@ -1,0 +1,12 @@
+<view class="page">
+	<view wx:if="{{noticeList.length==0}}" class="nonotice">暂无公告o(╥﹏╥)o</view>
+	<view class="list" wx:for="{{noticeList}}" wx:key="index">
+		<view class="dd">{{item.showDate}}</view>
+		<navigator class="item" url="/pages/seeNotice/seeNotice?id={{item.id}}">
+			<view>
+				<image src="{{item.noticeCover}}"></image>
+			</view>
+			<view>{{item.noticeTitle}}</view>
+		</navigator>
+	</view>
+</view>

@@ -1,20 +1,20 @@
 <view class="page">
-<view wx:if="{{orderList.length<=0}}" class="zno">暂无订单</view>
-	<view class="list" wx:for="{{orderList}}" wx:key="index">
+	<view wx:if="{{orderList.length<=0}}" class="zno">暂无订单</view>
+	<navigator class="list" wx:for="{{orderList}}" wx:key="index" url="/pages/orderDetail/orderDetail?id={{item.id}}">
 		<view class="item">
-    <view>
-    <view class="pic">
-    <image src="{{item.logo}}"></image>
-    </view>
-    <view class="pb">
-    <view class="pn">{{item.orderName}}</view>
-    <view>￥{{item.price}}</view>
-    </view>
-    </view>
-    <view class="rr">
-    <view class="nn">{{item.groupName}}</view>
-    <view class="dd">{{item.orderShowDate}}</view>
-    </view>
-    </view>
-	</view>
+			<view>
+				<view class="pic">
+					<image src="{{item.logo}}"></image>
+				</view>
+				<view class="pb">
+					<view class="pn">{{item.orderName}}</view>
+					<view>￥{{item.price}}</view>
+				</view>
+			</view>
+			<view class="rr">
+				<view class="nn">{{item.groupName}}</view>
+				<view class="dd">{{item.orderShowDate}}</view>
+			</view>
+		</view>
+	</navigator>
 </view>

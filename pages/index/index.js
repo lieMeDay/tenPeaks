@@ -34,6 +34,21 @@ Page({
       }
     }
   },
+  // 获取轮播图
+  getBanner() {
+    tool({
+      url: "/slideshow/getSlideshowList",
+      data: {
+        "orgId": 7,
+        type:1
+      },
+    }).then(res=>{
+      let rr=res.data.data
+      this.setData({
+        bannerList:rr
+      })
+    })
+  },
   // 获取赛事
   getMatch() {
     let that = this
@@ -88,7 +103,7 @@ Page({
       method: "GET",
     }).then(res => {
       let rr = res.data.data
-      if (rr&&rr.joinNum>0) {
+      if (rr && rr.joinNum > 0) {
         ml[a].hasRun = true
         ml[a].myRunNum = rr.joinNum
       } else {
@@ -157,16 +172,18 @@ Page({
       }
     })
   },
-  goMatch(e){
-    let id=e.currentTarget.dataset.id
+  goBanner(e) {
+    let id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/match/match?matchId=${id}`,
+      url: `/pages/banner/banner?id=${id}`,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    this.getBanner()
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

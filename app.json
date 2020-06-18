@@ -1,19 +1,23 @@
 {
   "pages": [
-    "pages/orderDetail/orderDetail",
     "pages/index/index",
-    "pages/allRank/allRank",
-    "pages/match/match",
-    "pages/cardMsg/cardMsg",
-    "pages/mine/mine",
     "pages/map/map",
-    "pages/signIn/signIn",
+    "pages/card/card",
     "pages/subUser/subUser",
-    "pages/rank/rank",
+    "pages/notice/notice",
+    "pages/allRank/allRank",
+    "pages/mine/mine",
+    "pages/signIn/signIn",
+    "pages/seeNotice/seeNotice",
+    "pages/banner/banner",
+    "pages/match/match",
     "pages/climbTop/climbTop",
+    "pages/rank/rank",
+    "pages/order/order",
+    "pages/orderDetail/orderDetail",
     "pages/record/record",
-    "pages/feedback/feedback",
-    "pages/order/order"
+    "pages/cardMsg/cardMsg",
+    "pages/feedback/feedback"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -25,6 +29,12 @@
         "iconPath": "image/i1.png",
         "pagePath": "pages/index/index",
         "text": "赛事"
+      },
+      {
+        "selectedIconPath": "image/i44.png",
+        "iconPath": "image/i4.png",
+        "pagePath": "pages/notice/notice",
+        "text": "公告"
       },
       {
         "selectedIconPath": "image/i22.png",
@@ -52,5 +62,8 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "requiredBackgroundModes": [
+    "location"
+  ]
 }

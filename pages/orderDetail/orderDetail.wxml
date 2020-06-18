@@ -1,26 +1,26 @@
 <view class="page">
 	<view class="li Big">
 		<view>付款金额</view>
-		<view>0.01</view>
+		<view>{{msg.price}}</view>
 	</view>
 	<view class="li">
 		<view>商品名称</view>
-		<view>111</view>
+		<view class="x">{{msg.spName}}</view>
 	</view>
 	<view class="li">
 		<view>发货状态</view>
-		<view>111</view>
+		<view class="x">{{msg.fhState}}</view>
 	</view>
 	<view class="li">
 		<view>物流公司</view>
-		<view>111</view>
+		<view class="x">{{msg.logisticsCom?msg.logisticsCom:'暂无'}}</view>
 	</view>
 	<view class="li">
 		<view>订单编号</view>
-		<view>111</view>
+		<view class="x">{{msg.orderNum}}</view>
 	</view>
 	<view class="li">
 		<view>物流编号</view>
-		<view>111</view>
+		<view class="x">{{msg.orderNumber?msg.orderNumber:'暂无'}}</view>
 	</view>
 </view>

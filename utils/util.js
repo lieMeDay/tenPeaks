@@ -1,13 +1,13 @@
 // 图片上传头
 // const imgUrl = "https://paoner.lvtutech.com/game"
-const imgUrl="http://192.168.0.101:9898"
-// const imgUrl="http://192.168.0.106:9898"
+// const imgUrl="http://192.168.0.101:9898"
+const imgUrl="http://192.168.0.106:9898"
 
 // 接口调用函数
 const request = (options) => {
   // let BaseUrl = "https://paoner.lvtutech.com/game"
-  let BaseUrl = 'http://192.168.0.101:9898'
-  // let BaseUrl = 'http://192.168.0.106:9898'
+  // let BaseUrl = 'http://192.168.0.101:9898'
+  let BaseUrl = 'http://192.168.0.106:9898'
   return new Promise((resolve, reject) => {
     if (!options.method) {
       options.method = "GET"
@@ -87,6 +87,34 @@ const formatSeconds = (time) => {
   return val
 }
 
+//输入一个数值，返回数组项最接近的一项
+const lookupNear = (array, value) => {
+  // console.log(value)
+  // 将原数组复制，不会影响原数组
+  let arr = array.concat([]);
+  arr.push(value);
+  // 数据排序
+  arr.sort((a, b) => {
+    return a - b;
+  });
+  let index = arr.indexOf(value);
+  // 当前项在数组第一项 / 最后一项，返回当前项的后一项 / 前一项
+  if (index === 0) {
+    return arr[index + 1];
+  } else if (index === array.length - 1) {
+    return arr[index - 1];
+  }
+  //   console.log(arr)
+  // 当前项和前一项或者后一项比较，返回差值小的项
+  //   console.log(arr[index - 1],arr[index],arr[index + 1])
+  let resultIndex =
+    arr[index] - arr[index - 1] > arr[index + 1] - arr[index] ?
+    index + 1 :
+    index - 1;
+  //   console.log( arr[resultIndex],resultIndex)
+  // return arr[resultIndex];
+  return resultIndex
+}
 module.exports = {
   tool: request, // 接口调用函数
   imgUrl: imgUrl,
@@ -94,4 +122,5 @@ module.exports = {
   getDistance: getDistance, // 根据两点经纬度计算距离 单位(KM)
   timeConvert: timeConvert, //将时间戳转换成正常时间格式
   formatSeconds: formatSeconds, // 秒转时分秒
+  lookupNear:lookupNear,//输入一个数值，返回数组项最接近的一项
 }

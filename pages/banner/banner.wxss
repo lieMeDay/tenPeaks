@@ -1,0 +1,29 @@
+/* pages/banner/banner.wxss */
+.img{
+  width: 100%;
+  height: 380rpx;
+  margin-bottom: 30rpx;
+}
+.img image{
+  width: 100%;
+  height: 100%;
+}
+.detali{
+  width: 96%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.dTit{
+  font-weight: 500;
+  line-height: 80rpx;
+}
+.ric{
+  font-size: 30rpx;
+}
+.ric .inPimg{
+  width: 100%;
+  height: 100%;
+}
+.ric .ql-align-center{
+  text-align: center;
+}

@@ -1,10 +1,10 @@
 <view class="page">
 	<swiper autoplay="{{true}}" circular="{{true}}" interval="{{2000}}" class="swiper" bindchange="swiperChange">
-		<block wx:for="{{allMatch}}" wx:key="index">
+		<block wx:for="{{bannerList}}" wx:key="index">
 			<swiper-item>
-				<view class="swiper_item" data-id="{{item.id}}" bindtap="goMatch">
+				<view class="swiper_item" data-id="{{item.id}}" bindtap="goBanner">
 					<!-- <navigator url="/pages/match/match?matchId={{item.id}}"> -->
-						<image src="{{item.logo}}"></image>
+						<image src="{{item.imgUrl}}"></image>
 					<!-- </navigator> -->
 				</view>
 			</swiper-item>

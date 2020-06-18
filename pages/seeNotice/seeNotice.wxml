@@ -1,0 +1,7 @@
+<view class="page">
+	<view class="contxt">
+  <view class="tit">{{notice.noticeTitle}}</view>
+  <view class="date">{{notice.showDate}}</view>
+		<rich-text class="ric" nodes="{{notice.noticeContent}}"></rich-text>
+	</view>
+</view>

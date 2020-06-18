@@ -1,5 +1,4 @@
-// pages/orderDetail/orderDetail.js
-const app = getApp()
+// pages/banner/banner.js
 const util = require('../../utils/util')
 const tool = util.tool
 Page({
@@ -8,36 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg: {}
+
   },
-  getdetail() {
-    let that = this
-    let opt = {
-      id: that.data.id
-    }
+  getMsg(opt) {
     tool({
-      url: '/match/signUp/order/getById',
+      url: '/slideshow/getSlideshowById',
       data: opt
     }).then(res => {
       let rr = res.data.data
-      tool({
-        url: '/match/signUp/info/price/get',
-        data: {
-          id: rr.coupon
-        }
-      }).then(val => {
-        let vv = val.data.data
-        rr.spName = vv.name
-        if (rr.shipState == 1) {
-          rr.fhState = '已发货'
-        }else if (rr.shipState == 2) {
-          rr.fhState = '其他'
-        } else{
-          rr.fhState = '未发货'
-        } 
-        that.setData({
-          msg: rr
-        })
+      if (rr.infos) {
+        rr.infos = rr.infos.replace(/<img/gi, '<img class="inPimg" ')
+      }
+      this.setData({
+        msg: rr
       })
     })
   },
@@ -45,11 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.hideShareMenu() //禁止分享
-    this.setData({
+    let opt = {
       id: options.id
-    })
-    this.getdetail()
+    }
+    this.getMsg(opt)
   },
 
   /**

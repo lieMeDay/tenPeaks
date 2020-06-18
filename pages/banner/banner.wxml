@@ -1,0 +1,9 @@
+<view class="page">
+	<view class="img">
+		<image src="{{msg.imgUrl}}"></image>
+	</view>
+	<view class="detali">
+		<view class="dTit">内容详情</view>
+		<rich-text class="ric" nodes="{{msg.infos}}"></rich-text>
+	</view>
+</view>
