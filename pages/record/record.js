@@ -58,7 +58,7 @@ Page({
         }
         rr = rr.sort(sortData);
         for(var c=0;c<rr.length;c++){
-          if(rr[c].cpName=='起点'){
+          if(rr[c].cpName!='终点'){
             let uu = dd.filter(s => s.startTime == rr[c].startTime)
             if(uu.length<=1){
               rr.splice(c--, 1);

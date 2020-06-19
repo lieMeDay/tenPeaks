@@ -229,4 +229,5 @@
 }
 .concatUs{
   font-size: 30rpx;
+  color: #007EFF;
 }

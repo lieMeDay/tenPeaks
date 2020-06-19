@@ -39,6 +39,7 @@ Page({
       if (++a < length) {
         that.getNotice(rr, a, length, list)
       } else {
+        wx.hideLoading()
         list.forEach(v => {
           let ipu = v.noticeCover.split('9090/')[1]
           v.noticeCover = util.imgUrl + '/run/query_pic?name=' + ipu

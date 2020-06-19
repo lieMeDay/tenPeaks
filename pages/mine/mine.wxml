@@ -71,9 +71,9 @@
 	<view class="listWrap">
 		<view class="listBox" bindtap="cUs">
 			<view class="l">
-				<!-- <view>
-					<image src="/image/x2.png"></image>
-				</view> -->
+				<view>
+					<image src="/image/x3.png"></image>
+				</view>
 				<view>联系我们</view>
 			</view>
 			<view class="r">
