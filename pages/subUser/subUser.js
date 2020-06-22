@@ -515,8 +515,13 @@ Page({
         that.putTop()
         if (that.data.price <= 0) {
           app.globalData.match = that.data.matchId
-          wx.redirectTo({
-            url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          })
+          wx.switchTab({
+            url: '/pages/index/index',
           })
         } else {
           that.putOrder()
@@ -577,9 +582,17 @@ Page({
         signType: param.signType,
         paySign: param.paySign,
         success: function (res) {
-          console.log('成功', res)
-          wx.redirectTo({
-            url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+          // console.log('成功', res)
+          // wx.redirectTo({
+          //   url: `/pages/rank/rank?matchId=${that.data.matchId}`,
+          // })
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          })
+          wx.switchTab({
+            url: '/pages/index/index',
           })
         },
         fail: function (res) {

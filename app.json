@@ -1,9 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/map/map",
-    "pages/card/card",
-    "pages/subUser/subUser",
     "pages/notice/notice",
     "pages/allRank/allRank",
     "pages/mine/mine",
@@ -11,6 +8,9 @@
     "pages/seeNotice/seeNotice",
     "pages/banner/banner",
     "pages/match/match",
+    "pages/map/map",
+    "pages/card/card",
+    "pages/subUser/subUser",
     "pages/climbTop/climbTop",
     "pages/rank/rank",
     "pages/order/order",

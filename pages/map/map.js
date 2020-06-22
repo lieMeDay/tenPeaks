@@ -377,10 +377,8 @@ Page({
     let point = that.data.cardPoint
     for (let a = 0; a < point.length; a++) {
       let DD = util.getDistance(myLat, myLng, point[a].latitude, point[a].longitude)
-      // if (DD <= 0.1) {
-      //   return point[a]
-      // }
-      if (a == 0) {
+      // a==0
+      if (DD <= 0.1) {
         let ll = wx.getStorageSync('mountainList')
         if (ll) {
           let hh = ll.filter(v => v.cpName == point[a].name)
@@ -577,9 +575,9 @@ Page({
 
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
-    let vh=wx.getStorageSync('mountainTop')
-    if(vh){
-      let imgName=vh.cpImg.split('/run/query_pic?name=')[1]
+    let vh = wx.getStorageSync('mountainTop')
+    if (vh) {
+      let imgName = vh.cpImg.split('/run/query_pic?name=')[1]
       let url = `/pages/subUser/subUser?matchId=${this.data.matchId}&turl=${imgName}`
       wx.redirectTo({
         url: url,
